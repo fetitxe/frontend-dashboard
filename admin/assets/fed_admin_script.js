@@ -310,8 +310,6 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
     });
 
-    $('.fed_multi_select').select2();
-
     $('#fed_LBRS').on('click', function (e) {
         $('#fed_UPL_layout_container').html(fed.fed_LBRS);
         e.preventDefault();

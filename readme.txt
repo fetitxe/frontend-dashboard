@@ -1,10 +1,10 @@
-=== Frontend Dashboard ===
-Contributors: vinoth06, buffercode
+﻿=== Frontend Dashboard ===
+Contributors: vinoth06, buffercode & I?
 Tags: dashboard, frontend dashboard, custom login, custom register, custom roles, custom profile, custom post type, custom taxonomies, custom dashboard, hide admin bar, widget
-Donate link: https://www.paypal.com/paypalme2/buffercode
+Donate link: Donate for world hunger and anarchist struggle
 Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 1.5.8
+Stable tag: 1.5.10
 License: GPL V3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -39,12 +39,15 @@ Frontend Dashboard is bundled with the huge list of custom features which can ea
 
 = Frontend Dashboard Plugins List =
 * [Frontend Dashboard Social Connect (Pro) ](https://buffercode.com/plugin/frontend-dashboard-social-connect)
+* [Frontend Dashboard Membership (Beta) ](https://github.com/buffercode/frontend-dashboard-membership)
 * [Frontend Dashboard Membership (Pro) ](https://buffercode.com/plugin/frontend-dashboard-membership-pro)
+* [Frontend Dashboard Payment (Beta) ](https://github.com/buffercode/frontend-dashboard-payment)
 * [Frontend Dashboard Payment (Pro) ](https://buffercode.com/plugin/frontend-dashboard-payment-pro)
 * [Frontend Dashboard Pages](https://buffercode.com/plugin/frontend-dashboard-pages)
 * [Frontend Dashboard Extra](https://buffercode.com/plugin/frontend-dashboard-extra)
 * [Frontend Dashboard Captcha](https://buffercode.com/plugin/frontend-dashboard-captcha)
 * [Frontend Dashboard Templates](https://buffercode.com/plugin/frontend-dashboard-templates)
+* [Frontend Dashboard Social Chat](https://buffercode.com/plugin/frontend-dashboard-social-chat)
 * [Frontend Dashboard Custom Post and Taxonomies](https://buffercode.com/plugin/frontend-dashboard-custom-post-and-taxonomies)
 
 = Videos =
@@ -243,7 +246,17 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 
 8. [fed_list_taxonomy taxonomy=TAXONOMY_NAME] to generate taxonomy in list order
 
+
 == Changelog ==
+
+= 1.5.10 [20-Nov-2019] =
+
+* Password form field bug fixes - Thanks to Abdel for reporting
+
+= 1.5.9 [19-Nov-2019] =
+
+* Frontend Dashboard Social Chat Add-on supportive added.
+* Bug fixes.
 
 = 1.5.8 [17-Nov-2019] =
 
@@ -254,7 +267,9 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 * Bug fixes : Media Library
 
 = 1.5.6 [30-Oct-2019] =
+
 * Show Taxonomy in Widget Through Shortcode [fed_list_taxonomy taxonomy=TAXONOMY_NAME title_li='' show_count=1]
+
 * Bug fixes
 
 = 1.5.5 [28-Oct-2019] =
@@ -357,6 +372,7 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 
 * Login use fixed
 * Few bug fixes
+
 
 = 1.3.5 [23-Apr-2019] =
 
@@ -542,9 +558,9 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 
 == Upgrade Notice ==
 
-= 1.5.8 [17-Nov-2019] =
+= 1.5.10 [20-Nov-2019] =
 
-* Install and activate add-ons on the fly
+* Password form field bug fixes - Thanks to Abdel for reporting
 
 == Screenshots ==
 1. Frontend Dashboard Settings | Login | Settings

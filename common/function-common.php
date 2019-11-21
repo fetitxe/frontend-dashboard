@@ -3,7 +3,7 @@ if ( ! defined('ABSPATH')) {
     exit;
 }
 
-if ( ! function_exists('fed_input_box')) {
+if( !function_exists('fed_input_box')){
     /**
      * Input Fields.
      *
@@ -164,28 +164,26 @@ if ( ! function_exists('fed_get_random_string')) {
 
 
 if ( ! function_exists('fed_is_shortcode_in_content')) {
-    /**
-     * @param  null  $shortcodes
-     *
-     * @return bool
-     */
-    function fed_is_shortcode_in_content($shortcodes = null)
-    {
-        global $post;
-        if ($shortcodes === null) {
-            $shortcodes = fed_shortcode_lists();
-        }
-
-        if (is_array($shortcodes) && is_a($post, 'WP_Post')) {
-            foreach ($shortcodes as $shortcode) {
-                if (has_shortcode($post->post_content, $shortcode)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+	/**
+	 * @param  null  $shortcodes
+	 *
+	 * @return bool
+	 */
+	function fed_is_shortcode_in_content( $shortcodes = null )
+	{
+		global $post;
+		if ( $shortcodes === null ) {
+			$shortcodes = fed_shortcode_lists();
+		}
+		if ( is_array($shortcodes) && is_a( $post, 'WP_Post' ) ) {
+			foreach ( $shortcodes as $shortcode ) {
+				if ( has_shortcode( $post->post_content, $shortcode ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
 
 if ( ! function_exists('fed_shortcode_lists')) {
@@ -219,17 +217,17 @@ if ( ! function_exists('fed_js_translation')) {
             'fed_admin_form_post' => admin_url('admin-ajax.php?action=fed_admin_form_post&nonce='.wp_create_nonce("fed_admin_form_post")),
             'fed_login_form_post' => admin_url('admin-ajax.php?action=fed_login_form_post&nonce='.wp_create_nonce("fed_login_form_post")),
             'alert'               => array(
-                'confirmation'                  => array(
+                'confirmation'            => array(
                     'title'   => __('Are you sure?', 'frontend-dashboard'),
                     'text'    => __('You want to do this action?', 'frontend-dashboard'),
                     'confirm' => __('Yes, Please Proceed', 'frontend-dashboard'),
                     'cancel'  => __('No, Cancel it', 'frontend-dashboard'),
                 ),
-                'redirecting'                   => __('Please wait, you are redirecting..', 'frontend-dashboard'),
-                'title_cancelled'               => __('Cancelled', 'frontend-dashboard'),
-                'something_went_wrong'          => __('Something Went Wrong', 'frontend-dashboard'),
-                'invalid_form_submission'       => __('Invalid form submission', 'frontend-dashboard'),
-                'please_try_again'              => __('Please try again', 'frontend-dashboard'),
+                'redirecting'             => __('Please wait, you are redirecting..', 'frontend-dashboard'),
+                'title_cancelled'         => __('Cancelled', 'frontend-dashboard'),
+                'something_went_wrong'    => __('Something Went Wrong', 'frontend-dashboard'),
+                'invalid_form_submission' => __('Invalid form submission', 'frontend-dashboard'),
+                'please_try_again'        => __('Please try again', 'frontend-dashboard'),
                 'plugin_installed_successfully' => __('Plugin Installed and Activated Successfully', 'frontend-dashboard'),
             ),
             'common'              => array(
@@ -570,8 +568,8 @@ function fed_show_alert_message($message, $type = 'danger')
  */
 function fed_illegal_usernames()
 {
-    $login = get_option('fed_admin_login');
-    FED_Log::writeLog(['$login' => $login]);
+    $login   = get_option('fed_admin_login');
+	FED_Log::writeLog(['$login'=>$login]);
     $illegal = isset($login['restrict_username']) && ! empty($login['restrict_username']) ? explode(',',
         $login['restrict_username']) : array();
 
@@ -608,7 +606,6 @@ if ( ! function_exists('fed_is_shortcode_in_page')) {
         if (has_shortcode($post->post_content, $shorcode)) {
             return true;
         }
-
         return false;
     }
 }

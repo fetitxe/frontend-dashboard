@@ -30,6 +30,7 @@ function fed_register_form_submit($post)
 
     wp_send_new_user_notifications($status, $notification);
 
+
     if ($fed_admin_login && isset($fed_admin_login['register']['auto_login']) && $fed_admin_login['register']['auto_login'] === 'yes') {
         wp_clear_auth_cookie();
         wp_set_current_user($status);
@@ -39,9 +40,9 @@ function fed_register_form_submit($post)
     }
 
     wp_send_json_success(array(
-        'user'    => $status,
-        'message' => __('Successfully Registered', 'frontend-dashboard'),
-        'url'     => $redirect_url,
+            'user'    => $status,
+            'message' => __('Successfully Registered', 'frontend-dashboard'),
+            'url'     => $redirect_url,
     ));
 
 }

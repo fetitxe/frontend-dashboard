@@ -37,13 +37,13 @@ function fed_get_plugin_pages_menu()
                                 </div>
                             </div>
                             <div class="row">
-                                <?php foreach ($plugins->plugins as $slug => $single) {
+                                <?php foreach ($plugins->plugins as $slug=>$single) {
                                     if ($single->pricing->type === 'Free') {
-                                        $type    = '<i class="fas fa-lock-open"></i>';
+                                        $type = '<i class="fas fa-lock-open"></i>';
                                         $bgColor = '';
                                     }
-                                    else {
-                                        $type    = '<i class="fas fa-lock"></i>';
+                                	else {
+                                        $type = '<i class="fas fa-lock"></i>';
                                         $bgColor = 'bg_pro_color';
                                     }
                                     ?>
@@ -80,7 +80,7 @@ function fed_get_plugin_pages_menu()
                                                     <div class="fed_addons_description">
                                                         <p>
                                                             <?php echo wp_trim_words($single->description,
-                                                                100); ?>
+                                                                    100); ?>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -97,7 +97,7 @@ function fed_get_plugin_pages_menu()
                                                                 </button>
                                                                 <?php
                                                                 if ($single->version > constant($single->id.'_VERSION'
-                                                                    )) {
+                                                                        )) {
                                                                     ?>
                                                                     <button class="btn btn-danger">
                                                                         <i class="fa fa-refresh"
@@ -108,7 +108,7 @@ function fed_get_plugin_pages_menu()
                                                                 }
 
                                                             } else {
-                                                                if ($single->pricing->type === 'Free') {
+                                                                                                                                if ($single->pricing->type === 'Free') {
                                                                     $path = WP_PLUGIN_DIR.'/'.$single->install_slug;
                                                                     if (is_dir($path)) {
                                                                         ?>
@@ -158,7 +158,7 @@ function fed_get_plugin_pages_menu()
                                                                             <input type='hidden' name='amount'
                                                                                    value='<?php echo $amount->amount; ?>'/>
                                                                             <input type='hidden' name='plan_type'
-                                                                                   value=<?php echo $atype; ?>/>
+                                                                                   value='<?php echo $atype;?>' />
                                                                             <button type="submit"
                                                                                     class="btn btn-primary">
                                                                                 <i class="fa fa-shopping-cart"
@@ -201,7 +201,7 @@ function fed_get_plugin_pages_menu()
             <div class="alert alert-danger">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <strong><?php _e('Sorry there is some issue in internet connectivity.',
-                        'frontend-dashboard') ?></strong>
+                            'frontend-dashboard') ?></strong>
             </div>
             <?php echo fed_loader(''); ?>
         </div>

@@ -17,23 +17,23 @@ if ( ! class_exists('FED_AdminMenu')) {
         public function menu()
         {
             add_menu_page(
-                __('Frontend Dashboard', 'frontend-dashboard'),
-                __('Frontend Dashboard', 'frontend-dashboard'),
-                'manage_options',
-                'fed_settings_menu',
-                array($this, 'common_settings'),
-                plugins_url('common/assets/images/d.png', BC_FED_PLUGIN),
-                2
+                    __('Frontend Dashboard', 'frontend-dashboard'),
+                    __('Frontend Dashboard', 'frontend-dashboard'),
+                    'manage_options',
+                    'fed_settings_menu',
+                    array($this, 'common_settings'),
+                    plugins_url('common/assets/images/d.png', BC_FED_PLUGIN),
+                    2
             );
 
             $main_menu = $this->fed_get_main_sub_menu();
             foreach ($main_menu as $index => $menu) {
                 add_submenu_page('fed_settings_menu',
-                    $menu['page_title'],
-                    $menu['menu_title'],
-                    $menu['capability'],
-                    $index,
-                    $menu['callback']);
+                        $menu['page_title'],
+                        $menu['menu_title'],
+                        $menu['capability'],
+                        $index,
+                        $menu['callback']);
             }
 
             do_action('fed_add_main_sub_menu_action');
@@ -134,30 +134,30 @@ if ( ! class_exists('FED_AdminMenu')) {
         private function admin_dashboard_settings_menu_header()
         {
             $menu = array(
-                'login'               => array(
-                    'icon_class' => 'fas fa-sign-in-alt',
-                    'name'       => __('Login', 'frontend-dashboard'),
-                    'callable'   => 'fed_admin_login_tab',
-                ),
-                'user'                => array(
-                    'icon_class' => 'fa fa-user',
-                    'name'       => __('User', 'frontend-dashboard'),
-                    'callable'   => 'fed_admin_user_options_tab',
-                ),
-                'user_profile_layout' => array(
-                    'icon_class' => 'fa fa-user-secret',
-                    'name'       => __('User Profile Layout', 'frontend-dashboard'),
-                    'callable'   => 'fed_user_profile_layout_design',
-                ),
-                'general'             => array(
-                    'icon_class' => 'fas fa-tachometer-alt',
-                    'name'       => __('Common', 'frontend-dashboard'),
-                    'callable'   => array(
-                        'object' => new FED_Admin_General(),
-                        'method' => 'fed_admin_general_tab',
+                    'login'               => array(
+                            'icon_class' => 'fas fa-sign-in-alt',
+                            'name'       => __('Login', 'frontend-dashboard'),
+                            'callable'   => 'fed_admin_login_tab',
                     ),
-                ),
-                'email'               => array(
+                    'user'                => array(
+                            'icon_class' => 'fa fa-user',
+                            'name'       => __('User', 'frontend-dashboard'),
+                            'callable'   => 'fed_admin_user_options_tab',
+                    ),
+                    'user_profile_layout' => array(
+                            'icon_class' => 'fa fa-user-secret',
+                            'name'       => __('User Profile Layout', 'frontend-dashboard'),
+                            'callable'   => 'fed_user_profile_layout_design',
+                    ),
+                    'general'             => array(
+                            'icon_class' => 'fas fa-tachometer-alt',
+                            'name'       => __('Common', 'frontend-dashboard'),
+                            'callable'   => array(
+                                    'object' => new FED_Admin_General(),
+                                    'method' => 'fed_admin_general_tab',
+                            ),
+                    ),
+                'email'             => array(
                     'icon_class' => 'fas fa-envelope',
                     'name'       => __('Email', 'frontend-dashboard'),
                     'callable'   => array(
@@ -169,9 +169,9 @@ if ( ! class_exists('FED_AdminMenu')) {
 
             if ( ! defined('FED_CP_PLUGIN_VERSION')) {
                 $menu['post_options'] = array(
-                    'icon_class' => 'fa fa-envelope',
-                    'name'       => __('Post', 'frontend-dashboard'),
-                    'callable'   => 'fed_admin_post_options_tab',
+                        'icon_class' => 'fa fa-envelope',
+                        'name'       => __('Post', 'frontend-dashboard'),
+                        'callable'   => 'fed_admin_post_options_tab',
                 );
             }
 
@@ -192,7 +192,7 @@ if ( ! class_exists('FED_AdminMenu')) {
             if (is_string($item['callable']) && function_exists($item['callable'])) {
                 call_user_func($item['callable'], $parameter);
             } elseif (is_array($item['callable']) && method_exists($item['callable']['object'],
-                    $item['callable']['method'])) {
+                            $item['callable']['method'])) {
                 call_user_func(array($item['callable']['object'], $item['callable']['method']), $parameter);
             } else {
                 ?>
@@ -211,56 +211,55 @@ if ( ! class_exists('FED_AdminMenu')) {
         public function fed_get_main_sub_menu()
         {
             $menu = array(
-                'fed_dashboard_menu'   => array(
-                    'page_title' => __('Dashboard Menu', 'frontend-dashboard'),
-                    'menu_title' => __('Dashboard Menu', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'dashboard_menu'),
-                    'position'   => 7,
-                ),
-                'fed_user_profile'     => array(
-                    'page_title' => __('User Profile', 'frontend-dashboard'),
-                    'menu_title' => __('User Profile', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'user_profile'),
-                    'position'   => 20,
-                ),
-                'fed_post_fields'      => array(
-                    'page_title' => __('Post Fields', 'frontend-dashboard'),
-                    'menu_title' => __('Post Fields', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'post_fields'),
-                    'position'   => 25,
-                ),
-                'fed_add_user_profile' => array(
-                    'page_title' => __('Add Profile / Post Fields', 'frontend-dashboard'),
-                    'menu_title' => __('Add Profile / Post Fields', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'add_user_profile'),
-                    'position'   => 30,
-
-                ),
-                'fed_plugin_pages'     => array(
-                    'page_title' => __('Add-Ons', 'frontend-dashboard'),
-                    'menu_title' => __('Add-Ons', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'plugin_pages'),
-                    'position'   => 50,
-                ),
-                'fed_status'           => array(
-                    'page_title' => __('Status', 'frontend-dashboard'),
-                    'menu_title' => __('Status', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'status'),
-                    'position'   => 70,
-                ),
-                'fed_help'             => array(
-                    'page_title' => __('Help', 'frontend-dashboard'),
-                    'menu_title' => __('Help', 'frontend-dashboard'),
-                    'capability' => 'manage_options',
-                    'callback'   => array($this, 'help'),
-                    'position'   => 100,
-                ),
+				'fed_dashboard_menu'   => array(
+					'page_title' => __('Dashboard Menu', 'frontend-dashboard'),
+					'menu_title' => __('Dashboard Menu', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'dashboard_menu'),
+					'position'   => 7,
+				),
+				'fed_user_profile'     => array(
+					'page_title' => __('User Profile', 'frontend-dashboard'),
+					'menu_title' => __('User Profile', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'user_profile'),
+					'position'   => 20,
+				),
+				'fed_post_fields'      => array(
+					'page_title' => __('Post Fields', 'frontend-dashboard'),
+					'menu_title' => __('Post Fields', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'post_fields'),
+					'position'   => 25,
+				),
+				'fed_add_user_profile' => array(
+					'page_title' => __('Add Profile / Post Fields', 'frontend-dashboard'),
+					'menu_title' => __('Add Profile / Post Fields', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'add_user_profile'),
+					'position'   => 30,
+				),
+				'fed_plugin_pages'     => array(
+					'page_title' => __('Add-Ons', 'frontend-dashboard'),
+					'menu_title' => __('Add-Ons', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'plugin_pages'),
+					'position'   => 50,
+				),
+				'fed_status'           => array(
+					'page_title' => __('Status', 'frontend-dashboard'),
+					'menu_title' => __('Status', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'status'),
+					'position'   => 70,
+				),
+				'fed_help'             => array(
+					'page_title' => __('Help', 'frontend-dashboard'),
+					'menu_title' => __('Help', 'frontend-dashboard'),
+					'capability' => 'manage_options',
+					'callback'   => array($this, 'help'),
+					'position'   => 100,
+				),
 //                'fed_test'             => array(
 //                    'page_title' => __('Test', 'frontend-dashboard'),
 //                    'menu_title' => __('Test', 'frontend-dashboard'),
@@ -269,7 +268,7 @@ if ( ! class_exists('FED_AdminMenu')) {
 //                    'position'   => 100,
 //                ),
 
-            );
+			);
 
             $main_menu = apply_filters('fed_add_main_sub_menu', $menu);
 
@@ -282,7 +281,7 @@ if ( ! class_exists('FED_AdminMenu')) {
             <?php
         }
 
-    }
+	}
 
     new FED_AdminMenu();
 }

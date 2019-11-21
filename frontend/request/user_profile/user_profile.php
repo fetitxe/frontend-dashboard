@@ -78,7 +78,6 @@ function fed_process_update_user_profile($post)
     // Escape data pulled from DB.
     $user = add_magic_quotes($new_value);
 
-
     return $user;
 }
 

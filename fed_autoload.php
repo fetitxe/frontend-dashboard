@@ -148,6 +148,7 @@ require_once BC_FED_PLUGIN_DIR.'/admin/hooks/FED_ActionHooks.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/validation/FED_Validation.php';
 
 
+
 require_once BC_FED_PLUGIN_DIR.'/admin/payment/FEDPaymentMenu.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/payment/FEDPayment.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/payment/FEDTransaction.php';
@@ -157,9 +158,9 @@ require_once BC_FED_PLUGIN_DIR.'/admin/payment/FEDInvoiceTemplate.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/payment/FEDPaymentWidgets.php';
 
 
-require_once BC_FED_PLUGIN_DIR.'/admin/pro/plugins/FEDSCPRO.php';
-require_once BC_FED_PLUGIN_DIR.'/admin/pro/plugins/FEDPPPRO.php';
-require_once BC_FED_PLUGIN_DIR.'/admin/pro/plugins/FEDMPPRO.php';
+// require_once BC_FED_PLUGIN_DIR.'/admin/pro/plugins/FEDSCPRO.php';
+// require_once BC_FED_PLUGIN_DIR.'/admin/pro/plugins/FEDPPPRO.php';
+// require_once BC_FED_PLUGIN_DIR.'/admin/pro/plugins/FEDMPPRO.php';
 
 require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormSingleLine.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormMultiLine.php';

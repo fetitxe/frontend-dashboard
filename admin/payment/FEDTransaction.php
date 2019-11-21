@@ -33,7 +33,7 @@ if ( ! class_exists('FEDTransaction')) {
         {
             $this->authorize();
 
-            if ( ! is_admin()) {
+            if ( !is_admin()) {
                 wp_die(__('Error 403: You are not allowed to view this page', 'frontend-dashboard'));
             }
 
@@ -178,7 +178,7 @@ if ( ! class_exists('FEDTransaction')) {
 
                 $discounted_amount = ($amount + $tax_cost + $shipping_cost) - ($discount_cost) * $quantity;
 
-                $total = $total + $discounted_amount;
+                $total      = $total + $discounted_amount;
 
                 $id         = isset($item['id']) ? (int) $item['id'] : fed_get_random_string(7);
                 $items[$id] = array(
@@ -263,8 +263,9 @@ if ( ! class_exists('FEDTransaction')) {
 
                         wp_send_json_success(array('html' => $html));
                     }
+					wp_send_json_error(array('message' => 'Table '.$table_name.' exist but not records'));
                 }
-                wp_send_json_error(array('message' => __('Table not exist', 'frontend-dashboard')));
+                wp_send_json_error(array('message' => __('Table not exist: ', 'frontend-dashboard').$table_name));
             }
         }
 

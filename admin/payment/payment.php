@@ -20,7 +20,6 @@ if ( ! function_exists('fed_get_payment_gateways')) {
     function fed_get_payment_gateways()
     {
         return apply_filters('fed_payment_gateways', array('disable' => 'Disable'));
-		//return apply_filters('fed_payment_gateways', array('disable' => 'Disable', 'enable' => 'Enable'));
     }
 }
 if ( ! function_exists('fed_payment_for')) {
@@ -29,23 +28,7 @@ if ( ! function_exists('fed_payment_for')) {
      */
     function fed_payment_for()
     {
-        //return apply_filters('fed_payment_for', array());
-		
-		$payment_for = array(
-			'suscription' => array(
-				'name' => 'Suscripción',
-				'type' => 'suscription',
-				//'object_table' => BC_FED_PAYPAL_PAYMENT_PLAN_TABLE,
-				'object_table' => BC_FED_TABLE_PAYMENT_ITEMS,
-			),
-			'single' => array(
-				'name' => 'Pago Unico',
-				'type' => 'single',
-				'object_table' => BC_FED_PAYPAL_PAYMENT_PLAN_TABLE,
-				//'object_table' => BC_FED_TABLE_PAYMENT_ITEMS,
-			)
-		);
-		return apply_filters('fed_payment_for', $payment_for);
+        return apply_filters('fed_payment_for', array());
 	}
 }
 
@@ -361,18 +344,20 @@ if ( ! function_exists('fed_get_membership_expiry_date')) {
                 return __('Free', 'frontend-dashboard');
             }
         
-            if ($object['plan_type'] === 'custom') {
-                $days = isset($object['plan_days']) ? $object['plan_days'] + 1 : '0';
-                return date('Y-m-d H:i:s', strtotime("+ {$days} days"));
-            }
+//            if ($object['plan_type'] === 'custom') {
+//                $days = isset($object['plan_days']) ? $object['plan_days'] + 1 : '0';
+//
+//                return date('Y-m-d H:i:s', strtotime("+ {$days} days"));
+//            }
+//
+//            if ($object['plan_type'] === 'monthly') {
+//                return date('Y-m-d H:i:s', strtotime("+ 31 days"));
+//            }
+//
+//            if ($object['plan_type'] === 'annual') {
+//                return date('Y-m-d H:i:s', strtotime("+ 367 days"));
+//            }
 
-            if ($object['plan_type'] === 'monthly') {
-                return date('Y-m-d H:i:s', strtotime("+ 31 days"));
-            }
-
-            if ($object['plan_type'] === 'annual') {
-                return date('Y-m-d H:i:s', strtotime("+ 367 days"));
-            }
 
             if ($object['plan_type'] === 'one_time') {
                 return __('One Time', 'frontend-dashboard');

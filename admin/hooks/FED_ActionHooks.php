@@ -69,6 +69,8 @@ if ( ! class_exists('FED_ActionHooks')) {
          */
         public function fed_add_inline_css_at_head_color()
         {
+
+            if (fed_is_shortcode_in_content()) {
             $fed_colors = get_option('fed_admin_setting_upl_color');
 
             $pbg_color      = fed_get_data('color.fed_upl_color_bg_color', $fed_colors, '#0AAAAA');
@@ -183,6 +185,7 @@ if ( ! class_exists('FED_ActionHooks')) {
                 'sbg_font_color' => $sbg_font_color,
             ));
         }
+       }
         
         /**
          * @param $text

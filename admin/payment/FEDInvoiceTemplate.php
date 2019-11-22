@@ -12,9 +12,7 @@ if ( ! class_exists('FEDInvoiceTemplate')) {
         public function template()
         {
 
-            $templates = fed_pay_invoice_templates();
-			$templates = apply_filters('fed_invoice_template', $templates);
-			debug($templates);
+			$templates = apply_filters('fed_invoice_template', array());
 
             if ($templates && count($templates) > 0) {
                 $settings = get_option('fed_payment_settings');
@@ -32,7 +30,7 @@ if ( ! class_exists('FEDInvoiceTemplate')) {
                                         <h3 class="panel-title"><?php echo $template['name'] ?></h3>
                                     </div>
                                     <div class="panel-body">
-                                        <img alt="" class="img-responsive" src="<?php echo $template['image_thumb_url'] ?>">
+                                        <img alt="" class="img-responsive" src="<?php echo $template['image'] ?>">
                                         <div class="fed_flex_center">
                                             <label>
                                                 <input class="radio" type="radio" name="template"

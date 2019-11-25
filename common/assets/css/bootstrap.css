@@ -1586,24 +1586,28 @@
     max-height: 340px;
     overflow-y: scroll;
 }
-.bc_fed.container {
+.bc_fed.container,
+.bc_fed .container {
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
 }
 @media (min-width: 768px) {
-    .bc_fed.container {
+    .bc_fed.container,
+    .bc_fed .container {
         max-width: 750px;
     }
 }
 @media (min-width: 992px) {
-    .bc_fed.container {
+    .bc_fed.container,
+    .bc_fed .container {
         max-width: 970px;
     }
 }
 @media (min-width: 1200px) {
-    .bc_fed.container {
+    .bc_fed.container,
+    .bc_fed .container {
         max-width: 1170px;
     }
 }

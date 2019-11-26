@@ -401,7 +401,6 @@ function fed_get_empty_value_for_user_profile($action)
  */
 function fed_process_user_profile($row, $action, $update = 'no')
 {
-
     $default = array(
         'label_name'     => isset($row['label_name']) ? sanitize_text_field(htmlentities($row['label_name'])) : '',
         'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
@@ -2660,6 +2659,7 @@ function fed_check_post_type($post_type)
 function fed_get_current_screen_id()
 {
     $screen = get_current_screen();
+
     return $screen->id;
 }
 
@@ -3681,7 +3681,7 @@ function fed_get_first_key_in_array($array)
     return false;
 }
 
-add_filter('wp_nav_menu_items','login_logout_menu', 10, 2);
+add_filter('wp_nav_menu_items', 'login_logout_menu', 10, 2);
 
 /**
  * @param $items
@@ -3724,8 +3724,8 @@ function fed_user_role_checkboxes($meta, $user_roles = array(), $column = '6', $
             unset($all_roles[$remove_user_role]);
         }
     }
-    $html      = '';
-    $html      .= '<div class="row">';
+    $html = '';
+    $html .= '<div class="row">';
     foreach ($all_roles as $key => $role) {
         $c_value = array_key_exists($key, $user_roles) ? 'Enable' : 'Disable';
 

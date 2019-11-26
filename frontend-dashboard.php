@@ -16,6 +16,7 @@ if ( ! defined('ABSPATH')) {
     exit;
 }
 
+
 /**
  * Version Number
  */
@@ -48,7 +49,6 @@ define('BC_FED_PLUGIN_DIR', untrailingslashit(dirname(BC_FED_PLUGIN)));
  * User Profile Table Name
  */
 define('BC_FED_TABLE_USER_PROFILE', 'fed_user_profile');
-
 /**
  * Dashboard Menu Items
  */

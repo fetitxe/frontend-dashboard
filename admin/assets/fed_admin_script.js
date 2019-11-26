@@ -274,7 +274,7 @@ jQuery(document).ready(function ($) {
         closest.find('input[name=input_type]').val(selected);
         btn_container.find('.fed_button').removeClass('active');
         $(this).addClass('active');
-		$('#fed_button_pointing_arrow').addClass('hide');
+        $('#fed_button_pointing_arrow').addClass('hide');
         switch (selected) {
             case 'single_line':
                 closest.find('.fed_input_single_line_container').removeClass('hide');

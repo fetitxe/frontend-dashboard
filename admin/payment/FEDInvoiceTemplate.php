@@ -12,7 +12,7 @@ if ( ! class_exists('FEDInvoiceTemplate')) {
         public function template()
         {
 
-			$templates = apply_filters('fed_invoice_template', array());
+            $templates = apply_filters('fed_invoice_template', array());
 
             if ($templates && count($templates) > 0) {
                 $settings = get_option('fed_payment_settings');

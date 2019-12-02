@@ -172,7 +172,6 @@ require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormCheckBox.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormRadio.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormSelect.php';
 require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormNumber.php';
-require_once BC_FED_PLUGIN_DIR.'/admin/fields/FEDFormFile.php';
 
 /**
  * Widget

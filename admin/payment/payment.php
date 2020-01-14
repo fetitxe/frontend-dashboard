@@ -7,27 +7,37 @@ if ( ! function_exists('fed_get_payment_shortcodes')) {
     /**
      * @return array
      */
-    function fed_get_payment_shortcodes()
-    {
+    function fed_get_payment_shortcodes(){
         return apply_filters('fed_payment_shortcodes', array());
     }
 }
+
 
 if ( ! function_exists('fed_get_payment_gateways')) {
     /**
      * @return array
      */
-    function fed_get_payment_gateways()
-    {
+    function fed_get_payment_gateways(){
         return apply_filters('fed_payment_gateways', array('disable' => 'Disable'));
     }
+}
+
+if ( ! function_exists( 'fed_get_only_payment_gateways' ) ) {
+	/**
+	 * @return array
+	 */
+	function fed_get_only_payment_gateways() {
+		$gateways = fed_get_payment_gateways();
+		unset( $gateways['disable'] );
+
+		return apply_filters( 'fed_get_only_payment_gateways', $gateways );
+	}
 }
 if ( ! function_exists('fed_payment_for')) {
     /**
      * @return mixed|void
      */
-    function fed_payment_for()
-    {
+    function fed_payment_for(){    	
         return apply_filters('fed_payment_for', array());
 	}
 }
@@ -38,8 +48,7 @@ if ( ! function_exists('fed_get_payment_for')) {
      *
      * @return bool|mixed
      */
-    function fed_get_payment_for($table)
-    {
+    function fed_get_payment_for($table){
         $payment = fed_payment_for();
 
         return isset($payment[$table]) ? $payment[$table] : false;
@@ -51,8 +60,7 @@ if ( ! function_exists('fed_get_payment_for_key_index')) {
      *
      * @return mixed|void
      */
-    function fed_get_payment_for_key_index()
-    {
+    function fed_get_payment_for_key_index(){
         $p = array();
         $payment_for = fed_payment_for();
         if (is_array($payment_for) && count($payment_for)) {
@@ -68,8 +76,7 @@ if ( ! function_exists('fed_payment_gateway')) {
     /**
      * @return bool | string
      */
-    function fed_payment_gateway()
-    {
+    function fed_payment_gateway(){
         $payment = get_option('fed_payment_settings');
 
         if ($payment && isset($payment['settings']['gateway']) && $payment['settings']['gateway'] !== 'disable') {
@@ -84,8 +91,7 @@ if ( ! function_exists('fed_get_transactions_with_meta')) {
     /**
      * @return array|object|void|null
      */
-	function fed_get_transactions_with_meta()
-	{
+	function fed_get_transactions_with_meta(){
 		global $wpdb;
 		$transactions = fed_get_transactions();
 		if (count($transactions)) {
@@ -115,12 +121,12 @@ if ( ! function_exists('fed_get_transactions')) {
      *
      * @return array|object|null
      */
-    function fed_get_transactions()
-    {
+    function fed_get_transactions(){
         global $wpdb;
         $table_payment = $wpdb->prefix.BC_FED_TABLE_PAYMENT;
         $table_user    = $wpdb->prefix.'users';
         if(fed_is_admin()) {
+
 			return $wpdb->get_results(
 				"
 				SELECT      *
@@ -157,8 +163,7 @@ if ( ! function_exists('fed_get_active_transactions')) {
      *
      * @return array|object|null
      */
-    function fed_get_active_transactions()
-    {
+    function fed_get_active_transactions(){
         global $wpdb;
         $table_payment = $wpdb->prefix.BC_FED_TABLE_PAYMENT;
         $table_user    = $wpdb->prefix.'users';
@@ -202,8 +207,7 @@ if ( ! function_exists('fed_get_transaction_with_meta')) {
      *
      * @return array|object|void|null
      */
-    function fed_get_transaction_with_meta($id, $column = 'id')
-    {
+    function fed_get_transaction_with_meta($id, $column = 'id'){
 		global $wpdb;
 		$transaction         = fed_get_transaction($id, $column = 'id');
 		$table_payment_items = $wpdb->prefix.BC_FED_TABLE_PAYMENT_ITEMS;
@@ -229,8 +233,7 @@ if ( ! function_exists('fed_get_transaction')) {
      *
      * @return array|object|\WP_Error|null
      */
-    function fed_get_transaction($id, $column = 'id')
-    {
+    function fed_get_transaction($id, $column = 'id'){
         if (is_user_logged_in()) {
             global $wpdb;
             $table_payment = $wpdb->prefix.BC_FED_TABLE_PAYMENT;
@@ -251,7 +254,8 @@ if ( ! function_exists('fed_get_transaction')) {
         }
 
         // %s Column Name
-        return new WP_Error('fed_no_row_found_on_that_id', sprintf(__('Invalid %s', 'frontend-dashboard'), $column));
+        return new WP_Error('fed_no_row_found_on_that_id',
+        	sprintf(__('Invalid %s', 'frontend-dashboard'), $column));
     }
 }
 
@@ -262,8 +266,7 @@ if ( ! function_exists('fed_get_transaction_meta')) {
      *
      * @return array|object|void|null
      */
-    function fed_get_transaction_meta($id, $column = 'id')
-    {
+    function fed_get_transaction_meta($id, $column = 'id'){
         global $wpdb;
         $table_payment_items = $wpdb->prefix.BC_FED_TABLE_PAYMENT_ITEMS;
         $transaction         = $wpdb->get_results("
@@ -285,8 +288,7 @@ if ( ! function_exists('fed_transaction_product_details')) {
      *
      * @return mixed
      */
-    function fed_transaction_product_details($transaction)
-    {
+    function fed_transaction_product_details($transaction){
         $items = '';
         foreach ($transaction['payment_items'] as $products) {
             $item  = unserialize($products['object_items']);
@@ -312,8 +314,7 @@ if ( ! function_exists('fed_get_exact_amount')) {
      *
      * @return float|int
      */
-    function fed_get_exact_amount($object, $type = 'discount')
-    {
+    function fed_get_exact_amount($object, $type = 'discount'){
         $discount = 0;
         if (isset($object['amount']) && $object['amount']) {
             $amount = $object['amount'];
@@ -337,10 +338,8 @@ if ( ! function_exists('fed_get_membership_expiry_date')) {
      *
      * @return bool|false|string
      */
-    function fed_get_membership_expiry_date($object)
-    {
+    function fed_get_membership_expiry_date($object){
         if ($object && isset($object['plan_type'])) {
-
             if ($object['plan_type'] === 'free') {
                 return __('Free', 'frontend-dashboard');
             }
@@ -359,7 +358,6 @@ if ( ! function_exists('fed_get_membership_expiry_date')) {
 //                return date('Y-m-d H:i:s', strtotime("+ 367 days"));
 //            }
 
-
             if ($object['plan_type'] === 'one_time') {
                 return __('One Time', 'frontend-dashboard');
             }
@@ -376,8 +374,7 @@ if ( ! function_exists('fed_payment_status')) {
     /**
      * @return mixed|void
      */
-    function fed_payment_status()
-    {
+    function fed_payment_status(){
         return apply_filters('fed_payment_status', array(
             'Success'   => __('Success', 'frontend-dashboard'),
             'Pending'   => __('Pending', 'frontend-dashboard'),
@@ -391,8 +388,7 @@ if ( ! function_exists('fed_discount_type')) {
     /**
      * @return array
      */
-    function fed_discount_type()
-    {
+    function fed_discount_type(){
         return apply_filters('fed_discount_type', array(
             'percentage' => '(%)',
             'flat'       => 'Flat',
@@ -405,8 +401,7 @@ if ( ! function_exists('fed_get_discount_type')) {
      *
      * @return array
      */
-    function fed_get_discount_type($type)
-    {
+    function fed_get_discount_type($type){
         $discount = fed_discount_type();
 
         return isset($discount[$type]) ? $discount[$type] : 'ERROR';

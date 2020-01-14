@@ -107,7 +107,8 @@ function fed_get_plugin_pages_menu()
                                                                     <?php
                                                                 }
 
-                                                            } else {
+                                                            }
+                                                        	else {
                                                                                                                                 if ($single->pricing->type === 'Free') {
                                                                     $path = WP_PLUGIN_DIR.'/'.$single->install_slug;
                                                                     if (is_dir($path)) {

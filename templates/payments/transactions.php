@@ -13,11 +13,14 @@ $transactions = fed_get_transactions();
         $random = fed_get_random_string(5);
         ?>
         <div class="table-responsive">
-            <?php if (fed_is_admin()) { ?>
-                <button type="button" data-toggle="modal" data-target="#fed_transaction_modal"
-                        class="btn btn-primary m-b-10 fed_frontend_add_new_transaction"><?php _e('Add New Transaction',
-                        'frontend-dashboard'); ?></button>
-            <?php } ?>
+			<?php if ( fed_is_admin() ) { ?>
+                <a href="<?php echo fed_menu_page_url( 'fed_payments', array(
+					'menu'  => 'transactions',
+					'route' => 'FEDTransaction@add_new_transaction',
+				) ); ?>"
+                   class="btn btn-primary m-b-10 fed_frontend_add_new_transaction"><?php _e( 'Add New Transaction',
+						'frontend-dashboard' ); ?></a>
+			<?php } ?>
             <table class="table table-hover table-striped fed_datatable">
                 <thead>
                 <tr>
@@ -141,7 +144,8 @@ $transactions = fed_get_transactions();
                                                 <label><?php _e('Transaction ID', 'frontend-dashboard') ?></label>
                                                 <input type="text"
                                                        value="<?php echo strtoupper(fed_get_random_string(15)); ?>"
-                                                       placeholder="<?php _e('Transaction ID', 'frontend-dashboard') ?>"
+                                                       placeholder="<?php _e('Transaction ID', 
+                                                       		'frontend-dashboard') ?>"
                                                        name="transaction_id" class="form-control"/>
                                             </div>
                                         </div>

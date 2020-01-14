@@ -100,6 +100,7 @@ Fed User Profile Layout
 .bc_fed .m-r-10 {
     margin-right: 10px !important;
 }
+
 .bc_fed .m-r-20 {
     margin-right: 20px !important;
 }
@@ -645,24 +646,18 @@ Loader
 }
 
 .bc_fed .fed_buttons_container {
-    /*display: flex;*/
     justify-content: center;
     text-align: center;
     flex-wrap: wrap;
 	/*border: 1px solid #B5B5B5;*/
+	overflow: hidden;
 }
 
 .bc_fed .fed_buttons_container .fed_button {
-    padding: 5px 15px;
-    border: 1px solid #B5B5B5;
-    cursor: pointer;
-	border-radius: 5px;
-	background:#fff;
-}
-
-.bc_fed .fed_admin_input_items > div{
-	padding-top: 10px;
-	padding-bottom: 20px;
+	border: 1px solid #B5B5B5;
+	cursor: pointer;
+	margin-bottom: .5rem;
+	padding: 7px 5px 5px 5px;
 }
 
 .bc_fed.fed_plugins .thumbnail > img, .bc_fed.fed_plugins .thumbnail a > img {
@@ -682,7 +677,7 @@ Loader
     font-weight: 700;
     padding-top: 5px;
     font-size: 9px;
-	white-space: nowrap;
+    word-wrap: normal;
 }
 
 .bc_fed .fed_plugin_description {

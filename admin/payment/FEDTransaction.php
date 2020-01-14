@@ -6,11 +6,9 @@ if ( ! class_exists('FEDTransaction')) {
     /**
      * Class FEDTransaction
      */
-    class FEDTransaction
-    {
+    class FEDTransaction{
 
-        public function transactions()
-        {
+        public function transactions(){
             /**
              * Payment Gateways
              */
@@ -19,8 +17,7 @@ if ( ! class_exists('FEDTransaction')) {
             echo do_shortcode('[fed_transactions]');
         }
 
-        public function authorize()
-        {
+        public function authorize(){
             if ( ! is_user_logged_in()) {
                 wp_die(__('Error 403: Please login to view this page', 'frontend-dashboard'));
             }
@@ -29,8 +26,7 @@ if ( ! class_exists('FEDTransaction')) {
         /**
          * @param $request
          */
-        public function update($request)
-        {
+        public function update($request){
             $this->authorize();
 
             if ( !is_admin()) {
@@ -43,7 +39,8 @@ if ( ! class_exists('FEDTransaction')) {
             $validate->name(__('User Name', 'frontend-dashboard'))->value(fed_get_data('user_id'))->required();
             $validate->name(__('Transaction ID',
                 'frontend-dashboard'))->value(fed_get_data('transaction_id'))->required();
-            $validate->name(__('Purchase Date', 'frontend-dashboard'))->value(fed_get_data('created'))->required();
+            $validate->name(__('Purchase Date',
+            	'frontend-dashboard'))->value(fed_get_data('created'))->required();
             $validate->name(__('Payment Source',
                 'frontend-dashboard'))->value(fed_get_data('payment_source'))->required();
             $validate->name(__('Payment Type',
@@ -81,8 +78,7 @@ if ( ! class_exists('FEDTransaction')) {
         /**
          * @param $request
          */
-        public function addTransaction($request)
-        {
+        public function addTransaction($request){
             if (isset($request['items']) && count($request['items']) > 0) {
                 $user_update = true;
                 $type        = isset($request['fed_pp_object_type']) && ! empty($request['fed_pp_object_type']) ? $request['fed_pp_object_type'] : '';
@@ -140,8 +136,7 @@ if ( ! class_exists('FEDTransaction')) {
          *
          * @return array
          */
-        public function formatTransaction($request, $payment_type = '')
-        {
+        public function formatTransaction($request, $payment_type = ''){
             $total     = 0;
             $items     = array();
             $user_role = null;
@@ -227,8 +222,7 @@ if ( ! class_exists('FEDTransaction')) {
         /**
          * @param $request
          */
-        public function items($request)
-        {
+        public function items($request){
             fed_verify_nonce($request);
 
             if (isset($request['transaction_id'])) {
@@ -242,8 +236,7 @@ if ( ! class_exists('FEDTransaction')) {
         /**
          * @param $request
          */
-        public function add_items($request)
-        {
+        public function add_items($request){
             if (isset($request['type'])) {
                 global $wpdb;
                 $table      = fed_get_payment_for(esc_attr($request['type']));
@@ -272,12 +265,56 @@ if ( ! class_exists('FEDTransaction')) {
         /**
          * @param $request
          */
-        public function add_new_item($request)
-        {
+        public function add_new_item($request){
 
         }
 
-    }
+		public function add_new_transaction( $request ) {
+			?>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>
+							<?php _e( 'Gateway', 'frontend-dashboard' ) ?>
+                        </label>
+						<?php echo fed_form_select( array(
+							'input_meta'  => 'gateway',
+							'user_value'  => '',
+							'input_value' => array_merge( array(
+								'' => __( 'Please select Gateway', 'frontend-dashboard-membership' ),
+							), fed_get_only_payment_gateways() ),
+						) ) ?>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>
+				            <?php _e( 'Gateway', 'frontend-dashboard' ) ?>
+                        </label>
+			            <?php echo fed_form_select( array(
+				            'input_meta'  => 'gateway',
+				            'user_value'  => '',
+				            'input_value' => array_merge( array(
+					            '' => __( 'Please select Gateway', 'frontend-dashboard-membership' ),
+				            ), fed_get_payment_for_key_index() ),
+			            ) ) ?>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>
+				            <?php _e( 'User', 'frontend-dashboard' ) ?>
+                        </label>
+			            <?php wp_dropdown_users(array('class'=>'fed_multi_select'))?>
+                    </div>
+                </div>
+            </div>
+			<?php
+		}
+
+	}
 
     new FEDTransaction();
 }

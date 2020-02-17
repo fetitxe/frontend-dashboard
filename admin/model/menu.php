@@ -11,7 +11,9 @@ function fed_fetch_menu() {
 	$results = fed_fetch_rows_by_table( BC_FED_TABLE_MENU );
 
 	if ( count( $results ) <= 0 ) {
-		new WP_Error( 'fed_default_value_not_installed', __( 'There is some trouble in installing the default value, please try to deactivate and activate the plugin or contact us on ', 'frontend-dashboard' ) . make_clickable( 'https://buffercode.com/' ) );
+		new WP_Error( 'fed_default_value_not_installed',
+			__( 'There is some trouble in installing the default value, please try to deactivate and activate the plugin or contact us on ',
+			'frontend-dashboard' ) . make_clickable( 'https://buffercode.com/' ));
 	}
 
 	return $results;
@@ -30,7 +32,9 @@ function fed_fetch_table_rows_with_key_front_end( $table, $key ) {
 	$user_role = fed_get_current_user_role_key();
 
 	if ( count( $results ) <= 0 && BC_FED_TABLE_POST !== $table ) {
-		return new WP_Error( 'fed_default_value_not_installed', __( 'There is some trouble in installing the default value, please try to deactivate and activate the plugin or contact us on ', 'frontend-dashboard' ) . make_clickable( 'https://buffercode.com/' ) );
+		return new WP_Error( 'fed_default_value_not_installed',
+			__( 'There is some trouble in installing the default value, please try to deactivate and activate the plugin or contact us on ',
+			'frontend-dashboard' ) . make_clickable( 'https://buffercode.com/' ) );
 	}
 	$result_with_key = array();
 	foreach ( $results as $result ) {
@@ -41,7 +45,11 @@ function fed_fetch_table_rows_with_key_front_end( $table, $key ) {
 		if ( ! $res ) {
 			continue;
 		}
-		if ( ! in_array( $user_role, unserialize( $res ), true ) ) {
+		// Enable the all menu for Admin.
+		if ( ! in_array( $user_role, unserialize( $res ), true )
+				// && ! isset( $_GET, $_GET['fed_dashboard_menu'], $_GET['sort'] )
+				&& ! fed_is_admin()
+		) {
 			continue;
 		}
 		$result['menu_type']                = isset( $result['menu_type'] ) ? $result['menu_type'] : 'user';

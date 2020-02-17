@@ -67,14 +67,14 @@ if ( ! class_exists('FEDPaymentMenu')) {
 						<div class="m-t-10">
 							<?php $this->body_content($menus) ?>
 						</div>
-					<?php } else {
+					<?php } else { 
 						?>
 						<div class="m-t-10">
 							<?php _e('Something went wrong', 'frontend-dashboard') ?>
 						</div>
-						<?php
+						<?php 
 					} ?>
-	            </div>
+				</div>
 			</div>
             <?php
         }
@@ -85,7 +85,7 @@ if ( ! class_exists('FEDPaymentMenu')) {
         public function header_menu($menus){
             ?>
             <ul class="nav nav-tabs" id="" role="tablist">
-                <?php foreach ($menus as $index => $item) {
+				<?php foreach ($menus as $index => $item){
                     $active = '';
                     if (isset($_GET, $_GET['menu']) && esc_html($_GET['menu']) === $index) {
                         $active = 'active';
@@ -94,16 +94,15 @@ if ( ! class_exists('FEDPaymentMenu')) {
                         $active = 'active';
                     }
                     ?>
-                    <li class="<?php echo $active; ?>">
-                        <a href="<?php echo fed_menu_page_url('fed_payments', array(
-                            'menu' => esc_attr($index),
-                        )); ?>">
-                            <i class="<?php esc_attr_e(fed_get_data('icon', $item)) ?>"></i>
-                            <?php esc_attr_e(fed_get_data('name', $item)) ?>
-                        </a>
-                    </li>
-                <?php } ?>
-
+					<li class="<?php echo $active; ?>" >
+						<a href="<?php echo fed_menu_page_url('fed_payments', array(
+							'menu' => esc_attr($index),
+						)); ?>">
+							<i class="<?php esc_attr_e(fed_get_data('icon', $item)) ?>"></i>
+							<?php esc_attr_e(fed_get_data('name', $item)) ?>
+						</a>
+					</li>
+				<?php } ?>
             </ul>
             <?php
         }
@@ -132,8 +131,7 @@ if ( ! class_exists('FEDPaymentMenu')) {
                                         $active = 'active';
                                     }
                                     ?>
-									<a class="list-group-item <?php echo $active; ?>" 
-									   href="<?php echo fed_menu_page_url('fed_payments', array(
+									<a class="list-group-item <?php echo $active; ?>" href="<?php echo fed_menu_page_url('fed_payments', array(
 											'menu' => $menu, 
 											'submenu' => $index,
 									)); ?>">

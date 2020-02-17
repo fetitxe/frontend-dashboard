@@ -27,12 +27,7 @@ function fed_form_checkbox($options)
     $label_value = $is_extended ? $is_extended : $label;
     $checked     = checked($value, $default_value, false);
 
-    return sprintf(
-        "
-        <label>
-        <input type='checkbox' name='%s' value='%s' class='%s' %s %s %s %s %s %s />
-        %s
-        </label>",
+    return sprintf("<label><input type='checkbox' name='%s' value='%s' class='%s' %s %s %s %s %s %s /> %s</label>",
         $name,
         $default_value,
         $class,
@@ -45,3 +40,4 @@ function fed_form_checkbox($options)
         $label_value
     );
 }
+?>

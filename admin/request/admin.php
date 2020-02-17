@@ -100,7 +100,7 @@ function fed_admin_setting_up_form_function()
     //$post = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING );
     $post = $_REQUEST;
 
-    if ( ! isset($post['fed_action'])) {
+    if ( !isset($post['fed_action'])) {
         wp_send_json_error(array('message' => 'You are trying some naughty actions, this action has been notified to Admin'));
         exit();
     }

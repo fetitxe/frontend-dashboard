@@ -367,7 +367,9 @@ function fed_convert_array_to_id_name(array $array, $key = 'term_id', $type = ''
         }
 
         $html .= fed_get_input_details(array(
-            'input_value' => $new_category, 'input_meta' => 'tax_input['.$type.']', 'input_type' => 'select',
+            'input_value' => $new_category, 
+			'input_meta' => 'tax_input['.$type.']',
+			'input_type' => 'select',
             'user_value'  => $compare,
             'id_name'     => $type,
             'extended'    => array('multiple' => 'Enable'),
@@ -377,7 +379,8 @@ function fed_convert_array_to_id_name(array $array, $key = 'term_id', $type = ''
     }
 
     return fed_get_input_details(array(
-        'input_value' => array(), 'input_meta' => $type,
+        'input_value' => array(),
+		'input_meta' => $type,
         'input_type'  => 'select',
         'user_value'  => '',
         'id_name'     => $type,
@@ -443,16 +446,16 @@ function fed_get_categories_id_by_post_id($post_id)
 function fed_get_post_status_symbol($status)
 {
     if ($status == 'publish') {
-        return ' <i class="fa fa-check bg-primary-font" data-toggle="popover" data-trigger="hover" title="Post Status" 
- data-content="Awesome! This post as been published"></i>';
+        return ' <span class="fa fa-check bg-primary-font" data-toggle="popover" data-trigger="hover" title="Post Status" 
+ data-content="Awesome! This post as been published"></span>';
     }
     if ($status == 'pending') {
-        return ' <i class="fa fa-pause bg-info-font" data-toggle="popover" data-trigger="hover" title="Post Status" 
- data-content="Please wait, your post is in pending status, editor or admin will approve your post."></i>';
+        return ' <span class="fa fa-pause bg-info-font" data-toggle="popover" data-trigger="hover" title="Post Status" 
+ data-content="Please wait, your post is in pending status, editor or admin will approve your post."></span>';
     }
 
-    return '<i class="fa fa-exclamation bg-danger-font" data-toggle="popover" data-trigger="hover" title="Post Status" 
- data-content="Oops! Something went wrong, please contact admin"></i>';
+    return '<span class="fa fa-exclamation bg-danger-font" data-toggle="popover" data-trigger="hover" title="Post Status" 
+ data-content="Oops! Something went wrong, please contact admin"></span>';
 
 }
 

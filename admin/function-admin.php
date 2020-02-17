@@ -140,7 +140,7 @@ function fed_enable_disable($condition = '')
 function fed_is_required($condition = '')
 {
     if ($condition === true || $condition === 'true' || $condition === 'enable' || $condition === 'Enable') {
-        return '<span class="bg-red-font">*</span>';
+        return '<span class="bg-red-font" title="'.__('Required', 'frontend-dashboard').'">*</span>';
     }
 
     return '';
@@ -404,7 +404,7 @@ function fed_process_user_profile($row, $action, $update = 'no')
     $default = array(
         'label_name'     => isset($row['label_name']) ? sanitize_text_field(htmlentities($row['label_name'])) : '',
         'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
-        'is_required'    => isset($row['is_required']) ? sanitize_text_field($row['is_required']) : 'false',
+//        'is_required'    => isset($row['is_required']) ? sanitize_text_field($row['is_required']) : 'false',
         'placeholder'    => isset($row['placeholder']) ? sanitize_text_field($row['placeholder']) : '',
         'class_name'     => isset($row['class_name']) ? sanitize_text_field($row['class_name']) : '',
         'id_name'        => isset($row['id_name']) ? sanitize_text_field($row['id_name']) : '',
@@ -419,7 +419,9 @@ function fed_process_user_profile($row, $action, $update = 'no')
 
 //		'extra'          => isset( $row['extra'] ) ? esc_attr( $row['extra'] ) : '',
 
-        'user_role' => (isset($row['user_role']) && ! empty($row['user_role'])) ? (is_string($row['user_role'])) ? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) : array(),
+		'is_required' => ( isset($row['is_required']) && !empty($row['is_required']) )? ( is_string($row['is_required']) )? ( in_array($row['is_required'], array('true','false')) )? $row['is_required'] : unserialize($row['is_required']) : serialize(array_keys($row['is_required'])) : 'false' ,
+
+        'user_role' => ( isset($row['user_role']) && !empty($row['user_role']) )? ( is_string($row['user_role']) )? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) : array(),
     );
 
     if ($action === 'post') {
@@ -2593,15 +2595,16 @@ function fed_redirect_to_404()
  *
  * @return string
  */
-function fed_show_help_message(array $message)
+function fed_show_help_message(array $message = array() )
 {
-    $icon    = isset($message['icon']) ? $message['icon'] : 'fa fa-info-circle';
+    if(empty($message)) return '';
+
+	$icon    = isset($message['icon']) ? $message['icon'] : 'fa fa-info-circle';
     $title   = isset($message['title']) ? $message['title'] : 'Note';
     $content = isset($message['content']) ? $message['content'] : '';
     $class   = isset($message['class']) ? $message['class'] : '';
 
-    return '
-	<span class="'.$class.'" data-toggle="popover" data-trigger="focus" role="button"  tabindex="0"  title="'.$title.'" data-content="'.$content.'" data-original-title="'.$title.'" data-html="true"><i class="'.$icon.'"></i></span>';
+    return '<span class="'.$class.'" data-toggle="popover" data-trigger="focus" role="button"  tabindex="0"  title="'.$title.'" data-content="'.$content.'" data-original-title="'.$title.'" data-html="true"><i class="'.$icon.'"></i></span>';
 }
 
 /**
@@ -3758,3 +3761,4 @@ function fed_user_role_checkboxes($meta, $user_roles = array(), $column = '6', $
 //    );
 //    return $tags;
 //}
+?>

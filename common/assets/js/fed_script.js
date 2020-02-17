@@ -288,7 +288,7 @@ jQuery(document).ready(function ($) {
                         swal({
                                 title: frontend_dashboard.alert.title_cancelled,
                                 type: "error",
-                                confirmButtonColor: '#0AAAAA'
+//                                confirmButtonColor: '#0AAAAA'
                             }
                         );
                     }
@@ -402,7 +402,7 @@ jQuery(document).ready(function ($) {
                         type: "success",
                         showConfirmButton: false,
                         timer: 1000,
-                        confirmButtonColor: '#0AAAAA'
+//                        confirmButtonColor: '#0AAAAA'
                     }).then(
                         function () {
                         },
@@ -430,7 +430,7 @@ jQuery(document).ready(function ($) {
                     swal({
                         title: results.data.message || frontend_dashboard.alert.something_went_wrong,
                         type: "success",
-                        confirmButtonColor: '#0AAAAA',
+//                        confirmButtonColor: '#0AAAAA',
                     });
                 } else {
                     swal({
@@ -450,7 +450,7 @@ jQuery(document).ready(function ($) {
                         title: results.data.message || frontend_dashboard.alert.something_went_wrong,
                         type: "success",
                         text: '',
-                        confirmButtonColor: '#0AAAAA'
+//                        confirmButtonColor: '#0AAAAA'
                     });
                 } else if (results.success == false) {
                     if (results.data.user instanceof Array) {
@@ -483,7 +483,7 @@ jQuery(document).ready(function ($) {
                         title: results.data.message || frontend_dashboard.alert.something_went_wrong,
                         type: "success",
                         text: '',
-                        confirmButtonColor: '#0AAAAA',
+//                        confirmButtonColor: '#0AAAAA',
                     });
                 } else if (results.success == false) {
                     var error = '';

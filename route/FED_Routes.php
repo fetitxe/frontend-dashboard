@@ -89,8 +89,8 @@ if ( ! class_exists('FED_Routes')) {
                             fed_get_keys_from_menu($menu))) {
                 return new WP_Error('invalid_menu_type', 'Invalid Menu Type in URL 2');
             }
-
-            set_query_var('fed_menu_items', $menu_items);
+           
+			set_query_var('fed_menu_items', $menu_items);
 
             return $menu_items;
         }

@@ -7,8 +7,7 @@ if ( ! defined('ABSPATH')) {
  *
  * @return array
  */
-function fed_get_all_dashboard_display_menus()
-{
+function fed_get_all_dashboard_display_menus(){
     $profile_menu = fed_process_dashboard_display_menu();
     $settings     = get_option('fed_admin_settings_upl');
     if (isset($settings['settings']['fed_upl_disable_logout']) && 'yes' === $settings['settings']['fed_upl_disable_logout']
@@ -20,7 +19,6 @@ function fed_get_all_dashboard_display_menus()
 
     $all_menus = apply_filters('fed_frontend_main_menu', array_merge($profile_menu, $logout));
 
-
     uasort($all_menus, 'fed_sort_by_order');
 
     return $all_menus;
@@ -31,8 +29,7 @@ function fed_get_all_dashboard_display_menus()
  *
  * @return array|WP_Error
  */
-function fed_process_dashboard_display_menu()
-{
+function fed_process_dashboard_display_menu(){
     return fed_fetch_table_rows_with_key_front_end(BC_FED_TABLE_MENU, 'menu_slug');
 }
 
@@ -41,8 +38,7 @@ function fed_process_dashboard_display_menu()
  *
  * @return array
  */
-function fed_get_post_menu()
-{
+function fed_get_post_menu(){
     $all_roles          = fed_get_user_roles();
     $admin_post_options = get_option('fed_cp_admin_settings', fed_get_default_post_options(
             $all_roles
@@ -78,15 +74,14 @@ function fed_get_post_menu()
  *
  * @return array
  */
-function fed_get_logout_menu()
-{
+function fed_get_logout_menu(){
     return array(
             'logout' =>
                     array(
                             'id'                => 'logout',
                             'menu_slug'         => 'logout',
-                            'menu'              => 'Logout',
-                            'menu_order'        => '900000',
+                            'menu'              => __('Logout','frontend-dashboard'),
+                            'menu_order'        => '999999',
                             'menu_image_id'     => 'fa fa-sign-out',
                             'show_user_profile' => 'disable',
                             'menu_type'         => 'logout',
@@ -100,8 +95,7 @@ function fed_get_logout_menu()
  *
  * @param $menus
  */
-function fed_display_dashboard_menu($menus)
-{
+function fed_display_dashboard_menu($menus){
     $first_element_key = array_keys($menus['menu_items']);
     $first_element     = $first_element_key[0];
     $dashboard_url     = fed_get_dashboard_url();
@@ -223,8 +217,7 @@ function fed_display_dashboard_menu($menus)
  *
  * @return array
  */
-function fed_format_menu_items($menu, $index, $first_element, $dashboard_url, $parent_id)
-{
+function fed_format_menu_items($menu, $index, $first_element, $dashboard_url, $parent_id){
 
     $active    = null;
     $menu_type = isset($menu['menu_type']) ? $menu['menu_type'] : 'custom';
@@ -265,8 +258,7 @@ function fed_format_menu_items($menu, $index, $first_element, $dashboard_url, $p
 /**
  * Collapse Menu
  */
-function fed_get_collapse_menu()
-{
+function fed_get_collapse_menu(){
     $settings = get_option('fed_admin_settings_upl');
     if (isset($settings['settings']['fed_upl_disable_collapse_menu']) && 'yes' === $settings['settings']['fed_upl_disable_collapse_menu']
     ) {
@@ -325,8 +317,7 @@ function fed_get_collapse_menu()
 /**
  * @return mixed|void
  */
-function fed_get_collapse_menu_content()
-{
+function fed_get_collapse_menu_content(){
     return apply_filters('fed_collapse_menu_content', array(
             'open_icon'  => 'fa fa-arrow-right',
             'close_icon' => 'fa fa-arrow-left',

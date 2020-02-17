@@ -54,12 +54,7 @@ function fed_admin_input_fields_checkbox($row, $action, $menu_options)
                                               placeholder="Please add custom HTML based label here"><?php echo isset($row['extended']['label']) ? $row['extended']['label'] : ''; ?></textarea>
                                 </div>
                             </div>
-                            <?php
-
-                            fed_get_input_type_and_submit_btn('checkbox', $action);
-                            ?>
-
-
+                            <?php fed_get_input_type_and_submit_btn('checkbox', $action); ?>
                         </div>
                     </div>
                 </div>

@@ -59,7 +59,7 @@ function fed_get_admin_up_role_based($row, $action, $menu_options)
     </div>
 
     <?php
-}
+	}
 }
 
 /**
@@ -69,65 +69,99 @@ function fed_get_admin_up_role_based($row, $action, $menu_options)
  * @param  string  $action  Action Type
  * @param  string  $type  Process Type
  */
-function fed_get_admin_up_display_permission($row, $action, $type = '')
-{
-    ?>
-    <div class="row fed_admin_up_display_permission">
-        <?php
-        if ($action === 'profile') {
-            if ($type === 'file') {
-                $value        = 'Disable';
-                $others       = true;
-                $notification = '<i class="fa fa-info bg-info-font" data-toggle="popover" data-trigger="hover" title=" Status" data-content="Only registered user can upload the files."></i>';
-            } else {
-                $value        = $row['show_register'];
-                $others       = '';
-                $notification = '';
-            } ?>
-            <div class="form-group col-md-4">
-                <?php echo fed_input_box('show_register', array(
-                    'default_value' => 'Enable',
-                    'label'         => __('Show in Register Form',
-                            'frontend-dashboard').' '.$notification,
-                    'value'         => $value,
-                    'disabled'      => $others,
-                ), 'checkbox');
+function fed_get_admin_up_display_permission($row, $action, $type = ''){
+	?><div class="row fed_admin_up_display_permission"><?php
+		if( $action === 'profile' ){
+			if( $type === 'file' ){
+				$value        = 'Disable';
+				$others       = true ;
+				$notification = array(
+					'title' => __('Status'),
+					'content' => __('Only registered user can upload the files.', 'frontend-dashboard'),
+				);
+			}else{
+				$value        = $row['show_register'];
+				$others       = '';
+				$notification = array();
+			}
+			?><div class="form-group col-md-4"><?php
+				echo fed_input_box('show_register', array(
+					'default_value' => 'Enable',
+					'label'         => __('Show in Register Form', 'frontend-dashboard') .' '. fed_show_help_message($notification) ,
+					'value'         => $value,
+					'disabled'      => $others,
+				), 'checkbox');
+			?></div>
 
-                ?>
-
-            </div>
-
-            <div class="form-group col-md-4">
-                <?php echo fed_input_box('show_dashboard', array(
-                    'default_value' => 'Enable',
-                    'label'         => __('Show in User Dashboard ', 'frontend-dashboard'),
-                    'value'         => $row['show_dashboard'],
-                ), 'checkbox'); ?>
-            </div>
-        <?php } ?>
-
-        <?php if ($action == 'post') {
-            ?>
-            <div class="form-group col-md-4">
-                <label><?php _e('Post Type', 'frontend-dashboard') ?></label>
-                <?php echo fed_input_box('post_type', array(
-                    'default_value' => 'Post',
-                    'value'         => $row['post_type'],
-                    'options'       => fed_get_public_post_types(),
-                ), 'select'); ?>
-            </div>
-        <?php } ?>
-        <div class="form-group col-md-4">
-            <?php echo fed_input_box('is_required', array(
-                'default_value' => 'true',
-                'label'         => __('Is this required Field', 'frontend-dashboard'),
-                'value'         => $row['is_required'],
-            ), 'checkbox'); ?>
-        </div>
-
-    </div>
-    <?php
+			<div class="form-group col-md-4"><?php
+				echo fed_input_box('show_dashboard', array(
+					'default_value' => 'Enable',
+					'label'         => __('Show in User Dashboard ', 'frontend-dashboard'),
+					'value'         => $row['show_dashboard'],
+				), 'checkbox'); ?>
+			</div><?php 
+		}
+		if( $action == 'post' ){
+			?></div>
+			<div class="row fed_admin_up_display_permission">
+				<div class="form-group col-md-8">
+					<label><?php _e('Post Type', 'frontend-dashboard') ?></label>
+					<?php echo fed_input_box('post_type', array(
+						'default_value' => 'Post',
+						'value'         => $row['post_type'],
+						'options'       => fed_get_public_post_types(),
+					), 'select'); ?>
+				</div>
+			</div>
+			<div class="row fed_admin_up_display_permission">
+			<?php 
+		}
+		?><div class="form-group col-md-4"><?php 
+				echo fed_input_box('is_required', array(
+					'default_value' => 'true',
+					'label'         => __('Is this required Field', 'frontend-dashboard'),
+					'value'         => is_array($row['is_required'])? 'false' : $row['is_required'],
+				), 'checkbox');
+		?></div>
+		<?php // debug($row); ?>
+		<?php fed_get_admin_up_required_by_role($row, $action, $type = ''); ?>
+	</div><?php
 }
+
+/**
+ * Get Admin User is_required Permissions based in user role 
+ *
+ * @param  array  $row  User Profile Details
+ * @param  string  $action  Action Type
+ * @param  string  $type  Process Type
+ */
+function fed_get_admin_up_required_by_role($row, $action, $type = ''){
+	$all_roles = fed_get_user_roles();
+	?><div class="form-group col-md-12">
+		<div class="row fed_admin_up_required_by_role">
+			<div class="col-md-12">
+				<label><?php _e('Select user roles to ', 'frontend-dashboard'); _e('Is this required Field', 'frontend-dashboard'); ?></label>
+			</div><?php
+// varDump($row);
+			foreach( $all_roles as $key => $role ){
+				if( is_array($row['is_required']) ){
+					$c_value = in_array( $key, $row['is_required'], false) ? 'true' : 'false';
+				}else{
+					$c_value = $row['is_required'];
+				}
+				?><div class="col-md-3">
+					<?php echo fed_input_box('is_required', array(
+						'default_value' => 'true',
+						'name'          => 'is_required['.$key.']',
+						'label'         => $role,
+						'value'         => $c_value,
+					), 'checkbox'); ?>
+				</div><?php
+			}
+		?></div>
+	</div><?php
+}
+
 
 /**
  * Get Admin User Profile Label Input Order

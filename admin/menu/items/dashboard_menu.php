@@ -3,8 +3,7 @@ if ( ! defined('ABSPATH')) {
     exit;
 }
 
-function fed_get_dashboard_menu_items()
-{
+function fed_get_dashboard_menu_items(){
     $menus      = fed_fetch_table_rows_with_key(BC_FED_TABLE_MENU, 'menu_slug');
     $user_roles = fed_get_user_roles();
 
@@ -51,8 +50,7 @@ function fed_get_dashboard_menu_items()
  * @param $menus
  * @param $user_roles
  */
-function fed_get_dashboard_menu_items_add($menus, $user_roles)
-{
+function fed_get_dashboard_menu_items_add($menus, $user_roles){
     ?>
     <div class="row padd_top_20 hide"
          id="fed_add_new_menu_container">
@@ -191,8 +189,7 @@ function fed_get_dashboard_menu_items_add($menus, $user_roles)
  * @param $menus
  * @param $user_roles
  */
-function fed_get_dashboard_menu_items_list($menus, $user_roles)
-{
+function fed_get_dashboard_menu_items_list($menus, $user_roles){
     ?>
     <div class="row padd_top_20">
         <div class="col-md-12">
@@ -422,8 +419,7 @@ function fed_get_dashboard_menu_items_list($menus, $user_roles)
 /**
  * @return array
  */
-function fed_get_dashboard_menu_items_sort_data()
-{
+function fed_get_dashboard_menu_items_sort_data(){
     $menus      = fed_get_all_dashboard_display_menus();
     $new_menus  = array();
     $sort_menus = get_option('fed_admin_menu_sort');
@@ -440,7 +436,7 @@ function fed_get_dashboard_menu_items_sort_data()
                         $new_menus[$sort_menu['parent_type'].'_'.$sort_menu['parent_id']]['submenu'][$sort_index]['order'] = $sort_menu['order'];
                     }
 
-                    if ($menu['menu_type'] === 'user' || $menu['menu_type'] === 'custom') {
+                    if ( 'user' === $menu['menu_type'] || 'custom' === $menu['menu_type'] ) {
                         unset($menus[$menu['menu_slug']]);
                     } else {
                         unset($menus[$menu['id']]);
@@ -449,7 +445,6 @@ function fed_get_dashboard_menu_items_sort_data()
                     break;
                 }
             }
-
         }
 
         /**
@@ -468,8 +463,7 @@ function fed_get_dashboard_menu_items_sort_data()
     return $new_menus;
 }
 
-function fed_get_dashboard_menu_items_sort()
-{
+function fed_get_dashboard_menu_items_sort(){
     wp_enqueue_script('fed_menu_sort', plugins_url('admin/assets/fed_menu_sort.js', BC_FED_PLUGIN), array('jquery'));
     $default_menu_type = fed_get_default_menu_type();
     $new_menus         = fed_get_dashboard_menu_items_sort_data();

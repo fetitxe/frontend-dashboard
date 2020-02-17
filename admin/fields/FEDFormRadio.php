@@ -23,7 +23,7 @@ function fed_form_radio($options)
     $html = '';
 
     $options = fed_get_select_option_value($options['input_value']);
-    $html    .= '<br>';
+    //$html    .= '<br>';
     foreach ($options as $key => $label) {
         $checked = checked($value, $key, false);
         $html    .= sprintf(

@@ -4,12 +4,11 @@
  *
  * @package Frontend Dashboard.
  */
-
 if ( ! defined('ABSPATH')) {
     exit;
 }
-if ( ! class_exists( 'FED_Template_Loader' ) ) {
 
+if ( ! class_exists( 'FED_Template_Loader' ) ) {
     /**
      * Class FED_Template_Loader
      */

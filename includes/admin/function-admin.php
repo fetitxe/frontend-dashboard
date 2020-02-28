@@ -23,7 +23,7 @@ function fed_verify_nonce($request = null, $permission = null){
     /**
      * Added in version 1.5
      */
-    if ($request === null) {
+    if( null === $request ){
         $request = isset($_REQUEST) ? $_REQUEST : null;
     }
 

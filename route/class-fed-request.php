@@ -51,7 +51,11 @@ if ( ! class_exists('FED_Requests')) {
 
             do_action('fed_after_ajax_request_action_hook_call', $request);
 
-            wp_send_json_error(array('message' => 'Invalid Request - FED|route|FED_Requests@ajax_request'));
+            wp_send_json_error(
+				array(
+					'message' => 'Invalid Request - FED|route|FED_Requests@ajax_request'
+				)
+			);
         }
 
 		/**

@@ -934,10 +934,22 @@ function fed_show_alert( $key ) {
         if (is_array($value)) {
             $value = $value[0];
         }
-        $html .= '<div class="alert alert-success">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<strong>' . esc_attr( $value ) . '</strong>
-						</div>';
+/*         $html .= '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>' . esc_attr( $value ) . '</strong>
+		</div>'; */
+
+		$html .= '<script>
+			jQuery(document).ready(function($){
+				swal({
+					title: "' . esc_attr( $value ) . '",
+					type: "success",
+					text: \'\',
+				});
+			});
+		</script>';
+		
+
         delete_transient($key);
     }
 

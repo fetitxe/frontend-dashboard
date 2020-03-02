@@ -24,7 +24,7 @@ function fed_store_user_profile_save() {
 	if (
 		isset( $_REQUEST, $post['tab_id'] ) &&
 		isset( $_REQUEST['menu_type'] ) &&
-		( 'user' === wp_slash( $_REQUEST['menu_type'] ) )
+		( in_array(wp_slash($_REQUEST['menu_type']), apply_filters('fed_save profile_menu_type', array('user'))) )
 	) {
         fed_verify_nonce($post);
 
@@ -65,7 +65,7 @@ function fed_process_update_user_profile( $post ) {
 
     $site_options = array_keys(fed_fetch_user_profile_not_extra_fields_key_value());
 
-    if ( ! $user_obj) {
+    if( !$user_obj ){
         return new WP_Error('invalid_user_id', __('Invalid user ID.'));
     }
 

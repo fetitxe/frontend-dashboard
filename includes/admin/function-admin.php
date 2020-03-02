@@ -2594,7 +2594,7 @@ function fed_show_help_message( array $message = array() ){
     $content = isset($message['content']) ? $message['content'] : '';
     $class   = isset($message['class']) ? $message['class'] : '';
 
-    return '<span class="'.$class.'" data-toggle="popover" data-trigger="focus" role="button"  tabindex="0"  title="'.$title.'" data-content="'.$content.'" data-original-title="'.$title.'" data-html="true"><i class="'.$icon.'"></i></span>';
+    return '<span class="'.$class.'" data-toggle="popover" data-trigger="hover" role="button"  tabindex="0"  title="'.$title.'" data-content="'.$content.'" data-original-title="'.$title.'" data-html="true"><i class="'.$icon.'"></i></span>';
 }
 
 /**

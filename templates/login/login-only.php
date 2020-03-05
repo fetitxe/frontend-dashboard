@@ -27,9 +27,7 @@ do_action( 'fed_before_login_only_form' );
 					<div class="panel-body">
 						<div class="fed_tab_content"
 								data-id="<?php echo esc_attr( $details['menu']['id'] ); ?>">
-							<form method="post"
-									class="fed_form_post"
-							>
+							<form method="post" class="fed_form_post" >
 								<?php
 								$contents = $details['content'];
 								uasort( $contents, 'fed_sort_by_order' );

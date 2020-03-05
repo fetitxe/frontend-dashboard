@@ -397,7 +397,6 @@ jQuery( document ).ready( function ( $ ) {
 
         var fedAlert = {
             loginStatus: function (results) {
-                console.log(results);
                 var error;
                 if (results.success) {
                     swal({
@@ -414,8 +413,8 @@ jQuery( document ).ready( function ( $ ) {
                             window.location.href = results.data.url;
                         });
                 } else {
-                    if (frontend_dashboard.fed_captcha_details && frontend_dashboard.fed_captcha_details.fed_captcha_enable === 'Enable') {
-                        grecaptcha.reset();
+                    if (frontend_dashboard.fed_captcha_details && frontend_dashboard.fed_captcha_details.fed_captcha_enable === 'Enable' && $('#fedLoginCaptcha').count ) {
+						grecaptcha.reset();
                     }
                     if (results.data.user instanceof Array) {
                         error = results.data.user.join('</br>');

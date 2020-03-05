@@ -121,4 +121,7 @@ jQuery(document).ready(function ($) {
             location.reload();
         });
     }
+
+	$('[data-toggle="popover"]').popover();
+
 });

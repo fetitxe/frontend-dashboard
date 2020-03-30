@@ -23,6 +23,10 @@ function fed_common_simple_layout( $form ) {
 		$form['form']['class']
 	)
 		: '';
+
+	$form_container_open        = isset( $form['form']['container']['open'] ) && !empty($form['form']['container']['open'] ) ? $form['form']['container']['open'] : '<div class="row">';
+	$form_container_close        = isset( $form['form']['container']['close'] ) && ! empty( $form['form']['container']['close'] ) ? $form['form']['container']['close'] : '</div>';
+
 	$form_attr         = isset( $form['form']['attr'] ) && ! empty( $form['form']['attr'] ) ? esc_attr(
 		$form['form']['attr']
 	) : '';
@@ -67,69 +71,69 @@ function fed_common_simple_layout( $form ) {
 					echo fed_get_input_details( $hidden );
 				}
 			}
-			?>
-            <div class="row">
-				<?php
-				if ( isset( $form['input'] ) && is_array( $form['input'] ) && count( $form['input'] ) ) {
-					foreach ( $form['input'] as $iindex => $input ) {
-						$col   = isset( $input['col'] ) && ! empty( $input['col'] ) ? $input['col'] : 'col-m-12';
-						$class = isset( $input['class'] ) && ! empty( $input['class'] ) ? $input['class'] : '';
-						$name  = isset( $input['name'] ) && ! empty( $input['name'] ) ? $input['name'] : $iindex;
-						?>
-                        <div class="<?php echo $col . $class; ?> ">
-                            <div class="form-group">
-								<?php if ( isset( $input['name'] ) && null !== $input['name'] ) { ?>
-                                    <label>
-										<?php echo isset( $input['required'] ) ? '<span class="bg-red-font">' . esc_attr( $name ) . '</span>' : esc_attr( $name ); ?>
-										<?php echo isset( $input['help_message'] ) ? ( $input['help_message'] ) : ''; ?>
-                                    </label>
-								<?php } ?>
 
-								<?php if ( isset( $input['header'] ) ) { ?>
-                                    <div class="p-t-10 p-b-10">
-                                        <label>
-											<?php echo isset( $input['required'] ) ? '<span class="bg-red-font">' . esc_attr( $input['header'] ) . '</span>' : esc_attr( $input['header'] ); ?>
-											<?php echo isset( $input['help_message'] ) ? ( $input['help_message'] ) : ''; ?>
-                                        </label>
-                                    </div>
-								<?php } ?>
-								<?php
-								if ( isset( $input['input'] ) ) {
-									if ( is_array( $input['input'] ) ) {
-										echo fed_get_input_details( $input['input'] );
-									} else {
-										echo $input['input'];
-									}
-								}
-								if ( isset( $input['extra']['input'] ) && is_array( $input['extra']['input'] ) ) {
-									$sub_col = isset( $input['sub_col'] ) ? $input['sub_col'] : 'col-md-6';
-									foreach ( $input['extra']['input'] as $eindex => $extra ) {
-										?>
-                                        <div class="<?php echo $sub_col; ?> p-b-10">
-											<?php
-											echo fed_get_input_details( $extra );
-											?>
-                                        </div>
-										<?php
-									}
-								}
-								?>
-                            </div>
-                        </div>
-						<?php
-					}
+			echo $form_container_open;
 
-					do_action( 'fed_admin_login_settings_template', $form );
+			if ( isset( $form['input'] ) && is_array( $form['input'] ) && count( $form['input'] ) ) {
+				foreach ( $form['input'] as $iindex => $input ) {
+					$col   = isset( $input['col'] ) && ! empty( $input['col'] ) ? $input['col'] : 'col-md-12';
+					$class = isset( $input['class'] ) && ! empty( $input['class'] ) ? $input['class'] : '';
+					$name  = isset( $input['name'] ) && ! empty( $input['name'] ) ? $input['name'] : $iindex;
 					?>
+					<div class="<?php echo $col .' '. $class; ?> ">
+						<div class="form-group">
+							<?php if ( isset( $input['name'] ) && null !== $input['name'] ) { ?>
+								<label>
+									<?php echo isset( $input['required'] ) ? '<span class="bg-red-font">' . esc_attr( $name ) . '</span>' : esc_attr( $name ); ?>
+									<?php echo isset( $input['help_message'] ) ? ( $input['help_message'] ) : ''; ?>
+								</label>
+							<?php } ?>
 
-                    <div class="col-md-12">
-                        <input type="submit" class="btn btn-primary" value="Submit"/>
-                    </div>
+							<?php if ( isset( $input['header'] ) ) { ?>
+								<div class="p-t-10 p-b-10">
+									<label>
+										<?php echo isset( $input['required'] ) ? '<span class="bg-red-font">' . esc_attr( $input['header'] ) . '</span>' : esc_attr( $input['header'] ); ?>
+										<?php echo isset( $input['help_message'] ) ? ( $input['help_message'] ) : ''; ?>
+									</label>
+								</div>
+							<?php } ?>
+							<?php
+							if ( isset( $input['input'] ) ) {
+								if ( is_array( $input['input'] ) ) {
+									echo fed_get_input_details( $input['input'] );
+								} else {
+									echo $input['input'];
+								}
+							}
+							if ( isset( $input['extra']['input'] ) && is_array( $input['extra']['input'] ) ) {
+								$sub_col = isset( $input['sub_col'] ) ? $input['sub_col'] : 'col-md-6';
+								foreach ( $input['extra']['input'] as $eindex => $extra ) {
+									?>
+									<div class="<?php echo $sub_col; ?> p-b-10">
+										<?php
+										echo fed_get_input_details( $extra );
+										?>
+									</div>
+									<?php
+								}
+							}
+							?>
+						</div>
+					</div>
 					<?php
 				}
+
+				do_action( 'fed_admin_login_settings_template', $form );
 				?>
-            </div>
-        </form>
+
+				<div class="col-md-12">
+					<input type="submit" class="btn btn-primary" value="Submit"/>
+				</div>
+				<?php
+			}
+		
+		echo $form_container_close;
+		?></form>
 		<?php
 		echo isset( $form['note']['footer'] ) && ! empty( $form['note']['footer'] ) ? esc_attr( $form['note']['footer'] ) : '';
 		?>

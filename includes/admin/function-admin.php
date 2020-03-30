@@ -405,7 +405,8 @@ function fed_get_empty_value_for_user_profile($action){
  */
 function fed_process_user_profile( $row, $action, $update = 'no' ) {
     $default = array(
-        'label_name'     => isset($row['label_name']) ? sanitize_text_field(htmlentities($row['label_name'])) : '',
+//        'label_name'     => isset($row['label_name']) ? sanitize_text_field(htmlentities($row['label_name'])) : '',
+		'label_name'     => isset($row['label_name']) ? sanitize_text_field(strip_tags($row['label_name'])) : '',
         'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
 //        'is_required'    => isset($row['is_required']) ? sanitize_text_field($row['is_required']) : 'false',
         'placeholder'    => isset($row['placeholder']) ? sanitize_text_field($row['placeholder']) : '',
@@ -2576,7 +2577,7 @@ function fed_redirect_to_404(){
     $wp_query->set_404();
     status_header(404);
     nocache_headers();
-    header('location:'.home_url().'/404') or die();
+    header('location:'.home_url().'/404') /* or die() */;
 }
 
 /**
@@ -2625,12 +2626,11 @@ function fed_convert_to_price( $cycle, $custom ) {
  * @return array
  */
 function fed_get_public_post_types() {
-    $post_type = get_post_types(array('public' => true), 'objects');
+	$post_type = get_post_types(array('public' => true), 'objects');
     $new_type  = array();
     foreach ($post_type as $index => $type) {
         $new_type[$index] = $type->label;
     }
-
     return $new_type;
 }
 

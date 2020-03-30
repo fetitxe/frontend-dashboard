@@ -170,8 +170,9 @@ jQuery( document ).ready( function ( $ ) {
                 data: data,
                 url: url,
                 success: function (results) {
-                    // console.log(results);
+                    //console.log(results);
                     fedAlert.dashboardPostCommon(results);
+					click.children('input[name="ID"]').val(results.data.data.ID)
                     fed_toggle_loader();
                 }
             });

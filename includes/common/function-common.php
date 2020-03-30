@@ -602,6 +602,15 @@ function fed_show_alert_message( $message, $type = 'danger' ) {
 	<?php
 }
 
+function fed_show_fixed_alert_message( $message, $type = 'danger' ) {
+	?>
+	<div class="alert alert-<?php echo esc_attr( $type ); ?>">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<?php echo $message; ?>
+	</div>
+	<?php
+}
+
 /**
  * Illegal User Names.
  *

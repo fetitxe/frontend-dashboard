@@ -345,11 +345,11 @@ function fed_get_dashboard_display_categories( $post = '', $cpt = '' ) {
 		)
 	);
 
-    if (isset($post->ID)) {
-        $categories = wp_get_post_terms($post->ID, $cpt->name, array('fields' => 'ids'));
-    }
+	if (isset($post->ID)) {
+		$categories = wp_get_post_terms($post->ID, $cpt->name, array('fields' => 'ids'));
+	}
 
-    return fed_convert_array_to_id_name($fed_get_categories, 'term_id', $cpt->name, $categories);
+	return fed_convert_array_to_id_name($fed_get_categories, 'term_id', $cpt->name, $categories);
 }
 
 /**

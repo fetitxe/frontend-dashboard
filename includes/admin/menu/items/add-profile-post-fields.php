@@ -40,7 +40,7 @@ function fed_get_add_profile_post_fields(){
 				<i class="fa fa-envelope"></i>
 				<?php esc_attr_e( 'Add Extra Post Field', 'frontend-dashboard' ); ?>
 			</a>
-            <a class="btn btn-primary"
+			<a class="btn btn-primary"
 					href="
 					<?php
 					echo esc_url(
@@ -120,7 +120,7 @@ function fed_get_add_profile_post_fields(){
         }
     }
     $menu_options = fed_fetch_menu();
-    $buttons      = fed_admin_user_profile_select($selected);
+    $buttons      = apply_filters('fed_get_add_profile_post_fields_buttons', fed_admin_user_profile_select($selected), $action);
     ?>
     <div class="bc_fed container fed_add_edit_input_container">
 		<div class="row fed_admin_up_select">
@@ -135,26 +135,26 @@ function fed_get_add_profile_post_fields(){
                 <h4 class="fed_header_font_color text-uppercase">
 					<?php echo esc_attr( $add_edit_action ); ?>
 					<?php echo esc_attr( $page ); ?>
-					<?php esc_attr_e( ' field', 'frontend-dashboard' ); ?>
+					<?php esc_attr_e(' field', 'frontend-dashboard' ); ?>
 				</h4>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="row fed_buttons_container <?php echo esc_attr( $buttons['class'] ); ?>">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="row fed_buttons_container <?php echo esc_attr( $buttons['class'] ); ?>">
 					<?php
-                    foreach ($buttons['options'] as $index => $button) {
-                        $active = ($buttons['value'] === $index)? 'active' : '';
-                        ?><div class="col-xs-6">
-							<div class="fed_button <?php echo esc_attr( $active ); ?>" data-button="<?php echo esc_attr( $index ); ?>">
+					foreach ($buttons['options'] as $index => $button) {
+						$active = ($buttons['value'] === $index)? 'active' : '';
+						?><div class="col-xs-6">
+							<div class="fed_button <?php echo esc_attr( $active ); ?>" data-button="<?php echo esc_attr($index); ?>">
 								<div class="fed_button_image">
-									<img src="<?php echo esc_url( $button['image'] ); ?>" alt="" />
+									<img src="<?php echo esc_url($button['image']); ?>" alt="" />
 								</div>
-								<div class="fed_button_text"><?php echo esc_attr( $button['name'] ); ?></div>
+								<div class="fed_button_text"><?php echo esc_attr($button['name']); ?></div>
 							</div>
-                        </div><?php
-                    }
-                    ?>
+						</div><?php
+					}
+					?>
 				</div>
             </div>
 			<div class="col-md-9">
@@ -183,7 +183,7 @@ function fed_get_add_profile_post_fields(){
 					fed_admin_input_fields_select($row, $action, $menu_options);
 					// URL.
 					fed_admin_input_fields_url($row, $action, $menu_options);
-		
+
 					do_action('fed_admin_input_fields_container_extra', $row, $action, $menu_options);
 				?></div>
 			</div>

@@ -72,53 +72,51 @@ function fed_nonce_check( $request, $permission = null ) {
  *
  * @return string | array
  */
-function fed_admin_user_profile_select( $selected = '' ) {
+function fed_admin_user_profile_select( $selected = '' ){
 	$attr = array(
 		'class'   => 'fed_admin_input_items',
-		'options' => apply_filters(
-			'fed_admin_input_item_options', array(
-	            'single_line' => array(
-	                'name'  => __('Single Line', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/single_line.png', BC_FED_PLUGIN),
-	            ),
-	            'multi_line'  => array(
-	                'name'  => __('Multi-Line', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/multi_line.png', BC_FED_PLUGIN),
-	            ),
-	            'number'      => array(
-	                'name'  => __('Number', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/number.png', BC_FED_PLUGIN),
-	            ),
-	            'email'       => array(
-	                'name'  => __('Email', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/email.png', BC_FED_PLUGIN),
-	            ),
-	            'checkbox'    => array(
-	                'name'  => __('Checkbox', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/checkbox.png', BC_FED_PLUGIN),
-	            ),
-	            'select'      => array(
-	                'name'  => __('Select', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/select.png', BC_FED_PLUGIN),
-	            ),
-	            'radio'       => array(
-	                'name'  => __('Radio', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/radio.png', BC_FED_PLUGIN),
-	            ),
-	            'password'    => array(
-	                'name'  => __('Password', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/password.png', BC_FED_PLUGIN),
-	            ),
-	            'url'         => array(
-	                'name'  => __('URL', 'frontend-dashboard'),
-	                'image' => plugins_url('/assets/admin/images/inputs/url.png', BC_FED_PLUGIN),
-	            ),
-        	)
-    	),
-        'value'   => $selected,
-    );
+		'options' => apply_filters('fed_admin_input_item_options', array(
+			'single_line' => array(
+				'name'  => __('Single Line', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/single_line.png', BC_FED_PLUGIN),
+			),
+			'multi_line'  => array(
+				'name'  => __('Multi-Line', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/multi_line.png', BC_FED_PLUGIN),
+			),
+			'number'      => array(
+				'name'  => __('Number', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/number.png', BC_FED_PLUGIN),
+			),
+			'email'       => array(
+				'name'  => __('Email', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/email.png', BC_FED_PLUGIN),
+			),
+			'checkbox'    => array(
+				'name'  => __('Checkbox', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/checkbox.png', BC_FED_PLUGIN),
+			),
+			'select'      => array(
+				'name'  => __('Select', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/select.png', BC_FED_PLUGIN),
+			),
+			'radio'       => array(
+				'name'  => __('Radio', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/radio.png', BC_FED_PLUGIN),
+			),
+			'password'    => array(
+				'name'  => __('Password', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/password.png', BC_FED_PLUGIN),
+			),
+			'url'         => array(
+				'name'  => __('URL', 'frontend-dashboard'),
+				'image' => plugins_url('/assets/admin/images/inputs/url.png', BC_FED_PLUGIN),
+			),
+		), $selected),
+		'value'   => $selected,
+	);
 
-    return apply_filters('fed_admin_input_items', $attr);
+	return apply_filters('fed_admin_input_items', $attr, $selected);
 }
 
 /**

@@ -19,24 +19,27 @@ function fed_validate_user_profile_form( $post ) {
 	/**
 	 * Both Password Match.
 	 */
-	$fed_error        = new WP_Error();
+	$fed_error = new WP_Error();
 	$mandatory_fields = fed_process_user_profile_required_by_menu( $post['tab_id'] );
-	if ( isset( $mandatory_fields['user_pass'] ) ) {
+	if( isset( $mandatory_fields['user_pass'] ) ){
 		unset( $mandatory_fields['user_pass'] );
 		unset( $mandatory_fields['confirmation_password'] );
 	}
 
-	if ( isset( $post['user_pass'] ) && ( '' != $post['user_pass'] ) && ( $post['user_pass'] !== $post['confirmation_password'] ) ) {
-		$fed_error->add( 'password_not_match', __( 'Password not match', 'frontend-dashboard' ) );
+	if( isset($post['user_pass']) 
+		&& '' != $post['user_pass'] 
+		&& $post['user_pass'] !== $post['confirmation_password'] 
+	){
+		$fed_error->add('password_not_match', __('Password not match', 'frontend-dashboard'));
 	}
 
-	foreach ( $mandatory_fields as $key => $mandatory_field ) {
-		if ( '' == $post[ $key ] ) {
-			$fed_error->add( $key, $mandatory_field );
+	foreach( $mandatory_fields as $key => $mandatory_field ){
+		if( '' == $post[$key] ){
+			$fed_error->add($key, $mandatory_field);
 		}
 	}
 
-	if ( $fed_error->get_error_codes() ) {
+	if( $fed_error->get_error_codes() ){
 		return $fed_error;
 	}
 

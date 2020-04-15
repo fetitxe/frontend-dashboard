@@ -79,66 +79,70 @@ function fed_admin_setting_form_function(){
  * Admin User Profile Page
  */
 function fed_admin_setting_up_form_function(){
-    	$post = filter_input_array( INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS );
+	$post = filter_input_array( INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS );
 
-    if ( !isset($post['fed_action'])) {
-		wp_send_json_error(
-			array( 'message' => 'You are trying some naughty actions, this action has been notified to Admin' )
-		);
+	if( !isset($post['fed_action']) ){
+		wp_send_json_error(array(
+			'message' => __('You are trying some naughty actions, this action has been notified to Admin', 'frontend-dashboard')
+		));
 		exit();
-    }
-    /**
-     * Check for Nonce
-     */
-    fed_verify_nonce($post);
+	}
 
-    if ( ! isset($post['label_name']) || empty($post['label_name'])
-            || ! isset($post['input_order']) || empty($post['input_order'])
-            || ! isset($post['input_meta']) || empty($post['input_meta'])
-            || ! isset($post['input_type'])
-            || ! isset($post['input_id'])
-    ) {
+	/**
+	 * Check for Nonce
+	 */
+	fed_verify_nonce($post);
 
-        wp_send_json_error(array('message' => 'Please fill required fields'));
-        exit();
+	if( !isset($post['label_name'])
+		|| empty($post['label_name'])
+		|| !isset($post['input_order'])
+		|| empty($post['input_order'])
+		|| !isset($post['input_meta'])
+		|| empty($post['input_meta'])
+		|| !isset($post['input_type'])
+		|| !isset($post['input_id'])
+	){
+		wp_send_json_error(array('message' => 'Please fill required fields'));
+		exit();
+	}
 
-    }
+	/**
+	 * Check for default post value as input meta
+	 */
+	if( 'post' === $post['fed_action'] 
+		&& '' === $post['input_id']
+		&& in_array($post['input_meta'], fed_get_default_post_items(), false)
+	){
+		wp_send_json_error(array(
+			'message' => sprintf(
+			/* Translators: %s : Label Name */
+				__( 'Sorry! you cannot add the default post value %s', 'frontend-dashboard' ),
+				esc_attr( $post['label_name'] )
+			),
+		));
+	}
 
-    /**
-     * Check for default post value as input meta
-     */
-    if( ('post' === $post['fed_action']) && ('' === $post['input_id']) && in_array($post['input_meta'], fed_get_default_post_items(), false) ){
-        wp_send_json_error(
-        	array(
-				'message' => sprintf(
-				/* Translators: %s : Label Name */
-					__( 'Sorry! you cannot add the default post value %s', 'frontend-dashboard' ),
-					esc_attr( $post['label_name'] )
-				),
-        	)
-        );
-    }
+	/**
+	 * Check for default user profile value as input meta
+	 */
+	if( 'profile' === $post['fed_action']
+		&& '' === $post['input_id']
+		&& in_array($post['input_meta'], fed_get_default_profile_items(), false)
+	){
+		wp_send_json_error(array(
+			'message' => sprintf(
+			/* Translators: %s : Label Name */
+				__( 'Sorry! you cannot add the default profile value %s', 'frontend-dashboard' ),
+				esc_attr( $post['label_name'] )
+			),
+		));
+	}
 
-    /**
-     * Check for default user profile value as input meta
-     */
-    if ( ('profile' === $post['fed_action']) && ('' === $post['input_id']) && in_array($post['input_meta'], fed_get_default_profile_items(), false) ){
-        wp_send_json_error(
-			array(
-				'message' => sprintf(
-				/* Translators: %s : Label Name */
-					__( 'Sorry! you cannot add the default profile value %s', 'frontend-dashboard' ),
-					esc_attr( $post['label_name'] )
-				),
-			)
-		);
-    }
+	$values = fed_process_user_profile($post, $post['fed_action'], 'yes');
 
-    $values = fed_process_user_profile($post, $post['fed_action'], 'yes');
+	$post_id = isset($post['input_id']) && ! empty($post['input_id']) ? (int) $post['input_id'] : '';
 
-    $post_id = isset($post['input_id']) && ! empty($post['input_id']) ? (int) $post['input_id'] : '';
-
-    fed_save_profile_post($values, $post['fed_action'], $post_id);
+	fed_save_profile_post($values, $post['fed_action'], $post_id);
 }
 
 /**

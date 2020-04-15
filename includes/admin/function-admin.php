@@ -402,48 +402,47 @@ function fed_get_empty_value_for_user_profile($action){
  * @return array
  */
 function fed_process_user_profile( $row, $action, $update = 'no' ) {
-    $default = array(
+	$default = array(
 //        'label_name'     => isset($row['label_name']) ? sanitize_text_field(htmlentities($row['label_name'])) : '',
 		'label_name'     => isset($row['label_name']) ? sanitize_text_field(strip_tags($row['label_name'])) : '',
-        'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
+		'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
 //        'is_required'    => isset($row['is_required']) ? sanitize_text_field($row['is_required']) : 'false',
-        'placeholder'    => isset($row['placeholder']) ? sanitize_text_field($row['placeholder']) : '',
-        'class_name'     => isset($row['class_name']) ? sanitize_text_field($row['class_name']) : '',
-        'id_name'        => isset($row['id_name']) ? sanitize_text_field($row['id_name']) : '',
-        'input_value'    => isset($row['input_value']) ? sanitize_text_field($row['input_value']) : '',
-        'input_location' => isset($row['location']) ? sanitize_text_field($row['location']) : '',
-        'input_min'      => isset($row['input_min']) ? sanitize_text_field($row['input_min']) : '',
-        'input_max'      => isset($row['input_max']) ? sanitize_text_field($row['input_max']) : '',
-        'input_step'     => isset($row['input_step']) ? sanitize_text_field($row['input_step']) : '',
-        'input_row'      => isset($row['input_row']) ? sanitize_text_field($row['input_row']) : '',
-        'input_type'     => isset($row['input_type']) ? sanitize_text_field($row['input_type']) : '',
-        'input_meta'     => isset($row['input_meta']) ? sanitize_text_field($row['input_meta']) : '',
+		'placeholder'    => isset($row['placeholder']) ? sanitize_text_field($row['placeholder']) : '',
+		'class_name'     => isset($row['class_name']) ? sanitize_text_field($row['class_name']) : '',
+		'id_name'        => isset($row['id_name']) ? sanitize_text_field($row['id_name']) : '',
+		'input_value'    => isset($row['input_value']) ? sanitize_text_field($row['input_value']) : '',
+		'input_location' => isset($row['location']) ? sanitize_text_field($row['location']) : '',
+		'input_min'      => isset($row['input_min']) ? sanitize_text_field($row['input_min']) : '',
+		'input_max'      => isset($row['input_max']) ? sanitize_text_field($row['input_max']) : '',
+		'input_step'     => isset($row['input_step']) ? sanitize_text_field($row['input_step']) : '',
+		'input_row'      => isset($row['input_row']) ? sanitize_text_field($row['input_row']) : '',
+		'input_type'     => isset($row['input_type']) ? sanitize_text_field($row['input_type']) : '',
+		'input_meta'     => isset($row['input_meta']) ? sanitize_text_field($row['input_meta']) : '',
 
 		'is_required' => ( isset($row['is_required']) && !empty($row['is_required']) )? ( is_string($row['is_required']) )? ( in_array($row['is_required'], array('true','false')) )? $row['is_required'] : unserialize($row['is_required']) : serialize(array_keys($row['is_required'])) : 'false' ,
 
-        'user_role' => ( isset($row['user_role']) && !empty($row['user_role']) )? ( is_string($row['user_role']) )? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) : array(),
-    );
+		'user_role' => ( isset($row['user_role']) && !empty($row['user_role']) )? ( is_string($row['user_role']) )? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) : array(),
+	);
 
 	if( 'post' === $action ){
 		$default['post_type'] = ( isset( $row['post_type'] ) && fed_check_post_type(
 				$row['post_type']
 			) ) ? sanitize_text_field( $row['post_type'] ) : 'post';
 	}
-    if( 'select' === $row['input_type'] ){
-        if( 'yes' === $update ){
-            $extended            = array(
-				'multiple' => isset( $row['extended']['multiple'] ) ? sanitize_text_field(
-					$row['extended']['multiple']
-				) : 'no',
+
+	if( 'select' === $row['input_type'] ){
+		if( 'yes' === $update ){
+			$extended = array(
+				'multiple' => isset($row['extended']['multiple'])? sanitize_text_field($row['extended']['multiple']) : 'no',
 			);
-            $default['extended'] = serialize($extended);
-        }else{
-            $default['extended'] = $row['extended'];
-            if( is_string($row['extended']) ){
-                $default['extended'] = unserialize($row['extended']);
-            }
-        }
-    }
+			$default['extended'] = serialize($extended);
+		}else{
+			$default['extended'] = $row['extended'];
+			if( is_string($row['extended']) ){
+				$default['extended'] = unserialize($row['extended']);
+			}
+		}
+	}
 
     if( 'checkbox' === $row['input_type'] ){
         if( 'yes' === $update ){
@@ -490,7 +489,6 @@ function fed_process_user_profile( $row, $action, $update = 'no' ) {
             'show_dashboard'    => isset($row['show_dashboard']) ? sanitize_text_field($row['show_dashboard']) : 'Disable',
             'menu'              => isset($row['menu']) ? sanitize_text_field($row['menu']) : 'profile',
             'show_user_profile' => isset($row['show_user_profile']) ? sanitize_text_field($row['show_user_profile']) : 'Enable',
-
         );
         $default_value = array_merge($default, $user_profile);
     } else {

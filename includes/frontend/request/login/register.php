@@ -70,52 +70,35 @@ add_filter('insert_user_meta', 'fed_insert_user_meta', 10, 3);
  *
  * @return mixed|void
  */
-function fed_insert_user_meta( $meta, $user, $update ) {
-    $get_profile_meta_by_menu = array();
-	if ( isset( $_REQUEST['tab_id'] ) ) {
-		$get_profile_meta_by_menu = fed_fetch_user_profile_columns( esc_attr( $_REQUEST['tab_id'] ) );
+function fed_insert_user_meta($meta, $user, $update){
+	$get_profile_meta_by_menu = array();
+	if( isset($_REQUEST['tab_id']) ){
+		$get_profile_meta_by_menu = fed_fetch_user_profile_columns(esc_attr($_REQUEST['tab_id']));
 	}
 
-	if ( isset( $_REQUEST['fed_registration_form'] ) ) {
+	if( isset($_REQUEST['fed_registration_form']) ){
 		/**
 		 * Fetch registration form field and add it in the meta fields
 		 */
 		$get_profile_meta_by_menu = fed_fetch_user_profile_by_registration();
 	}
 
-
-	if ( count( $get_profile_meta_by_menu ) > 0 ) {
-		foreach ( $get_profile_meta_by_menu as $key => $extra_field ) {
-			if (
-				isset( $_REQUEST[ $extra_field['input_meta'] ] ) && is_array(
-					$_REQUEST[ $extra_field['input_meta'] ]
-				)
-			) {
-				$meta[ $extra_field['input_meta'] ] = serialize(
-					fed_sanitize_text_field( $_REQUEST[ $extra_field['input_meta'] ] )
-				);
-			}
-			else {
-				if ( isset( $extra_field['input_type'] ) && 'wp_editor' === $extra_field['input_type'] ) {
-					$meta[ $extra_field['input_meta'] ] = isset( $_REQUEST[ $extra_field['input_meta'] ] ) ? wp_kses_post(
-						$_REQUEST[ $extra_field['input_meta'] ]
-					) : '';
-				}
-				elseif ( isset( $extra_field['input_type'] ) && 'multi_line' === $extra_field['input_type'] ) {
-					$meta[ $extra_field['input_meta'] ] = isset( $_REQUEST[ $extra_field['input_meta'] ] ) ? wp_kses(
-						$_REQUEST[ $extra_field['input_meta'] ],
-						array()
-					) : '';
-				}
-				else {
-					$meta[ $extra_field['input_meta'] ] = isset( $_REQUEST[ $extra_field['input_meta'] ] ) ? fed_sanitize_text_field(
-						$_REQUEST[ $extra_field['input_meta'] ]
-					) : '';
+	if( count($get_profile_meta_by_menu) > 0 ){
+		foreach( $get_profile_meta_by_menu as $key => $extra_field ){
+			if( isset($_REQUEST[$extra_field['input_meta']]) && is_array($_REQUEST[$extra_field['input_meta']])){
+				$meta[$extra_field['input_meta']] = serialize(fed_sanitize_text_field($_REQUEST[$extra_field['input_meta']]));
+			}else{
+				if( isset($extra_field['input_type']) && 'wp_editor' === $extra_field['input_type'] ){
+					$meta[$extra_field['input_meta']] = isset($_REQUEST[$extra_field['input_meta']])? wp_kses_post($_REQUEST[$extra_field['input_meta']]) : '';
+				}elseif( isset($extra_field['input_type']) && 'multi_line' === $extra_field['input_type'] ){
+					$meta[$extra_field['input_meta']] = isset($_REQUEST[$extra_field['input_meta']])? wp_kses($_REQUEST[$extra_field['input_meta']],array()) : '';
+				}else{
+					$meta[$extra_field['input_meta']] = isset($_REQUEST[$extra_field['input_meta']])? fed_sanitize_text_field($_REQUEST[$extra_field['input_meta']]) : '';
 				}
 			}
 		}
 	}
 
-	return apply_filters( 'fed_user_extra_fields_registration', $meta );
+	return apply_filters('fed_user_extra_fields_registration', $meta, $user);
 
 }

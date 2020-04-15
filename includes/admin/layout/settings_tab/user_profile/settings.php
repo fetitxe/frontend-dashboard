@@ -45,7 +45,7 @@ function fed_admin_user_profile_settings_tab( $fed_admin_options ) {
 		'input'  => array(
 			'Change Profile Picture'        => array(
 				'col'          => 'col-md-6',
-				'name'         => __( 'Change Profile Picture', 'frontend-dashboard' ),
+				'name'         => __( 'Change Profile Picture', 'frontend-dashboard'),
 				'input'        => fed_get_input_details(
 					array(
 						'input_meta'  => 'settings[fed_upl_change_profile_pic]',
@@ -55,12 +55,12 @@ function fed_admin_user_profile_settings_tab( $fed_admin_options ) {
 					)
 				),
 				'help_message' => fed_show_help_message( array(
-					'content' => __( 'Image size should be min 600x600 px', 'frontend-dashboard' ),
+					'content' => __( 'Image size should be min 600x600 px', 'frontend-dashboard'),
 				) ),
 			),
 			'Disable Description'           => array(
 				'col'   => 'col-md-6',
-				'name'  => __( 'Disable Description', 'frontend-dashboard' ),
+				'name'  => __( 'Disable Description', 'frontend-dashboard'),
 				'input' => fed_get_input_details(
 					array(
 						'input_value' => fed_yes_no( 'ASC' ),
@@ -72,10 +72,10 @@ function fed_admin_user_profile_settings_tab( $fed_admin_options ) {
 			),
 			'Number of Recent Post to show' => array(
 				'col'   => 'col-md-6',
-				'name'  => __( 'Number of Recent Post to show', 'frontend-dashboard' ),
+				'name'  => __( 'Number of Recent Post to show', 'frontend-dashboard'),
 				'input' => fed_get_input_details(
 					array(
-						'placeholder' => __( 'Number of Recent Post to show on User Profile', 'frontend-dashboard' ),
+						'placeholder' => __( 'Number of Recent Post to show on User Profile', 'frontend-dashboard'),
 						'input_meta'  => 'settings[fed_upl_no_recent_post]',
 						'user_value'  => isset( $fed_admin_options['settings']['fed_upl_no_recent_post'] ) ? $fed_admin_options['settings']['fed_upl_no_recent_post'] : '5',
 						'input_type'  => 'number',
@@ -84,7 +84,7 @@ function fed_admin_user_profile_settings_tab( $fed_admin_options ) {
 			),
 			'Collapse Menu Always'          => array(
 				'col'   => 'col-md-6',
-				'name'  => __( 'Collapse Menu Always', 'frontend-dashboard' ),
+				'name'  => __( 'Collapse Menu Always', 'frontend-dashboard'),
 				'input' => fed_get_input_details(
 					array(
 						'input_value' => fed_yes_no( 'ASC' ),

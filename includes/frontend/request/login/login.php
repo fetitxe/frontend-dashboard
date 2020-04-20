@@ -20,7 +20,7 @@ function fed_login_form_submit( $post ) {
     $credentials = array(
             'user_login'    => $post['user_login'],
             'user_password' => $post['user_password'],
-            'remember'      => isset($post['remember']) ? true : false,
+			'remember'      => isset( $post['remember'] ),
     );
 
     $redirect_url = fed_get_login_redirect_url();

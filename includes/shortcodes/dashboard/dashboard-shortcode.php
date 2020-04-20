@@ -37,11 +37,11 @@ function fed_dashboard_template_redirect() {
 	if( !is_user_logged_in() ){
 		$location   = fed_get_dashboard_url();
 		$login_page = fed_get_login_url();
-		if( false !== $location && get_permalink() == $location ){
-			$login_page = ( false === $login_page )? esc_url(wp_login_url()) : $login_page ;
-			if( wp_redirect($login_page) ){
-				exit;
-			}
+		if ( ( false != $location ) && ( get_permalink() == $location ) ) {
+			$login_page = ( false == $login_page ) ? esc_url( wp_login_url() ) : $login_page;
+
+			wp_safe_redirect( $login_page );
+			exit();
 		}
 	}
 }

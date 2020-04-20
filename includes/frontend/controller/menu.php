@@ -102,23 +102,22 @@ function fed_get_logout_menu(){
  * @param array $menus Menus.
  */
 function fed_display_dashboard_menu($menus){
-    $first_element_key = array_keys($menus['menu_items']);
-    $first_element     = $first_element_key[0];
-    $dashboard_url     = fed_get_dashboard_url();
-	$get_payload       = filter_input_array( INPUT_GET, FILTER_SANITIZE_STRING );
+	$first_element_key = array_keys($menus['menu_items']);
+	$first_element     = $first_element_key[0];
+	$dashboard_url     = fed_get_dashboard_url();
+	$get_payload       = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
-    foreach ($menus['menu_items'] as $index => $menu) {
-        $menu_format  = fed_format_menu_items($menu, $index, $first_element, $dashboard_url, $index);
-        $is_submenu   = '';
-        $submenu_icon = '';
+	foreach ($menus['menu_items'] as $index => $menu) {
+		$menu_format  = fed_format_menu_items($menu, $index, $first_element, $dashboard_url, $index);
+		$is_submenu   = '';
+		$submenu_icon = '';
 		$parent_id    = isset($get_payload, $get_payload['parent_id'])? fed_sanitize_text_field($get_payload['parent_id']) : '';
-        if (isset($menu['submenu'])) {
-            $is_submenu   = true;
-            $submenu_icon = '<span class="fed_float_right"><i class="fas fa-chevron-right"></i></span>';
-            $submenus     = $menu['submenu'];
-            uasort($submenus, 'fed_sort_by_order');
-
-        }
+		if (isset($menu['submenu'])) {
+			$is_submenu   = true;
+			$submenu_icon = '<span class="fed_float_right"><i class="fas fa-chevron-right"></i></span>';
+			$submenus     = $menu['submenu'];
+			uasort($submenus, 'fed_sort_by_order');
+		}
 
 		$random_number = fed_get_random_string(5);
 		?>
@@ -139,9 +138,7 @@ function fed_display_dashboard_menu($menus){
 										<span class="<?php echo esc_attr( $menu['menu_image_id'] ); ?>"></span>
 									</div>
 									<div class="fed_menu_title">
-										<?php
-										echo esc_attr( $menu_format['menu_name'] );
-										?>
+										<?php echo esc_attr( $menu_format['menu_name'] ); ?>
 									</div>
 								</div>
 								<div>

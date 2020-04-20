@@ -3513,7 +3513,7 @@ function fed_get_help_video_items() {
     );
 }
 
-add_filter('contextual_help', 'fed_remove_contextual_help', 999, 3);
+//add_filter('contextual_help', 'fed_remove_contextual_help', 999, 3);
 /**
  * Remove Contextual Help.
  *
@@ -3523,6 +3523,7 @@ add_filter('contextual_help', 'fed_remove_contextual_help', 999, 3);
  *
  * @return string
  */
+/*
 function fed_remove_contextual_help( $old_help, $screen_id, $screen ) {
     if ( 'toplevel_page_fed_settings_menu' === $screen_id ) {
         $screen->remove_help_tabs();
@@ -3531,7 +3532,7 @@ function fed_remove_contextual_help( $old_help, $screen_id, $screen ) {
     }
 
     return $old_help;
-}
+} */
 
 add_action('admin_footer_text', 'fed_show_help_icons');
 /**

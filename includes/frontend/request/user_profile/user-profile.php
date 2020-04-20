@@ -89,8 +89,7 @@ function fed_process_update_user_profile($post) {
 				$new_value[$site_option] = $user_obj->has_prop($site_option) ? $user_obj->get($site_option) : '';
 			}
 		}
-	}
-	
+	}	
 
 	// Escape data pulled from DB.
 	return add_magic_quotes( $new_value );

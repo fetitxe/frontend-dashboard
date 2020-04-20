@@ -52,9 +52,12 @@ function fed_display_dashboard_profile( $menu_item ) {
 		</div>
 		<div class="panel-body">
 			<?php
+			do_action( 'fed_dashboard_panel_inside_top' );
+			do_action( 'fed_dashboard_panel_inside_top_' . fed_get_data( 'menu_slug', $menu_item ) );
 			if ( $menu_default_page ) {
 				if ( $profiles ) {
                     usort($profiles, 'fed_sort_by_order');
+					// phpcs:ignore
 					echo fed_show_alert( 'fed_profile_save_message' );
 					?>
 					<form method="post"
@@ -62,14 +65,14 @@ function fed_display_dashboard_profile( $menu_item ) {
 						<?php fed_wp_nonce_field( 'fed_nonce', 'fed_nonce' ); ?>
 						<input type="hidden"
 							   name="tab_id"
-							   value="<?php echo esc_attr( $index ); ?>">
+							   value="<?php echo esc_attr( $index ); ?>"/>
                         <input type="hidden"
 							   name="menu_type"
-							   value="<?php echo esc_attr( $menu_item['menu_type'] ); ?>">
+							   value="<?php echo esc_attr( $menu_item['menu_type'] ); ?>"/>
 
                         <input type="hidden"
 							   name="menu_slug"
-							   value="<?php echo esc_attr( $menu_item['menu_slug'] ); ?>">
+							   value="<?php echo esc_attr( $menu_item['menu_slug'] ); ?>"/>
 						<?php
 						foreach ( $profiles as $single_item ) {
 							if ( 'user_pass' !== $single_item['input_meta'] || 'confirmation_password' !== $single_item['input_meta'] ) {
@@ -86,7 +89,7 @@ function fed_display_dashboard_profile( $menu_item ) {
 							?>
 							<div class="row fed_dashboard_item_field">
 								<div class="col-md-12 fo">
-									<label><?php echo htmlspecialchars_decode($single_item['label_name']); ?></label>
+									<label><?php echo wp_kses_post($single_item['label_name']); ?></label>
 									<?php echo fed_get_input_details( $single_item ); ?>
 								</div>
 							</div>
@@ -99,7 +102,6 @@ function fed_display_dashboard_profile( $menu_item ) {
 								<?php esc_attr_e( 'Save', 'frontend-dashboard' ); ?>
 							</button>
 						</div>
-
 					</form>
 					<?php
 				}else{
@@ -108,6 +110,10 @@ function fed_display_dashboard_profile( $menu_item ) {
 			}else{
 				do_action( 'fed_override_default_page', $menus, $index );
 			}
-		?></div>
-	</div><?php
+			do_action( 'fed_dashboard_panel_inside_bottom' );
+			do_action( 'fed_dashboard_panel_inside_bottom_' . fed_get_data( 'menu_slug', $menu_item ) );
+			?>
+		</div>
+	</div>
+	<?php
 }

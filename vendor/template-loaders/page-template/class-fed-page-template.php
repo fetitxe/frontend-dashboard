@@ -55,7 +55,7 @@ class FED_Page_Template {
 		$this->templates = apply_filters( 'fed_add_new_page_template_url', array(
 			'vendor/template-loaders/page-template/layouts/fed-login.php'     => 'FED Login',
 			'vendor/template-loaders/page-template/layouts/fed-dashboard.php' => 'FED Dashboard',
-			// 'vendor/template-loaders/page-template/layouts/fed_invoice.php'   => 'FED Invoice'
+			// 'vendor/template-loaders/page-template/layouts/fed_invoice.php'   => 'FED Invoice'.
 		) );
 
 	}

@@ -27,43 +27,43 @@ if ( ! class_exists('FED_AdminUserProfile')) {
 			add_action('edit_user_profile_update', array($this, 'fed_personal_options_update'));
 		}
 
-        /**
-         * Show extra fields on User Profile Page
-         *
-         * @param WP_User $user User Profile Fields.
-         */
-        public function fed_show_user_profile($user){ 
+		/**
+		 * Show extra fields on User Profile Page
+		 *
+		 * @param WP_User $user User Profile Fields.
+		 */
+		public function fed_show_user_profile($user){ 
 			?><h3><?php esc_attr_e('Frontend Dashboard', 'frontend-dashboard'); ?></h3>
 			<table class="form-table bc_fed fed_profile_table">
-                <?php
-                $fields = fed_fetch_user_profile_extra_fields();
-                if ( null === $fields || false === $fields ) {
+				<?php
+				$fields = fed_fetch_user_profile_extra_fields();
+				if( null === $fields || false === $fields ){
 					esc_attr_e('Sorry no extra fields added - Please add here ', 'frontend-dashboard' );
 					make_clickable( menu_page_url( 'fed_user_profile' ) );
-				} else {
-                    foreach ($fields as $field) {
-                        $extended        = isset($field['extended']) ? is_string($field['extended']) ? unserialize($field['extended']) : $field['extended'] : '';
-                        $extended_fields = fed_default_extended_fields();
-                        $default_value   = array(
-                            'label_name'  => isset($field['label_name']) ? esc_attr($field['label_name']) : '',
-                            'is_required' => isset($field['is_required']) ? esc_attr($field['is_required']) : 'false',
-                            'input_type'  => isset($field['input_type']) ? esc_attr($field['input_type']) : '',
-                            'input_meta'  => isset($field['input_meta']) ? esc_attr($field['input_meta']) : '',
-                            'placeholder' => isset($field['placeholder']) ? esc_attr($field['placeholder']) : '',
-                            'class_name'  => isset($field['class_name']) ? esc_attr($field['class_name']) . ' regular-text' : 'regular-text',
-                            'id_name'     => isset($field['id_name']) ? esc_attr($field['id_name']) : '',
-                            'user_value'  => get_user_meta($user->ID, $field['input_meta'], true),
-                            'input_min'   => isset($field['input_min']) ? esc_attr($field['input_min']) : '',
-                            'input_max'   => isset($field['input_max']) ? esc_attr($field['input_max']) : '',
-                            'input_step'  => isset($field['input_step']) ? esc_attr($field['input_step']) : '',
-                            'input_row'   => isset($field['input_row']) ? esc_attr($field['input_row']) : '',
-                            'input_value' => isset($field['input_value']) ? esc_attr($field['input_value']) : '',
-                        );
+				}else{
+					foreach ($fields as $field) {
+						$extended = isset($field['extended'])? is_string($field['extended'])? unserialize($field['extended']) : $field['extended'] : '';
+						$extended_fields = fed_default_extended_fields();
+						$default_value   = array(
+							'label_name'  => isset($field['label_name']) ? esc_attr($field['label_name']) : '',
+							'is_required' => isset($field['is_required']) ? esc_attr($field['is_required']) : 'false',
+							'input_type'  => isset($field['input_type']) ? esc_attr($field['input_type']) : '',
+							'input_meta'  => isset($field['input_meta']) ? esc_attr($field['input_meta']) : '',
+							'placeholder' => isset($field['placeholder']) ? esc_attr($field['placeholder']) : '',
+							'class_name'  => isset($field['class_name']) ? esc_attr($field['class_name']) . ' regular-text' : 'regular-text',
+							'id_name'     => isset($field['id_name']) ? esc_attr($field['id_name']) : '',
+							'user_value'  => get_user_meta($user->ID, $field['input_meta'], true),
+							'input_min'   => isset($field['input_min']) ? esc_attr($field['input_min']) : '',
+							'input_max'   => isset($field['input_max']) ? esc_attr($field['input_max']) : '',
+							'input_step'  => isset($field['input_step']) ? esc_attr($field['input_step']) : '',
+							'input_row'   => isset($field['input_row']) ? esc_attr($field['input_row']) : '',
+							'input_value' => isset($field['input_value']) ? esc_attr($field['input_value']) : '',
+						);
 
-                        foreach ($extended_fields as $index => $extended_field) {
-                            $default_value['extended'][$index] = isset($extended[$index]) ? esc_attr($extended[$index]) : '';
-                        }
-                        ?>
+						foreach ($extended_fields as $index => $extended_field) {
+							$default_value['extended'][$index] = isset($extended[$index]) ? esc_attr($extended[$index]) : '';
+						}
+						?>
 						<tr>
 							<th>
 								<label for="<?php echo esc_attr( $default_value['input_meta'] ); ?>">
@@ -72,16 +72,16 @@ if ( ! class_exists('FED_AdminUserProfile')) {
 							</th>
 
 							<td>
-                                <?php
-                                echo fed_get_input_details($default_value);
-                                ?>
+								<?php
+								echo fed_get_input_details($default_value);
+								?>
 							</td>
 						</tr>
-                    <?php }
-                }
-                ?>
+					<?php }
+				}
+				?>
 			</table>
-        <?php }
+		<?php }
 
 		/**
 		 * Personal Options to Update on Backend.

@@ -282,14 +282,13 @@ function fed_get_input_group( $attr ) {
  *
  * @return array
  */
-function fed_get_select_option_value( $input_value ) {
-    if (is_string($input_value)) {
-        return strlen($input_value) > 0 ? fed_convert_comma_separated_key_value($input_value) : array();
-    }
-    if (is_array($input_value)) {
-        return count($input_value) > 0 ? $input_value : array();
-    }
-
+function fed_get_select_option_value( $input_value ){
+	if (is_string($input_value)) {
+		return strlen($input_value) > 0 ? fed_convert_comma_separated_key_value($input_value) : array();
+	}
+	if (is_array($input_value)) {
+		return count($input_value) > 0 ? $input_value : array();
+	}
 }
 
 /**
@@ -403,10 +402,8 @@ function fed_get_empty_value_for_user_profile($action){
  */
 function fed_process_user_profile( $row, $action, $update = 'no' ) {
 	$default = array(
-//        'label_name'     => isset($row['label_name']) ? sanitize_text_field(htmlentities($row['label_name'])) : '',
 		'label_name'     => isset($row['label_name']) ? sanitize_text_field(strip_tags($row['label_name'])) : '',
 		'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
-//        'is_required'    => isset($row['is_required']) ? sanitize_text_field($row['is_required']) : 'false',
 		'placeholder'    => isset($row['placeholder']) ? sanitize_text_field($row['placeholder']) : '',
 		'class_name'     => isset($row['class_name']) ? sanitize_text_field($row['class_name']) : '',
 		'id_name'        => isset($row['id_name']) ? sanitize_text_field($row['id_name']) : '',
@@ -425,9 +422,7 @@ function fed_process_user_profile( $row, $action, $update = 'no' ) {
 	);
 
 	if( 'post' === $action ){
-		$default['post_type'] = ( isset( $row['post_type'] ) && fed_check_post_type(
-				$row['post_type']
-			) ) ? sanitize_text_field( $row['post_type'] ) : 'post';
+		$default['post_type'] = ( isset($row['post_type']) && fed_check_post_type($row['post_type']) )? sanitize_text_field($row['post_type']) : 'post';
 	}
 
 	if( 'select' === $row['input_type'] ){
@@ -444,58 +439,58 @@ function fed_process_user_profile( $row, $action, $update = 'no' ) {
 		}
 	}
 
-    if( 'checkbox' === $row['input_type'] ){
-        if( 'yes' === $update ){
-            $extended            = array(
-                'label' => isset($row['extended']['label']) ? wp_kses_post($row['extended']['label']) : '',
-            );
-            $default['extended'] = serialize($extended);
-        }else{
-            $default['extended'] = $row['extended'];
-            if (is_string($row['extended'])) {
-                $default['extended'] = unserialize($row['extended']);
-            }
-        }
-    }
+	if( 'checkbox' === $row['input_type'] ){
+		if( 'yes' === $update ){
+			$extended            = array(
+				'label' => isset($row['extended']['label']) ? wp_kses_post($row['extended']['label']) : '',
+			);
+			$default['extended'] = serialize($extended);
+		}else{
+			$default['extended'] = $row['extended'];
+			if (is_string($row['extended'])) {
+				$default['extended'] = unserialize($row['extended']);
+			}
+		}
+	}
 
-    if( 'date' === $row['input_type'] ){
-        if( isset($row['extended']) ) {
-            if( 'yes' === $update ){
-                $extended = array(
-                    'date_format' => isset($row['extended']['date_format']) ? sanitize_text_field($row['extended']['date_format']) : 'd-m-Y',
-                    'enable_time' => isset($row['extended']['enable_time']) ? sanitize_text_field($row['extended']['enable_time']) : 'no',
-                    'date_mode'   => isset($row['extended']['date_mode']) ? sanitize_text_field($row['extended']['date_mode']) : 'single',
-                    'time_24hr'   => isset($row['extended']['time_24hr']) ? sanitize_text_field($row['extended']['time_24hr']) : '24_hours',
-                );
-                $default['extended'] = serialize($extended);
-            }else{
-                if (is_string($row['extended'])) {
-                    $default['extended'] = unserialize($row['extended']);
-                }
-                if (is_array($row['extended'])) {
-                    $default['extended'] = $row['extended'];
-                }
-            }
-        }else{
-            $default['extended'] = fed_default_extended_fields();
-        }
-    }
+	if( 'date' === $row['input_type'] ){
+		if( isset($row['extended']) ) {
+			if( 'yes' === $update ){
+				$extended = array(
+					'date_format' => isset($row['extended']['date_format']) ? sanitize_text_field($row['extended']['date_format']) : 'd-m-Y',
+					'enable_time' => isset($row['extended']['enable_time']) ? sanitize_text_field($row['extended']['enable_time']) : 'no',
+					'date_mode'   => isset($row['extended']['date_mode']) ? sanitize_text_field($row['extended']['date_mode']) : 'single',
+					'time_24hr'   => isset($row['extended']['time_24hr']) ? sanitize_text_field($row['extended']['time_24hr']) : '24_hours',
+				);
+				$default['extended'] = serialize($extended);
+			}else{
+				if (is_string($row['extended'])) {
+					$default['extended'] = unserialize($row['extended']);
+				}
+				if (is_array($row['extended'])) {
+					$default['extended'] = $row['extended'];
+				}
+			}
+		}else{
+			$default['extended'] = fed_default_extended_fields();
+		}
+	}
 
-    $default = apply_filters('fed_process_form_fields', $default, $row, $action, $update);
+	$default = apply_filters('fed_process_form_fields', $default, $row, $action, $update);
 
 	if ( 'profile' === $action ) {
-        $user_profile  = array(
-            'show_register'     => fed_filter_show_register($row),
-            'show_dashboard'    => isset($row['show_dashboard']) ? sanitize_text_field($row['show_dashboard']) : 'Disable',
-            'menu'              => isset($row['menu']) ? sanitize_text_field($row['menu']) : 'profile',
-            'show_user_profile' => isset($row['show_user_profile']) ? sanitize_text_field($row['show_user_profile']) : 'Enable',
-        );
-        $default_value = array_merge($default, $user_profile);
-    } else {
-        $default_value = $default;
-    }
+		$user_profile  = array(
+			'show_register'     => fed_filter_show_register($row),
+			'show_dashboard'    => isset($row['show_dashboard']) ? sanitize_text_field($row['show_dashboard']) : 'Disable',
+			'menu'              => isset($row['menu']) ? sanitize_text_field($row['menu']) : 'profile',
+			'show_user_profile' => isset($row['show_user_profile']) ? sanitize_text_field($row['show_user_profile']) : 'Enable',
+		);
+		$default_value = array_merge($default, $user_profile);
+	} else {
+		$default_value = $default;
+	}
 
-    return $default_value;
+	return $default_value;
 }
 
 /**

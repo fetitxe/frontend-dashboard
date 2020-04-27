@@ -140,7 +140,7 @@ function fed_admin_setting_up_form_function(){
 
 	$values = fed_process_user_profile($post, $post['fed_action'], 'yes');
 
-	$post_id = isset($post['input_id']) && ! empty($post['input_id']) ? (int) $post['input_id'] : '';
+	$post_id = ( isset($post['input_id']) && !empty($post['input_id']) )? (int) $post['input_id'] : '';
 
 	fed_save_profile_post($values, $post['fed_action'], $post_id);
 }

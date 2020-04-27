@@ -34,14 +34,14 @@ if ( ! class_exists('FED_AdminUserProfile')) {
 		 */
 		public function fed_show_user_profile($user){ 
 			?><h3><?php esc_attr_e('Frontend Dashboard', 'frontend-dashboard'); ?></h3>
-			<table class="form-table bc_fed fed_profile_table">
+			<table class="form-table">
 				<?php
 				$fields = fed_fetch_user_profile_extra_fields();
 				if( null === $fields || false === $fields ){
 					esc_attr_e('Sorry no extra fields added - Please add here ', 'frontend-dashboard' );
 					make_clickable( menu_page_url( 'fed_user_profile' ) );
 				}else{
-					foreach ($fields as $field) {
+					foreach( $fields as $field ){
 						$extended = isset($field['extended'])? is_string($field['extended'])? unserialize($field['extended']) : $field['extended'] : '';
 						$extended_fields = fed_default_extended_fields();
 						$default_value   = array(
@@ -63,21 +63,23 @@ if ( ! class_exists('FED_AdminUserProfile')) {
 						foreach ($extended_fields as $index => $extended_field) {
 							$default_value['extended'][$index] = isset($extended[$index]) ? esc_attr($extended[$index]) : '';
 						}
-						?>
-						<tr>
-							<th>
-								<label for="<?php echo esc_attr( $default_value['input_meta'] ); ?>">
-									<?php echo esc_attr( $default_value['label_name'] ); ?>
-								</label>
-							</th>
-
-							<td>
-								<?php
-								echo fed_get_input_details($default_value);
-								?>
-							</td>
-						</tr>
-					<?php }
+						if( !isset($default_value['extended']['show_in_admin_profile'])
+							|| ( isset($default_value['extended']['show_in_admin_profile'])
+								&& 'false' !== $default_value['extended']['show_in_admin_profile']
+							)
+						){
+							?><tr>
+								<th>
+									<label for="<?php echo esc_attr( $default_value['input_meta'] ); ?>">
+										<?php echo esc_attr( $default_value['label_name'] ); ?>
+									</label>
+								</th>
+								<td>
+									<?php echo fed_get_input_details($default_value); ?>
+								</td>
+							</tr><?php 
+						}
+					}
 				}
 				?>
 			</table>

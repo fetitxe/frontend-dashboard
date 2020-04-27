@@ -499,7 +499,7 @@ Upload Image
 }
 
 .bc_fed.fed_profile_table td, .bc_fed.fed_profile_table th {
-    padding: 20px !important;
+/*    padding: 20px !important; */
 }
 
 .bc_fed .flex-center {

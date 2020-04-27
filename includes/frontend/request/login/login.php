@@ -23,7 +23,7 @@ function fed_login_form_submit( $post ) {
 			'remember'      => isset( $post['remember'] ),
     );
 
-    $redirect_url = fed_get_login_redirect_url();
+	$redirect_url = apply_filters( 'fed_get_login_redirect_url', fed_get_login_redirect_url(), $post);
 
     $errors = fed_validate_login_form($post);
 
@@ -48,8 +48,3 @@ function fed_login_form_submit( $post ) {
 		)
 	);
 }
-
-
-
-
-

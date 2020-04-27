@@ -63,7 +63,9 @@ function fed_save_profile_post($request, $action = '', $post_id = ''){
 			));
 		}
 
-		wp_send_json_success(array('message' => $request['label_name'].' has been successfully updated'));
+		wp_send_json_success(array(
+			'message' => $request['label_name'].' has been successfully updated'
+		));
 
 	}else{
 		/**
@@ -103,7 +105,9 @@ function fed_save_profile_post($request, $action = '', $post_id = ''){
 			));
 		}
 
-		wp_send_json_success(array('message' => $request['label_name'].' has been Successfully added'));
+		wp_send_json_success(array(
+			'message' => $request['label_name'].' has been Successfully added')
+		);
 	}
 }
 

@@ -1,10 +1,10 @@
 /**
 Fed User Profile Layout
  */
-.nav-tabs > li > a:hover,
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover,
+.bc_fed .nav-tabs > li > a:hover,
+.bc_fed .nav-tabs > li.active > a,
+.bc_fed .nav-tabs > li.active > a:focus,
+.bc_fed .nav-tabs > li.active > a:hover,
 .bc_fed .bg-primary,
 .bc_fed .btn-primary,
 .bc_fed .nav-pills > li.active > a,
@@ -14,10 +14,14 @@ Fed User Profile Layout
 .bc_fed .list-group-item.active:focus,
 .bc_fed .list-group-item.active:hover,
 .bc_fed .panel-primary > .panel-heading,
-.bc_fed .btn-primary.focus, .btn-primary:focus,
+.bc_fed .btn-primary.focus,
+.bc_fed .btn-primary:focus,
 .bc_fed .btn-primary:hover,
-.bc_fed .btn.active, .btn:active,
-.bc_fed input[type="button"]:hover, input[type="button"]:focus, input[type="submit"]:hover,
+.bc_fed .btn.active,
+.bc_fed .btn:active,
+.bc_fed input[type="button"]:hover,
+.bc_fed input[type="button"]:focus,
+.bc_fed input[type="submit"]:hover,
 .bc_fed input[type="submit"]:focus,
 .bc_fed .popover-title {
     background-color: #0AAAAA !important;

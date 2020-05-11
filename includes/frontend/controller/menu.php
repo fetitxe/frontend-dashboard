@@ -16,8 +16,7 @@ if ( ! defined('ABSPATH')) {
 function fed_get_all_dashboard_display_menus(){
     $profile_menu = fed_process_dashboard_display_menu();
     $settings     = get_option('fed_admin_settings_upl');
-    if (isset($settings['settings']['fed_upl_disable_logout']) && 'yes' === $settings['settings']['fed_upl_disable_logout']
-    ) {
+    if( isset($settings['settings']['fed_upl_disable_logout']) && 'yes' === $settings['settings']['fed_upl_disable_logout'] ){
         $logout = array();
     } else {
         $logout = fed_get_logout_menu();
@@ -81,18 +80,18 @@ function fed_get_post_menu(){
  * @return array
  */
 function fed_get_logout_menu(){
-    return array(
-            'logout' =>
-                    array(
-                            'id'                => 'logout',
-                            'menu_slug'         => 'logout',
-                            'menu'              => __('Logout','frontend-dashboard'),
-                            'menu_order'        => '999999',
-                            'menu_image_id'     => 'fa fa-sign-out',
-                            'show_user_profile' => 'disable',
-                            'menu_type'         => 'logout',
-                    ),
-    );
+	return array(
+		'logout' =>
+			array(
+				'id'                => 'logout',
+				'menu_slug'         => 'logout',
+				'menu'              => __('Logout','frontend-dashboard'),
+				'menu_order'        => '999999',
+				'menu_image_id'     => 'fa fa-sign-out',
+				'show_user_profile' => 'disable',
+				'menu_type'         => 'logout',
+			),
+	);
 }
 
 

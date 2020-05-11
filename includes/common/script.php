@@ -57,7 +57,7 @@ if ( ! function_exists('fed_script_front_end')) {
     /**
      * Frontend Script.
      */
-    function fed_script_front_end()    {
+    function fed_script_front_end(){
         if (fed_is_shortcode_in_content()) {
             $db_scripts      = get_option('fed_general_scripts_styles', array());
             $default_scripts = new FED_Admin_General();
@@ -79,6 +79,8 @@ if ( ! function_exists('fed_script_front_end')) {
 
             wp_enqueue_media();
         }
+
+		wp_enqueue_style( 'fed_global_admin_style' );
     }
 }
 
@@ -94,23 +96,23 @@ if ( ! function_exists( 'fed_enqueue_scripts' ) ) {
 		if ( 'scripts' === $index ) {
 			if ( true === $script['wp_core'] ) {
 				wp_enqueue_script( $key );
-			}
-			else {
-				wp_enqueue_script(
+			} else {
+				wp_register_script(
 					$key, $script['src'], $script['dependencies'], $script['version'],
 					$script['in_footer']
 				);
+				wp_enqueue_script( $key );
 			}
 		}
 		if ( 'styles' === $index ) {
 			if ( true === $script['wp_core'] ) {
 				wp_enqueue_style( $key );
-			}
-			else {
-				wp_enqueue_style(
+			} else {
+				wp_register_style(
 					$key, $script['src'], $script['dependencies'], $script['version'],
 					$script['media']
 				);
+				wp_enqueue_style( $key );
 			}
 		}
 	}

@@ -170,9 +170,9 @@ jQuery( document ).ready( function ( $ ) {
                 data: data,
                 url: url,
                 success: function (results) {
-                    //console.log(results);
+                    $( '#fed_post_id_hidden' ).val( results.data.id ); // BC fix: using input ID only allow one post per doc ->  o.0
                     fedAlert.dashboardPostCommon(results);
-					click.children('input[name="ID"]').val(results.data.data.ID)
+					click.children('input[name="ID"]').val(results.data.data.ID); // now duplicated by BC late fix, can add a class for better control
                     fed_toggle_loader();
                 }
             });

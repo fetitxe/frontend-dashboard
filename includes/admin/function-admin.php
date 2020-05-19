@@ -24,29 +24,29 @@ function fed_verify_nonce($request = null, $permission = null){
      * Added in version 1.5
      */
     if( null === $request ){
-        $request = isset($_REQUEST) ? $_REQUEST : null;
+        $request = isset( $_REQUEST ) ? wp_unslash( $_REQUEST ) : null;
     }
 
     if ( ! $request || ! isset($request['fed_nonce'])) {
         $message = __('Invalid Request - 700', 'frontend-dashboard');
-        wp_doing_ajax() ? wp_send_json_error(array('message' => $message)) : wp_die($message);
+		wp_doing_ajax() ? wp_send_json_error( array( 'message' => esc_attr( $message ) ) ) : wp_die( esc_attr( $message ) );
     }
 
     if ( ! $request || ! wp_verify_nonce($request['fed_nonce'], 'fed_nonce')) {
         $message = __('Invalid Request - 701', 'frontend-dashboard');
-        wp_doing_ajax() ? wp_send_json_error(array('message' => $message)) : wp_die($message);
+		wp_doing_ajax() ? wp_send_json_error( array( 'message' => esc_attr( $message ) ) ) : wp_die( esc_attr( $message ) );
     }
 
     if ($request && null !== $permission) {
         $user_role = fed_get_current_user_role_key();
         if (is_string($permission) && $user_role !== $permission) {
             $message = __('Invalid Request - 702', 'frontend-dashboard');
-            wp_doing_ajax() ? wp_send_json_error(array('message' => $message)) : wp_die($message);
+			wp_doing_ajax() ? wp_send_json_error( array( 'message' => esc_attr( $message ) ) ) : wp_die( esc_attr( $message ) );
 
         }
         if (is_array($permission) && ! in_array($user_role, $permission, true)) {
             $message = __('Invalid Request - 703', 'frontend-dashboard');
-            wp_doing_ajax() ? wp_send_json_error(array('message' => $message)) : wp_die($message);
+			wp_doing_ajax() ? wp_send_json_error( array( 'message' => esc_attr( $message ) ) ) : wp_die( esc_attr( $message ) );
         }
     }
 }
@@ -75,44 +75,46 @@ function fed_nonce_check( $request, $permission = null ) {
 function fed_admin_user_profile_select( $selected = '' ){
 	$attr = array(
 		'class'   => 'fed_admin_input_items',
-		'options' => apply_filters('fed_admin_input_item_options', array(
-			'single_line' => array(
-				'name'  => __('Single Line', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/single_line.png', BC_FED_PLUGIN),
-			),
-			'multi_line'  => array(
-				'name'  => __('Multi-Line', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/multi_line.png', BC_FED_PLUGIN),
-			),
-			'number'      => array(
-				'name'  => __('Number', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/number.png', BC_FED_PLUGIN),
-			),
-			'email'       => array(
-				'name'  => __('Email', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/email.png', BC_FED_PLUGIN),
-			),
-			'checkbox'    => array(
-				'name'  => __('Checkbox', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/checkbox.png', BC_FED_PLUGIN),
-			),
-			'select'      => array(
-				'name'  => __('Select', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/select.png', BC_FED_PLUGIN),
-			),
-			'radio'       => array(
-				'name'  => __('Radio', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/radio.png', BC_FED_PLUGIN),
-			),
-			'password'    => array(
-				'name'  => __('Password', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/password.png', BC_FED_PLUGIN),
-			),
-			'url'         => array(
-				'name'  => __('URL', 'frontend-dashboard'),
-				'image' => plugins_url('/assets/admin/images/inputs/url.png', BC_FED_PLUGIN),
-			),
-		), $selected),
+		'options' => apply_filters(
+			'fed_admin_input_item_options', array(
+				'single_line' => array(
+					'name'  => __('Single Line', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/single_line.png', BC_FED_PLUGIN),
+				),
+				'multi_line'  => array(
+					'name'  => __('Multi-Line', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/multi_line.png', BC_FED_PLUGIN),
+				),
+				'number'      => array(
+					'name'  => __('Number', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/number.png', BC_FED_PLUGIN),
+				),
+				'email'       => array(
+					'name'  => __('Email', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/email.png', BC_FED_PLUGIN),
+				),
+				'checkbox'    => array(
+					'name'  => __('Checkbox', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/checkbox.png', BC_FED_PLUGIN),
+				),
+				'select'      => array(
+					'name'  => __('Select', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/select.png', BC_FED_PLUGIN),
+				),
+				'radio'       => array(
+					'name'  => __('Radio', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/radio.png', BC_FED_PLUGIN),
+				),
+				'password'    => array(
+					'name'  => __('Password', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/password.png', BC_FED_PLUGIN),
+				),
+				'url'         => array(
+					'name'  => __('URL', 'frontend-dashboard'),
+					'image' => plugins_url('/assets/admin/images/inputs/url.png', BC_FED_PLUGIN),
+				),
+			), $selected
+		),
 		'value'   => $selected,
 	);
 
@@ -289,6 +291,7 @@ function fed_get_select_option_value( $input_value ){
 	if (is_array($input_value)) {
 		return count($input_value) > 0 ? $input_value : array();
 	}
+
 }
 
 /**
@@ -1859,10 +1862,30 @@ function fed_get_script_loading_pages() {
 function fed_get_post_status() {
 	return apply_filters(
 		'fed_update_post_status', array(
+			'draft'   => 'Draft',
 			'pending' => 'Pending',
 			'publish' => 'Publish',
 		)
 	);
+}
+
+/**
+ * Get Post Status.
+ *
+ * @param  string $status  Status.
+ *
+ * @return string
+ */
+function fed_get_display_post_status( $status ) {
+	$post_status = apply_filters(
+		'fed_display_post_status', array(
+			'pending' => 'Pending',
+			'publish' => 'Published',
+			'draft'   => 'Draft',
+		)
+	);
+
+	return isset( $post_status[ $status ] ) ? $post_status[ $status ] : 'pending';
 }
 
 /**
@@ -3356,6 +3379,7 @@ function fed_get_table_status(){
 
     return $tables;
 }
+
 
 /**
  * Get Tables.

@@ -50,14 +50,17 @@ function fed_forgot_form_submit( $post ) {
 		            'frontend-dashboard'
 	            ) . "\r\n\r\n";
 	$message .= __( 'To reset your password, visit the following address:', 'frontend-dashboard' ) . "\r\n\r\n";
-	$message .= '<a href="' . $redirect_url . '?action=fed_reset&key=' . $key . '&login=' . rawurlencode(
-			$user_login
-		) . '">' . $redirect_url . '</a>' . "\r\n\r\n";
+	$message .= '<a href="' . add_query_arg(
+			array(
+				'page'   => 'reset_password',
+				'action' => 'fed_reset',
+				'key'    => $key,
+				'login'  => rawurlencode( $user_login ),
+			), $redirect_url ) . '">' . esc_url( $redirect_url ) . '</a>' . "\r\n\r\n";
 
 	if ( is_multisite() ) {
 		$blogname = $GLOBALS['current_site']->site_name;
-	}
-	else {
+	}else{
 		$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 	}
 
@@ -66,7 +69,7 @@ function fed_forgot_form_submit( $post ) {
             'From: '.$blogname.' <'.get_bloginfo('admin_email').'>',
     );
 
-    $title = __('Password Reset', 'frontend-dashboard').$blogname;
+    $title = __('Password Reset - ', 'frontend-dashboard').$blogname;
 
 	// phpcs:ignore
     if ($message && ! wp_mail($user_email, wp_specialchars_decode($title), $message, $headers)) {
@@ -107,7 +110,7 @@ add_filter( 'lostpassword_url', 'fed_lostpassword_url' );
 function fed_lostpassword_url( $lostpassword_url ) {
 
 	$fed_login_url    = fed_get_login_url();
-	$lostpassword_url = ( false == $fed_login_url ) ? $lostpassword_url : ( $fed_login_url . '?action=fed_forgot' );
+	$lostpassword_url = ( false == $fed_login_url ) ? $lostpassword_url : ( $fed_login_url . '?page=reset_password&action=fed_forgot' );
 
 	return $lostpassword_url;
 }

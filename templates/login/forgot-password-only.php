@@ -6,6 +6,8 @@
  */
 
 $details = fed_forgot_password_only();
+$register = fed_get_registration_url();
+$login    = fed_get_login_url();
 
 do_action( 'fed_before_forgot_password_only_form' );
 ?>
@@ -45,6 +47,30 @@ do_action( 'fed_before_forgot_password_only_form' );
 											<?php echo esc_attr( $details['button'] ); ?>
 										</button>
 									</div>
+
+									<?php if ( $login ) { ?>
+										<div class="col-md-6 padd_top_20 text-center">
+											<a href="<?php echo esc_url( $login ); ?>">
+												<?php
+												esc_attr_e(
+													'Already have an account?', 'frontend-dashboard'
+												);
+												?>
+											</a>
+										</div>
+									<?php } ?>
+
+									<?php if ( $register ) { ?>
+										<div class="col-md-6 padd_top_20 text-center">
+											<a href="<?php echo esc_url( $register ); ?>">
+												<?php
+												esc_attr_e(
+													'Create an account?', 'frontend-dashboard'
+												);
+												?>
+											</a>
+										</div>
+									<?php } ?>
 								</div>
 							</form>
 						</div>

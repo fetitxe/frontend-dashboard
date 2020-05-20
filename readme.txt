@@ -4,7 +4,7 @@ Tags: dashboard, frontend dashboard, custom login, custom register, custom roles
 Donate link: https://www.paypal.com/paypalme2/buffercode
 Requires at least: 4.6
 Tested up to: 5.4.1
-Stable tag: 2.1.10
+Stable tag: 2.1.11
 License: GPL V3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -247,6 +247,9 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 8. [fed_list_taxonomy taxonomy=TAXONOMY_NAME] to generate taxonomy in list order
 
 == Changelog ==
+
+= 2.1.11 [20-May-2020] =
+* Bug fixes : Login and Register only template not working as expected.
 
 = 2.1.10 [18-May-2020] =
 * Bug fixes and added new features in Custom Post and Post.

@@ -30,14 +30,18 @@ function fed_get_avatar($id_or_email, $alt = '', $class = '', $extra = '', $size
         $user_data = $user_id->ID;
     }
 
-	if ( '' != $fed_upl['settings']['fed_upl_change_profile_pic'] ) {
-        $user_obj = get_userdata($user_data);
+	if (
+		isset( $fed_upl['settings']['fed_upl_change_profile_pic'] ) &&
+		$fed_upl['settings']['fed_upl_change_profile_pic'] &&
+		! empty( $fed_upl['settings']['fed_upl_change_profile_pic'] )
+	) {        
+		$user_obj = get_userdata($user_data);
 
         $gavatar_id = $user_obj->has_prop($fed_upl['settings']['fed_upl_change_profile_pic']) ?
             $user_obj->get($fed_upl['settings']['fed_upl_change_profile_pic']) :
             '';
 
-		if ( '' != $gavatar_id ) {
+		if ( ! empty( $gavatar_id ) && $gavatar_id ) {
 			return wp_get_attachment_image( (int) $gavatar_id, $size, false, $attr );
 		}
 

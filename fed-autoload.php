@@ -136,8 +136,8 @@ $files = array(
  * )
  */
 
-foreach ( $files as $file ) {
-	if ( file_exists( BC_FED_PLUGIN_DIR . $file ) ) {
+foreach( $files as $file ){
+	if( file_exists( BC_FED_PLUGIN_DIR . $file ) ){
 		require_once BC_FED_PLUGIN_DIR . $file;
 	}
 }

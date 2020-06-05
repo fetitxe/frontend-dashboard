@@ -92,6 +92,7 @@ function fed_admin_setting_up_form_function(){
 	 * Check for Nonce
 	 */
 	fed_verify_nonce($post);
+	
 
 	if( !isset($post['label_name'])
 		|| empty($post['label_name'])

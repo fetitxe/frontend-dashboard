@@ -117,7 +117,7 @@ if ( ! class_exists( 'FED_Admin_General' ) ) {
 						),
 						'arguments' => $options,
 					),
-				)
+				), $options
 			);
 		}
 

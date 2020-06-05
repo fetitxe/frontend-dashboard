@@ -569,7 +569,9 @@ jQuery( document ).ready(
 		body.popover(
 			{
 				selector: '[data-toggle="popover"]',
-				trigger: 'focus'
+				trigger: 'focus',
+				container: 'div.bc_fed',
+				placement: 'auto',
 			}
 		);
 

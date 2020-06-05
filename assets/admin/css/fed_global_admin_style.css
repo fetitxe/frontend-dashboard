@@ -250,9 +250,9 @@
 }
 
 .bc_fed .select2-container--default .select2-selection--multiple {
-    height: 34px;
-    border: 1px solid #cccccc;
-    border-radius: 0;
+    min-height: 34px;
+/*    border: 1px solid #cccccc;
+    border-radius: 0; */
 }
 .bc_fed .select2-container--default .select2-selection--multiple .select2-selection__choice {
     font-size: 12px;

@@ -19,40 +19,43 @@ if ( ! function_exists('fed_input_box')) {
 	 *
 	 * @return string
 	 */
-    function fed_input_box($meta_key, $attr = array(), $type = 'text'){
-        /**
-         * Break it, if the input meta doesn't exist
-         */
-        if (empty($meta_key)) {
-            wp_die('Please add input meta key');
-        }
+	function fed_input_box($meta_key, $attr = array(), $type = 'text'){
+		/**
+		 * Break it, if the input meta doesn't exist
+		 */
+		if( empty($meta_key) ){
+			wp_die('Please add input meta key');
+		}
 
-        $values                = array();
-        $values['placeholder'] = isset($attr['placeholder']) && ! empty($attr['placeholder']) ? esc_attr($attr['placeholder']) : '';
-        $values['label']       = isset($attr['label']) && ! empty($attr['label']) ? strip_tags($attr['label'], '<i><b><span>') : '';
-        $values['class_name']  = isset($attr['class']) && ! empty($attr['class']) ? esc_attr($attr['class']) : '';
+		$values = array();
+		$values['input_type']    = $type;
+		$values['input_meta']    = isset($attr['name'])? $attr['name'] : $meta_key;
 
-        $values['user_value'] = isset($attr['value']) && ! empty($attr['value']) ? esc_attr($attr['value']) : '';
-        $values['input_min']  = isset($attr['min']) && ! empty($attr['min']) ? esc_attr($attr['min']) : 0;
-        $values['input_max']  = isset($attr['max']) && ! empty($attr['max']) ? esc_attr($attr['max']) : 99999999999999999999999999999999999999999999999999;
-        $values['input_step'] = isset($attr['step']) && ! empty($attr['step']) ? esc_attr($attr['step']) : 'any';
+		$values['id_name']       = isset($attr['id']) && ! empty($attr['id'])? esc_attr($attr['id']) : '';
+		$values['class_name']    = isset($attr['class']) && !empty($attr['class'])? esc_attr($attr['class']) : '';
+		$values['user_value']    = isset($attr['value']) && !empty($attr['value'])? $attr['value'] : '';
+		$values['input_value']   = isset($attr['options']) && !empty($attr['options'])? $attr['options'] : '';
+		$values['default_value'] = isset($attr['default_value']) && !empty($attr['default_value'])? esc_attr($attr['default_value']) : 'yes';
 
-        $values['is_required']   = isset($attr['is_required']) && ( 'true' == $attr['required'] )? 'required="required"' : '';
-        $values['id_name']       = isset($attr['id']) && ! empty($attr['id']) ? esc_attr($attr['id']) : '';
-        $values['readonly']      = isset($attr['readonly']) && ( true === $attr['readonly'] )? true : '';
-        $values['user_value']    = isset($attr['value']) && ! empty($attr['value']) ? esc_attr($attr['value']) : '';
-        $values['input_value']   = isset($attr['options']) && ! empty($attr['options']) ? $attr['options'] : '';
-        $values['disabled']      = isset($attr['disabled']) && ( true === $attr['disabled'] )? true : '';
-        $values['default_value'] = isset($attr['default_value']) && ! empty($attr['default_value']) ? esc_attr($attr['default_value']) : 'yes';
-        $values['extra']         = isset($attr['extra']) ? $attr['extra'] : '';
-        $values['extended']      = isset($attr['extended']) && !empty($attr['extended']) ? esc_attr($attr['extended']) : array();
-        $values['input_type']    = $type;
-        $values['input_meta']    = isset($attr['name']) ? $attr['name'] : $meta_key;
-        $values['content']       = isset($attr['content']) ? $attr['content'] : '';
+		$values['label']         = isset($attr['label']) && !empty($attr['label'])? strip_tags($attr['label'], '<i><b><span>') : '';
+		$values['placeholder']   = isset($attr['placeholder']) && !empty($attr['placeholder'])? esc_attr($attr['placeholder']) : '';
 
-        return fed_get_input_details($values);
-    }
+		$values['input_min']     = isset($attr['min']) && !empty($attr['min'])? esc_attr($attr['min']) : 0;
+		$values['input_max']     = isset($attr['max']) && !empty($attr['max'])? esc_attr($attr['max']) : 99999999999999999999999999999999999999999999999999;
+		$values['input_step']    = isset($attr['step']) && !empty($attr['step'])? esc_attr($attr['step']) : 'any';
+		$values['content']       = isset($attr['content'])? $attr['content'] : '';
+
+		$values['is_required']   = isset($attr['is_required']) && ( 'true' == $attr['required'] )? 'required="required"' : '';
+		$values['disabled']      = isset($attr['disabled']) && ( true === $attr['disabled'] )? true : '';
+		$values['readonly']      = isset($attr['readonly']) && ( true === $attr['readonly'] )? true : '';
+
+		$values['extended']      = isset($attr['extended']) && !empty($attr['extended'])? $attr['extended'] : array();
+		$values['extra']         = isset($attr['extra'])? $attr['extra'] : '';
+
+		return fed_get_input_details($values);
+	}
 }
+
 if ( ! function_exists('fed_loader')) {
 	/**
 	 * Loader.

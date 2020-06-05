@@ -8,7 +8,9 @@ jQuery( document ).ready( function ( $ ) {
         var b = $('body');
         var dashboard_menu = $('.fed_dashboard_menus');
 
-        $( '[data-toggle="popover"]' ).popover();
+        $( '[data-toggle="popover"]' ).popover({
+			placement: 'auto',
+		});
 
 		// Login, Register, Reset Password TagButton Navigation.
 		// $( '.fed_login_menus' ).on( 'click', '.fed_tab_menus', function () {

@@ -1835,23 +1835,23 @@ function fed_restrict_user_profile_picture( $wp_query_obj ) {
  * @return  array
  */
 function fed_get_script_loading_pages() {
-    $fed_menus      = new FED_AdminMenu();
-    $fed_menu_items = array_keys($fed_menus->fed_get_main_sub_menu());
-    $default        = array(
-        'fed_settings_menu',
-        'fed_user_profile_layout',
-        'fed_orders',
-        'fed_payments',
-        'post.php',
-        'user-edit.php',
-        'post-new.php',
-        'profile.php',
+	$fed_menus      = new FED_AdminMenu();
+	$fed_menu_items = array_keys($fed_menus->fed_get_main_sub_menu());
+	$default        = array(
+		'fed_settings_menu',
+		'fed_user_profile_layout',
+		'fed_orders',
+		'fed_payments',
+		'post.php',
+		'user-edit.php',
+		'post-new.php',
+		'profile.php',
 		'widgets.php',
-    );
+	);
 
-    $items = array_merge($default, $fed_menu_items);
+	$items = array_merge($default, $fed_menu_items);
 
-    return apply_filters('fed_admin_script_loading_pages', $items);
+	return apply_filters('fed_admin_script_loading_pages', $items);
 }
 
 /**

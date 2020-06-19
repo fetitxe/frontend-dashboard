@@ -13,10 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Dashboard Menu Items.
  */
  function fed_get_dashboard_menu_items(){
+	$get_payload = filter_input_array( INPUT_GET, FILTER_SANITIZE_STRING );
     $menus      = fed_fetch_table_rows_with_key(BC_FED_TABLE_MENU, 'menu_slug');
     $user_roles = fed_get_user_roles();
 
-    if (isset($_GET, $_GET['sort'])) {
+    if ( isset( $get_payload, $get_payload['sort'] ) ) {
         ?>
         <div class="bc_fed container fed_dashboard_menu_sort_wrapper" style="position: relative;">
             <div class="row padd_top_20">
@@ -42,6 +43,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     } else {
         ?>
         <div class="bc_fed container">
+			<?php
+			//phpcs:ignore
+			echo fed_loader(); ?>
             <!-- Show Empty form to add Dashboard Menu-->
             <?php fed_get_dashboard_menu_items_add($menus, $user_roles); ?>
 
@@ -97,6 +101,7 @@ function fed_get_dashboard_menu_items_add($menus, $user_roles){
                                             <label>
 												<?php esc_attr_e( 'Menu Slug', 'frontend-dashboard' ); ?>
 												<?php
+												//phpcs:ignore
 												echo fed_show_help_message(
 													array(
 														'title'   => 'Info',
@@ -172,6 +177,7 @@ function fed_get_dashboard_menu_items_add($menus, $user_roles){
                                             ?>
                                             <div class="col-md-2">
                                                 <?php
+                                                //phpcs:ignore
 												echo fed_input_box(
 													'user_role',
 													array(
@@ -388,6 +394,7 @@ function fed_get_dashboard_menu_items_list($menus, $user_roles){
                                                                     <div class="col-md-3">
                                                                         <div class="form-group text-center">
                                                                             <?php
+                                                                            //phpcs:ignore
 																			echo fed_input_box(
 																				'show_user_profile',
 																				array(
@@ -441,6 +448,7 @@ function fed_get_dashboard_menu_items_list($menus, $user_roles){
 																		?>
 																		<div class="col-md-2">
 																			<?php
+																			//phpcs:ignore
 																			echo fed_input_box(
 																				'user_role',
 																				array(

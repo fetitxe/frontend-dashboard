@@ -93,7 +93,7 @@ class FED_Log {
 	/**
 	 * Write Log. [Retaining for old actions.]
 	 *
-	 * @param  string       $message  message.
+	 * @param  string | array $message  message.
 	 * @param  int | string $level  Level.
 	 */
 	public static function writeLog( $message, $level = self::DEBUG ) {

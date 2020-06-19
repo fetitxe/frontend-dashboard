@@ -31,7 +31,7 @@ do_action( 'fed_before_register_only_form' );
 								foreach ( $contents as $content ) {
 									?>
 									<div class="form-group">
-										<label><?php echo wp_kses_post( $content['name'] ); ?></label>
+										<?php echo fed_show_form_label( $content ); ?>
 										<?php echo ( $content['input'] ); ?>
 									</div>
 									<?php

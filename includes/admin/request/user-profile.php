@@ -55,7 +55,9 @@ function fed_save_profile_post($request, $action = '', $post_id = ''){
 		/**
 		 * No duplicate found, so we can update the record.
 		 */
-		$status = $wpdb->update($table_name, $request, array('id' => (int) $post_id));
+		$status = $wpdb->update($table_name, $request, array(
+			'id' => (int) $post_id
+		));
 
 		if( false === $status ){
 			wp_send_json_error(array(

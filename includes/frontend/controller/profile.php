@@ -54,14 +54,14 @@ function fed_display_dashboard_profile( $menu_item ) {
 			<?php
 			do_action( 'fed_dashboard_panel_inside_top' );
 			do_action( 'fed_dashboard_panel_inside_top_' . fed_get_data( 'menu_slug', $menu_item ) );
+			// phpcs:ignore
+			echo fed_show_alert( 'fed_profile_save_message' );
 			if ( $menu_default_page ) {
 				if ( $profiles ) {
                     usort($profiles, 'fed_sort_by_order');
-					// phpcs:ignore
-					echo fed_show_alert( 'fed_profile_save_message' );
+
 					?>
-					<form method="post"
-						  action="">
+					<form method="post" action="">
 						<?php fed_wp_nonce_field( 'fed_nonce', 'fed_nonce' ); ?>
 						<input type="hidden"
 							   name="tab_id"
@@ -74,6 +74,9 @@ function fed_display_dashboard_profile( $menu_item ) {
 							   name="menu_slug"
 							   value="<?php echo esc_attr( $menu_item['menu_slug'] ); ?>"/>
 						<?php
+
+						do_action( 'fed_dashboard_profile_form_top' );
+
 						foreach ( $profiles as $single_item ) {
 							if ( 'user_pass' !== $single_item['input_meta'] || 'confirmation_password' !== $single_item['input_meta'] ) {
 								$single_item['user_value'] = $user->get( $single_item['input_meta'] );
@@ -95,6 +98,8 @@ function fed_display_dashboard_profile( $menu_item ) {
 							</div>
 							<?php
 						}
+
+						do_action( 'fed_dashboard_profile_form_bottom' );
 						?>
 						<div class="row text-center">
 							<button type="submit" class="btn btn-primary">

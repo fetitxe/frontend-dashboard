@@ -158,10 +158,12 @@ if(!function_exists( 'fed_get_post_fields_menu_item')) {
                                                                 <div class="col-md-6">
 																	<label class="control-label">
 																		<?php
-																		echo esc_attr( $profile['label_name'] ) . fed_is_required( $profile['is_required'] );
+																		echo esc_attr( $profile['label_name'] ) . esc_attr(fed_is_required( $profile['is_required'] ));
 																		?>
 																	</label>
-																	<?php echo fed_get_input_details( $profile ); ?>
+																	<?php
+																	//phpcs:ignore
+																	echo fed_get_input_details( $profile ); ?>
 																</div>
 
                                                                 <div class="col-md-6 p-t-20">

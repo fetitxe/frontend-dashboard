@@ -100,6 +100,8 @@ if ( ! class_exists('FED_Routes')) {
            
 			set_query_var('fed_menu_items', $menu_items);
 
+			wp_cache_set( 'fed_dashboard_menu_' . get_current_user_id(), $menu_items, 'frontend-dashboard', 60 );
+
             return $menu_items;
         }
 

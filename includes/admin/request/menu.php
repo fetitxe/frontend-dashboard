@@ -79,7 +79,12 @@ function fed_admin_menu_save($request, $post_id = ''){
          * Check for input meta already exist
          */
 
-        $duplicate = $wpdb->get_row("SELECT * FROM $table_name WHERE menu_slug LIKE '{$menu_slug}'");
+        $duplicate = $wpdb->get_row("
+			SELECT * 
+			FROM $table_name 
+			WHERE menu_slug 
+			LIKE '{$menu_slug}'
+		");
 
         if (null !== $duplicate) {
 			wp_send_json_error(

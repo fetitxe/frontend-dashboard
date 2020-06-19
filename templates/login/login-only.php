@@ -27,7 +27,9 @@ do_action( 'fed_before_login_only_form' );
 					<div class="panel-body">
 						<div class="fed_tab_content"
 								data-id="<?php echo esc_attr( $details['menu']['id'] ); ?>">
-							<form method="post" class="fed_form_post" >
+							<form method="post"
+									class="fed_form_post"
+							>
 								<?php
 								$contents = $details['content'];
 								uasort( $contents, 'fed_sort_by_order' );
@@ -36,7 +38,7 @@ do_action( 'fed_before_login_only_form' );
 									$content_name = ! empty( $content['name'] ) ? '<label>' . $content['name'] . '</label>' : '';
 									?>
 									<div class="form-group">
-										<?php echo wp_kses_post( $content_name ); ?>
+										<?php echo fed_show_form_label( $content ); ?>
 										<?php echo ( $content['input'] ); ?>
 									</div>
 									<?php

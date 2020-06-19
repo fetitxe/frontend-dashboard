@@ -405,23 +405,36 @@ function fed_get_empty_value_for_user_profile($action){
  */
 function fed_process_user_profile( $row, $action, $update = 'no' ) {
 	$default = array(
-		'label_name'     => isset($row['label_name']) ? sanitize_text_field(strip_tags($row['label_name'])) : '',
-		'input_order'    => isset($row['input_order']) ? sanitize_text_field($row['input_order']) : '',
-		'placeholder'    => isset($row['placeholder']) ? sanitize_text_field($row['placeholder']) : '',
-		'class_name'     => isset($row['class_name']) ? sanitize_text_field($row['class_name']) : '',
-		'id_name'        => isset($row['id_name']) ? sanitize_text_field($row['id_name']) : '',
-		'input_value'    => isset($row['input_value']) ? sanitize_text_field($row['input_value']) : '',
-		'input_location' => isset($row['location']) ? sanitize_text_field($row['location']) : '',
-		'input_min'      => isset($row['input_min']) ? sanitize_text_field($row['input_min']) : '',
-		'input_max'      => isset($row['input_max']) ? sanitize_text_field($row['input_max']) : '',
-		'input_step'     => isset($row['input_step']) ? sanitize_text_field($row['input_step']) : '',
-		'input_row'      => isset($row['input_row']) ? sanitize_text_field($row['input_row']) : '',
-		'input_type'     => isset($row['input_type']) ? sanitize_text_field($row['input_type']) : '',
-		'input_meta'     => isset($row['input_meta']) ? sanitize_text_field($row['input_meta']) : '',
+		'label_name'     => isset($row['label_name'])? sanitize_text_field(strip_tags($row['label_name'])) : '',
+		'input_order'    => isset($row['input_order'])? sanitize_text_field($row['input_order']) : '',
+		'placeholder'    => isset($row['placeholder'])? sanitize_text_field($row['placeholder']) : '',
+		'class_name'     => isset($row['class_name'])? sanitize_text_field($row['class_name']) : '',
+		'id_name'        => isset($row['id_name'])? sanitize_text_field($row['id_name']) : '',
+		'input_value'    => isset($row['input_value'])? wp_kses_post($row['input_value']) : '',
+		'input_location' => isset($row['location'])? sanitize_text_field($row['location']) : '',
+		'input_min'      => isset($row['input_min'])? sanitize_text_field($row['input_min']) : '',
+		'input_max'      => isset($row['input_max'])? sanitize_text_field($row['input_max']) : '',
+		'input_step'     => isset($row['input_step'])? sanitize_text_field($row['input_step']) : '',
+		'input_row'      => isset($row['input_row'])? sanitize_text_field($row['input_row']) : '',
+		'input_type'     => isset($row['input_type'])? sanitize_text_field($row['input_type']) : '',
+		'input_meta'     => isset($row['input_meta'])? sanitize_text_field($row['input_meta']) : '',
 
-		'is_required' => ( isset($row['is_required']) && !empty($row['is_required']) )? ( is_string($row['is_required']) )? ( in_array($row['is_required'], array('true','false')) )? $row['is_required'] : unserialize($row['is_required']) : serialize(array_keys($row['is_required'])) : 'false' ,
+		'is_required' => ( isset($row['is_required']) && !empty($row['is_required']) )?
+			( is_string($row['is_required'])?
+				( in_array($row['is_required'], array('true','false'))?
+					$row['is_required']
+					: unserialize($row['is_required'])
+				)
+				: serialize(array_keys($row['is_required']))
+			)
+			: 'false',
 
-		'user_role' => ( isset($row['user_role']) && !empty($row['user_role']) )? ( is_string($row['user_role']) )? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) : array(),
+		'user_role' => ( isset($row['user_role']) && !empty($row['user_role']) )?
+			( is_string($row['user_role'])?
+				unserialize($row['user_role'])
+				: serialize(array_keys($row['user_role']))
+			)
+			: serialize(array()),
 	);
 
 	if( 'post' === $action ){
@@ -506,13 +519,13 @@ function fed_process_user_profile( $row, $action, $update = 'no' ) {
 function fed_process_menu($row)
 {
     $default_value = array(
-        'menu_slug'         => isset($row['fed_menu_slug']) ? sanitize_text_field($row['fed_menu_slug']) : 'ERROR',
-        'menu'              => isset($row['fed_menu_name']) ? sanitize_text_field($row['fed_menu_name']) : 'ERROR',
-        'menu_image_id'     => isset($row['menu_image_id']) ? sanitize_text_field($row['menu_image_id']) : 'ERROR',
-        'show_user_profile' => isset($row['show_user_profile']) ? sanitize_text_field($row['show_user_profile']) : 'Enable',
-        'menu_order'        => isset($row['fed_menu_order']) ? sanitize_text_field($row['fed_menu_order']) : '9',
-        'user_role'         => (isset($row['user_role']) && ! empty($row['user_role'])) ? (is_string($row['user_role'])) ? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) : array(),
-        'extended'          => isset($row['extended']) ? sanitize_text_field($row['extended']) : '',
+        'menu_slug'         => isset($row['fed_menu_slug'])? sanitize_text_field(trim($row['fed_menu_slug'])) : 'ERROR',
+        'menu'              => isset($row['fed_menu_name'])? sanitize_text_field(trim($row['fed_menu_name'])) : 'ERROR',
+        'menu_image_id'     => isset($row['menu_image_id'])? sanitize_text_field(trim($row['menu_image_id'])) : 'ERROR',
+        'show_user_profile' => isset($row['show_user_profile'])? sanitize_text_field(trim($row['show_user_profile'])) : 'Enable',
+        'menu_order'        => isset($row['fed_menu_order'])? sanitize_text_field(trim($row['fed_menu_order'])) : '9',
+        'user_role'         => ( isset($row['user_role']) && !empty($row['user_role']) )? ( is_string($row['user_role'])? unserialize($row['user_role']) : serialize(array_keys($row['user_role'])) ) : '',
+        'extended'          => isset($row['extended'])? sanitize_text_field($row['extended']) : '',
 
     );
 
@@ -1733,6 +1746,27 @@ function fed_yes_no( $sort = 'DESC' ) {
     }
 
     return $value;
+
+}
+
+/**
+ * Show or Hide
+ *
+ * @param  string $sort  Yes or No.
+ *
+ * @return array
+ */
+function fed_show_hide( $sort = 'DESC' ) {
+	$value = array(
+		'show' => 'Show',
+		'hide' => 'Hide',
+	);
+
+	if ( 'ASC' === $sort ) {
+		asort( $value );
+	}
+
+	return $value;
 
 }
 
@@ -3625,13 +3659,6 @@ function fed_show_help_icons() {
                         <div class="fed_sticky_title">Facebook</div>
                     </a>
                 </div>
-                <div class="fed_sticky_item">
-                    <a href="https://buffercode.com/plugin/frontend-dashboard" target="_blank">
-                        <i class="far fa-comment-alt fa-2x"></i>
-                        <div class="fed_sticky_title">Chat</div>
-                    </a>
-                </div>
-
             </div>
         </div>
         <?php
@@ -3687,7 +3714,7 @@ function fed_search_index_from_array_recursively( $array, $index, $submenu = 'su
  * @return mixed
  */
 function fed_get_domain_name() {
-    $url = parse_url(home_url());
+	$url = wp_parse_url( home_url() );
 
     return $url['host'];
 }
@@ -3747,7 +3774,9 @@ add_filter('wp_nav_menu_items', 'login_logout_menu', 10, 2);
 function login_logout_menu($items, $args){
     $fed_login = get_option('fed_admin_login');
 
-    if ($args->theme_location == fed_get_data('login_menu.menu_item', $fed_login)) {
+	if ( ! empty( $args->theme_location ) && $args->theme_location === fed_get_data( 'login_menu.menu_item',
+			$fed_login )
+	) {
         if (is_user_logged_in()) {
             $items .= '<li><a href="'.fed_get_dashboard_url().'">Dashboard</a></li>';
             $items .= '<li><a href="'.wp_logout_url().'">Log Out</a></li>';

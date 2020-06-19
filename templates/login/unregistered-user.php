@@ -17,6 +17,7 @@ if ( isset( $get_payload['page'] ) && 'reset_password' === $get_payload['page'] 
 	$menu      = isset( $menus[ $page_name ]['html'] ) ? $menus[ $page_name ]['html'] : false;
 	unset( $menus['reset_password'] );
 }
+
 do_action( 'fed_before_login_form' );
 if ( $menu ) {
 	?>
@@ -72,14 +73,14 @@ if ( $menu ) {
 									?>
 									<div class="form-group">
 										<?php
-										$content_name = ! empty( $content['name'] ) && ( null === $label ) ? '<label>' . $content['name'] . '</label>' : '';
-										echo wp_kses_post( $content_name );
-										?>
-										<?php echo ( $content['input'] ); ?>
-										<?php
-										echo null !== $label ? '<label>' . esc_attr(
-												$content['name']
-											) . '</label>' : '';
+										$content_name = ! empty( $content['name'] ) && ( null === $label ) ? fed_show_form_label( $content ) : '';
+									echo wp_kses_post( $content_name );
+									?>
+									<?php
+									//phpcs:ignore
+									echo( $content['input'] ); ?>
+									<?php
+									echo null !== $label ? fed_show_form_label( $content ) : '';
 										?>
 									</div>
 									<?php

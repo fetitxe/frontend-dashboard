@@ -86,7 +86,7 @@ function fed_get_logout_menu(){
 				'id'                => 'logout',
 				'menu_slug'         => 'logout',
 				'menu'              => __('Logout','frontend-dashboard'),
-				'menu_order'        => '999999',
+				'menu_order'        => '900000',
 				'menu_image_id'     => 'fa fa-sign-out',
 				'show_user_profile' => 'disable',
 				'menu_type'         => 'logout',
@@ -192,8 +192,7 @@ function fed_display_dashboard_menu($menus){
 				<div class="panel-heading  <?php echo $index === $parent_id ? 'active' : ''; ?>" role="tab"
 						id="<?php echo esc_attr( $index ); ?>">
 					<h4 class="panel-title">
-						<a data-parent="#fed_default_template"
-								href="<?php echo esc_attr( $menu_format['menu_url'] ); ?>">
+						<a href="<?php echo esc_attr( $menu_format['menu_url'] ); ?>">
 							<div class="fed_display_inline">
 								<div>
 									<div class="fed_menu_icon">

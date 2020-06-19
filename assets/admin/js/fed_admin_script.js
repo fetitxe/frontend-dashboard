@@ -229,6 +229,7 @@ jQuery( document ).ready(
 					}
 				).then(
 					function () {
+						fed_toggle_loader();
 						$.ajax(
 							{
 								type: 'POST',
@@ -240,6 +241,7 @@ jQuery( document ).ready(
 
 							}
 						);
+						fed_toggle_loader();
 					},
 					function ( dismiss ) {
 						if ( dismiss === 'cancel' ) {
@@ -253,7 +255,6 @@ jQuery( document ).ready(
 						}
 					}
 				);
-				fed_toggle_loader();
 				e.preventDefault();
 			}
 		);
@@ -885,12 +886,12 @@ var fedAdminAlert = {
 	}
 };
 
-jQuery.fed_toggle_loader = function () {
-	$( '.preview-area' ).toggleClass( 'hide' );
-	if ( $( '.fed_loader_message' ).length ) {
+jQuery.fed_toggle_loader = function ($) {
+	jQuery( '.preview-area' ).toggleClass( 'hide' );
+	if ( jQuery( '.fed_loader_message' ).length ) {
 		window.setTimeout(
 			function () {
-				$( '.fed_loader_message' ).toggleClass( 'hide' );
+				jQuery( '.fed_loader_message' ).toggleClass( 'hide' );
 			}, 2000
 		);
 	}

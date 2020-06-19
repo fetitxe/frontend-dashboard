@@ -363,6 +363,13 @@ jQuery( document ).ready( function ( $ ) {
             //Open the uploader dialog
             custom_uploader.open();
         });
+	    b.on('mouseover', '.fed_show_on_hover_container', function () {
+	      $(this).find('.fed_show_on_hover').show();
+	    })
+	
+	    b.on('mouseleave', '.fed_show_on_hover_container', function () {
+	      $(this).find('.fed_show_on_hover').hide();
+	    })
         
         // Copy URL from media uploader.
         $(".flatpickr").flatpickr({});
@@ -525,10 +532,10 @@ jQuery( document ).ready( function ( $ ) {
 );
 
 jQuery.fed_toggle_loader = function () {
-    $('.preview-area').toggleClass('hide');
-    if ($('.fed_loader_message').length) {
+    jQuery('.preview-area').toggleClass('hide');
+    if (jQuery('.fed_loader_message').length) {
         window.setTimeout(function () {
-            $('.fed_loader_message').toggleClass('hide');
+            jQuery('.fed_loader_message').toggleClass('hide');
         }, 2000);
     }
 };

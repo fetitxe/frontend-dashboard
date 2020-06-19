@@ -158,8 +158,7 @@ function fed_get_admin_up_required_by_role($row, $action, $type = ''){
 	?><div class="form-group col-md-12">
 		<div class="row fed_admin_up_required_by_role">
 			<div class="col-md-12">
-				<label><?php esc_attr_e('Select user roles to ', 'frontend-dashboard'); 
-				esc_attr_e('Is this required Field', 'frontend-dashboard'); ?></label>
+				<label><?php esc_attr_e('This Field is required for select user roles:', 'frontend-dashboard'); ?></label>
 			</div><?php
 			foreach( $all_roles as $key => $role ){
 				if( is_array($row['is_required']) ){

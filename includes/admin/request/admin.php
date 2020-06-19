@@ -79,7 +79,7 @@ function fed_admin_setting_form_function(){
  * Admin User Profile Page
  */
 function fed_admin_setting_up_form_function(){
-	$post = filter_input_array( INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS );
+	$post = $_POST; //filter_input_array( INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS );
 
 	if( !isset($post['fed_action']) ){
 		wp_send_json_error(array(

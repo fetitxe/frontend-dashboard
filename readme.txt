@@ -3,8 +3,8 @@ Contributors: vinoth06, buffercode
 Tags: dashboard, frontend dashboard, custom login, custom register, custom roles, custom profile, custom post type, custom taxonomies, custom dashboard, hide admin bar, widget
 Donate link: https://www.paypal.com/paypalme2/buffercode
 Requires at least: 4.6
-Tested up to: 5.4.1
-Stable tag: 2.1.12
+Tested up to: 5.4.2
+Stable tag: 2.1.16
 License: GPL V3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -48,6 +48,7 @@ Frontend Dashboard is bundled with the huge list of custom features which can ea
 * [Frontend Dashboard Captcha](https://buffercode.com/plugin/frontend-dashboard-captcha)
 * [Frontend Dashboard Templates](https://buffercode.com/plugin/frontend-dashboard-templates)
 * [Frontend Dashboard Social Chat](https://buffercode.com/plugin/frontend-dashboard-social-chat)
+* [Frontend Dashboard Notification](https://buffercode.com/plugin/frontend-dashboard-notification)
 * [Frontend Dashboard Custom Post and Taxonomies](https://buffercode.com/plugin/frontend-dashboard-custom-post-and-taxonomies)
 
 = Videos =
@@ -247,6 +248,12 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 8. [fed_list_taxonomy taxonomy=TAXONOMY_NAME] to generate taxonomy in list order
 
 == Changelog ==
+
+= 2.1.16 [18-June-2020] =
+* Bug fixes and new core features added
+
+= 2.1.15 [13-June-2020] =
+* Bug fixes : jQuery common alert.
 
 = 2.1.12 [20-May-2020] =
 * Bug fixes : Reset Password show on Login Screen.

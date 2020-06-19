@@ -35,6 +35,10 @@
     padding: 0 !important;
 }
 
+.bc_fed .fed_bg_white {
+	background: white !important;
+}
+
 .fed_border_2px {
     border: 2px solid #033333;
 }
@@ -290,8 +294,43 @@
 	margin: 10px 0;
 }
 
-.bc_fed .m-y-20 {
-	margin: 20px 0;
+.bc_fed .p-5 {
+	padding: 5px;
+}
+
+.bc_fed .p-10 {
+	padding: 10px;
+}
+
+.bc_fed .p-20 {
+	padding: 20px;
+}
+
+.bc_fed .p-x-5 {
+	padding: 0 5px;
+}
+
+.bc_fed .p-x-10 {
+	padding: 0 10px;
+}
+
+.bc_fed .p-x-20 {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.bc_fed .p-y-5 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.bc_fed .p-y-10 {
+	padding: 10px 0;
+}
+
+.bc_fed .p-y-20 {
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .fed_post_widget_layout_items {

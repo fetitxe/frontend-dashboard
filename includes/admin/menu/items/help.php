@@ -53,8 +53,8 @@ if ( ! function_exists( 'fed_get_help_menu' ) ) {
 															<i class="<?php echo esc_attr( $item['icon'] ); ?>"
 																	aria-hidden="true"></i>
 															<a target="_blank"
-																	href="<?php echo esc_attr( $item['url'] ); ?>">
-																<?php echo $item['name']; ?>
+																	href="<?php echo esc_url( $item['url'] ); ?>">
+																<?php echo esc_attr( $item['name'] ); ?>
 															</a>
 														</h4>
 													</div>

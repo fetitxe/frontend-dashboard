@@ -45,7 +45,9 @@ if ( $menu ) {
 								);
 								?>
 								">
-									<?php echo esc_attr( fed_get_data( 'label', $menu_item ) ); ?>
+									<?php
+									esc_attr_e( fed_get_data( 'label', $menu_item ), 'frontend-dashboard' );
+									?>
 								</a>
 							</div>
 							<?php

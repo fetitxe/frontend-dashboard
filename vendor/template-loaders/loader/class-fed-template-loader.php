@@ -276,8 +276,9 @@ if ( ! class_exists( 'FED_Template_Loader' ) ) {
 			);
 
 			// Only add this conditionally, so non-child themes don't redundantly check active theme twice.
-			if ( is_child_theme() ) {
-				$file_paths[1] = trailingslashit( get_stylesheet_directory() ) . $theme_directory;
+			// if ( is_child_theme() ) { // <=== is_child_theme() is bugged in WP_CORE
+			if( get_template_directory() !== get_stylesheet_directory() ){
+				 $file_paths[1] = trailingslashit( get_stylesheet_directory() ) . $theme_directory;
 			}
 
 			/**

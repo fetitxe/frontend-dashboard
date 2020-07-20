@@ -25,6 +25,17 @@ function fed_get_avatar($id_or_email, $alt = '', $class = '', $extra = '', $size
     $fed_upl   = get_option('fed_admin_settings_upl');
     $user_data = $id_or_email;
 
+	if ( $url = get_user_meta( $id_or_email, 'fed_user_profile_image', true ) ) {
+		// send the default image.
+		return sprintf(
+			"<img alt='%s' src='%s' class='%s' %s />",
+			esc_attr( $alt ),
+			esc_url( $url ),
+			esc_attr( $class ),
+			$extra
+		);
+	}
+
     if (filter_var($user_data, FILTER_VALIDATE_EMAIL)) {
         $user_id   = get_user_by('email', $id_or_email);
         $user_data = $user_id->ID;
@@ -279,24 +290,24 @@ function fed_process_author_details( $user, array $single_item ) {
 					)
 				);
 
-        }
+		}
 
-        if (strpos($user_date, ';') !== false) {
-            $multiple      = explode(';', $user_date);
-            $multiple_item = '';
-            foreach ($multiple as $item) {
-                $multiple_item .= ucfirst(strftime($format, strtotime($item))).'<br>';
-            }
+		if (strpos($user_date, ';') !== false) {
+			$multiple      = explode(';', $user_date);
+			$multiple_item = '';
+			foreach ($multiple as $item) {
+				$multiple_item .= ucfirst(strftime($format, strtotime($item))).'<br>';
+			}
 
-            return $multiple_item;
-        }
+			return $multiple_item;
+		}
 
-        return ucfirst(strftime($format, strtotime($user_date)));
-    }
+		return ucfirst(strftime($format, strtotime($user_date)));
+	}
 
-    $value = $user->get($single_item['input_meta']);
+	$value = $user->get($single_item['input_meta']);
 
-    return apply_filters('fed_process_author_custom_details', $value, $user, $single_item);
+	return apply_filters('fed_process_author_custom_details', $value, $user, $single_item);
 }
 
 /**
@@ -698,7 +709,7 @@ function fed_show_user_profile_page( $user ) {
     /**
      * Get author recent Posts
      */
-    $post_count   = isset($upl_options['settings']['fed_upl_no_recent_post']) ? $upl_options['settings']['fed_upl_no_recent_post'] : 5;
+	$post_count   = isset($upl_options['settings']['fed_upl_no_recent_post']) ? $upl_options['settings']['fed_upl_no_recent_post'] : 5;
 	$author_query = array(
 		'posts_per_page' => $post_count,
 		'author'         => $user->ID,
@@ -980,8 +991,11 @@ function fed_show_alert( $key ) {
  */
 function fed_show_form_label( $content ) {
 	$label = '';
-	if ( 'label' !== $content['input_type'] && ! empty( $content['name'] ) ) {
-		$label = '<label>' . esc_attr( $content['name'] ) . '</label>';
+	if (
+		( ! isset( $content['input_type'] ) && ! empty( $content['name'] ) ) ||
+		( isset( $content['input_type'] ) && 'label' !== $content['input_type'] && ! empty( $content['name'] ) )
+	) {
+		$label = '<label>' . esc_attr__( $content['name'], 'frontend-dashboard' ) . '</label>';
 	}
 
 	$label = apply_filters( 'fed_show_form_label', $label, $content );

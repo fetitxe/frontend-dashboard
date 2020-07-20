@@ -206,8 +206,6 @@
 
 .fed_flex {
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 
@@ -275,23 +273,28 @@
 }
 
 .bc_fed .m-x-5 {
-	margin: 0 5px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .bc_fed .m-x-10 {
-	margin: 0 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .bc_fed .m-x-20 {
-	margin: 0 20px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .bc_fed .m-y-5 {
-	margin: 5px 0;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .bc_fed .m-y-10 {
-	margin: 10px 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .bc_fed .p-5 {
@@ -307,11 +310,13 @@
 }
 
 .bc_fed .p-x-5 {
-	padding: 0 5px;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 .bc_fed .p-x-10 {
-	padding: 0 10px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .bc_fed .p-x-20 {
@@ -325,12 +330,109 @@
 }
 
 .bc_fed .p-y-10 {
-	padding: 10px 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .bc_fed .p-y-20 {
 	padding-top: 20px;
 	padding-bottom: 20px;
+}
+
+.bc_fed .p-b-5 {
+	padding-bottom: 5px;
+}
+
+.bc_fed .p-b-10 {
+	padding-bottom: 10px;
+}
+
+.bc_fed .p-b-20 {
+	padding-bottom: 20px;
+}
+
+.bc_fed .p-t-5 {
+	padding-top: 5px;
+}
+
+.bc_fed .p-t-10 {
+	padding-top: 10px;
+}
+
+.bc_fed .p-t-20 {
+	padding-top: 20px;
+}
+
+.bc_fed .p-l-5 {
+	padding-left: 5px;
+}
+
+.bc_fed .p-l-10 {
+	padding-left: 10px;
+}
+
+.bc_fed .p-l-20 {
+	padding-left: 20px;
+}
+
+.bc_fed .p-r-5 {
+	padding-right: 5px;
+}
+
+.bc_fed .p-r-10 {
+	padding-right: 10px;
+}
+
+.bc_fed .p-r-20 {
+	padding-right: 20px;
+}
+
+.bc_fed .m-b-5 {
+	margin-bottom: 5px;
+}
+
+.bc_fed .m-b-10 {
+	margin-bottom: 10px;
+}
+
+.bc_fed .m-b-20 {
+	margin-bottom: 20px;
+}
+
+.bc_fed .m-t-5 {
+	margin-top: 5px;
+}
+
+.bc_fed .m-t-10 {
+	margin-top: 10px;
+}
+
+.bc_fed .m-t-20 {
+	margin-top: 20px;
+}
+
+.bc_fed .m-l-5 {
+	margin-left: 5px;
+}
+
+.bc_fed .m-l-10 {
+	margin-left: 10px;
+}
+
+.bc_fed .m-l-20 {
+	margin-left: 20px;
+}
+
+.bc_fed .m-r-5 {
+	margin-right: 5px;
+}
+
+.bc_fed .m-r-10 {
+	margin-right: 10px;
+}
+
+.bc_fed .m-r-20 {
+	margin-right: 20px;
 }
 
 .fed_post_widget_layout_items {
@@ -348,6 +450,11 @@
 	align-items: center;
 	margin-right: 3%;
 	width: 30%;
+}
+
+.flex_left_wrap {
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .fed_post_widget_layout_items_content_title {
@@ -383,4 +490,8 @@
 
 .fed_black_font {
 	color: #000 !important;
+}
+
+.fed_no_padding_col {
+	padding: 0 !important;
 }

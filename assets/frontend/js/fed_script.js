@@ -12,19 +12,6 @@ jQuery( document ).ready( function ( $ ) {
 			placement: 'auto',
 		});
 
-		// Login, Register, Reset Password TagButton Navigation.
-		// $( '.fed_login_menus' ).on( 'click', '.fed_tab_menus', function () {
-			// var click = $( this );
-			// var click_id = click.attr( 'id' );
-			// var fed_login_content = $( '.fed_login_content' );
-		
-			// click.closest( '.fed_login_wrapper' ).find( '.fed_tab_menus' ).removeClass( 'fed_selected' );
-			// click.addClass( 'fed_selected' );
-		
-			// fed_login_content.find( '.fed_tab_content' ).addClass( 'hide ' ).animateCss( 'pulse' );
-			// fed_login_content.find( "[data-id='" + click_id + "']" ).removeClass( 'hide' );
-		// } ); 
-
         // All Front End submission.
         $('form.fed_form_post').on('submit', function (e) {
             var click = $(this);
@@ -44,24 +31,75 @@ jQuery( document ).ready( function ( $ ) {
             e.preventDefault();
         });
 
-        //Common submission.
+		//Common submission. Disabiling for next few releases because of new one below.
+		// $('form.fed_ajax').on('submit', function (e) {
+		//   var form = $(this)
+		//   fed_toggle_loader()
+		//   $.ajax({
+		//     type: 'POST',
+		//     url: form.attr('action'),
+		//     data: form.serialize(),
+		//     success: function (results) {
+		//       fed_toggle_loader()
+		//       fedAlert.dashboardPostCommon(results)
+		//     }
+		//
+		//   })
+		//
+		//   e.preventDefault()
+		// })
 
-        $('form.fed_ajax').on('submit', function (e) {
-            var form = $(this);
-            fed_toggle_loader();
-            $.ajax({
-                type: 'POST',
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function (results) {
-                    fed_toggle_loader();
-                    fedAlert.dashboardPostCommon(results);
-                }
-
-            });
-
-            e.preventDefault();
-        });
+		// New Common Form Submission
+		b.on('submit', '.fed_ajax', function(e){
+			var form = $(this);
+			fed_toggle_loader();
+			$.ajax({
+				type: 'POST',
+				url: form.attr('action'),
+				data: form.serialize(),
+				success: function (results){
+					fed_toggle_loader();
+					if(results.success){
+						if(results.data.message){
+							swal({
+								title: results.data.message,
+								type: 'success',
+							}).then(function(){
+								if(results.data.redirect_url){
+									window.location = results.data.redirect_url;
+								}
+							});
+						}
+					}else{
+						if(results.data.message){
+							swal({
+								title: results.data.message,
+								type: 'error',
+							}).then(function(){
+								if (results.data.redirect_url) {
+									window.location = results.data.redirect_url;
+								}
+							});
+						}
+						if(results.data.errors){
+							var show_errors = '';
+							if(Array.isArray(results.data.errors)){
+								results.data.errors.each(function(error){
+									show_errors += error;
+								});
+							}else{
+								show_errors += results.data.errors;
+							}
+							swal({
+								title: show_errors,
+								type: 'error',
+							});
+						}
+					}
+				}
+			});
+			e.preventDefault();
+		});
 
         $('form.fed_get_qa_ajax').on('click', function (e) {
             var form = $(this);
@@ -127,7 +165,7 @@ jQuery( document ).ready( function ( $ ) {
 
         // Change hash for page-reload.
         $('.nav-tabs a').on('shown', function (e) {
-            window.location.hash = e.target.hash.replace("#", "#" + prefix);
+            window.location.hash = e.target.hash.replace('#', '#' + prefix);
         });
 
         /**
@@ -153,7 +191,6 @@ jQuery( document ).ready( function ( $ ) {
             closest.find('.fed_dashboard_item').addClass('hide');
             closest.find('.' + value).removeClass('hide');
 
-
             e.preventDefault();
         });
 
@@ -169,9 +206,7 @@ jQuery( document ).ready( function ( $ ) {
                 data: data,
                 url: url,
                 success: function (results) {
-//					click.children('#fed_post_id_hidden').val(results.data.id); // a class will do for better control
-//					click.children('input[name="ID"]').val(results.data.id); // now duplicated by BC late fix
-					$('#fed_post_id_hidden').val( results.data.id ); // BC fix: using input ID only allow one post per doc ->  o.0
+					$('#fed_post_id_hidden').val( results.data.id );
                     fedAlert.dashboardPostCommon(results);
                     fed_toggle_loader();
                 }
@@ -250,7 +285,6 @@ jQuery( document ).ready( function ( $ ) {
                 data: data,
                 url: url,
                 success: function (results) {
-                    // console.log(results);
                     fedAlert.dashboardPostCommon(results);
                     fed_toggle_loader();
                 }
@@ -269,9 +303,9 @@ jQuery( document ).ready( function ( $ ) {
             swal({
                 title: frontend_dashboard.alert.confirmation.title,
                 text: frontend_dashboard.alert.confirmation.text,
-                type: "warning",
+                type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
+                confirmButtonColor: '#DD6B55',
                 confirmButtonText: frontend_dashboard.alert.confirmation.confirm,
                 cancelButtonText: frontend_dashboard.alert.confirmation.cancel,
                 showLoaderOnConfirm: true
@@ -292,7 +326,7 @@ jQuery( document ).ready( function ( $ ) {
                     if (dismiss === 'cancel') {
                         swal({
                                 title: frontend_dashboard.alert.title_cancelled,
-                                type: "error",
+                                type: 'error',
 //                                confirmButtonColor: '#0AAAAA'
                             }
                         );
@@ -350,14 +384,17 @@ jQuery( document ).ready( function ( $ ) {
                 // var regex_image_type = /(image)/g;
                 attachment = custom_uploader.state().get('selection').first().toJSON();
                 console.log(attachment);
-                button_click.find('.fed_upload_icon').addClass('hide');
+                button_click.find('.fed_upload_image_dummy').addClass('fed_hide');
                 button_click.find('.fed_upload_input').val(attachment.id);
 
                 if ((attachment.mime).indexOf('image') > -1) {
-                    button_click.find('.fed_upload_image_container').html("<img width=100 height=100 src=" + attachment.url + ">");
-                } else {
-                    button_click.find('.fed_upload_image_container').html("<img width=100 height=100 src=" + attachment.icon + ">");
-                }
+		          button_click.find('.fed_upload_image_actual').removeClass('fed_hide');
+		          button_click.closest('.fed_upload_wrapper').find('.fed_remove_image').removeClass('fed_hide');
+		          button_click.find('.fed_upload_image_container img').attr('src', attachment.url);
+		        } else {
+		          button_click.closest('.fed_upload_wrapper').find('.fed_remove_image').addClass('fed_hide');
+		          button_click.find('.fed_upload_image_container img').html('src', attachment.icon);
+		        }
 
             });
             //Open the uploader dialog
@@ -410,7 +447,7 @@ jQuery( document ).ready( function ( $ ) {
                     swal({
                         title: results.data.message || frontend_dashboard.alert.confirmation.title,
                         text: frontend_dashboard.alert.redirecting,
-                        type: "success",
+                        type: 'success',
                         showConfirmButton: false,
                         timer: 1000,
 //                        confirmButtonColor: '#0AAAAA'
@@ -431,8 +468,8 @@ jQuery( document ).ready( function ( $ ) {
                     }
                     swal({
                         title: error,
-                        type: "error",
-                        confirmButtonColor: "#DD6B55"
+                        type: 'error',
+                        confirmButtonColor: '#DD6B55'
                     });
                 }
             },
@@ -440,15 +477,15 @@ jQuery( document ).ready( function ( $ ) {
                 if (results.success) {
                     swal({
                         title: results.data.message || frontend_dashboard.alert.something_went_wrong,
-                        type: "success",
+                        type: 'success',
 //                        confirmButtonColor: '#0AAAAA',
                     });
                 } else {
                     swal({
                         title: frontend_dashboard.alert.invalid_form_submission,
                         text: frontend_dashboard.alert.please_try_again,
-                        type: "error",
-                        confirmButtonColor: "#DD6B55"
+                        type: 'error',
+                        confirmButtonColor: '#DD6B55'
                     });
                 }
 
@@ -459,7 +496,7 @@ jQuery( document ).ready( function ( $ ) {
                 if (results.success) {
                     swal({
                         title: results.data.message || frontend_dashboard.alert.something_went_wrong,
-                        type: "success",
+                        type: 'success',
                         text: '',
 //                        confirmButtonColor: '#0AAAAA'
                     });
@@ -474,16 +511,16 @@ jQuery( document ).ready( function ( $ ) {
                     }
                     swal({
                         title: error,
-                        type: "error",
+                        type: 'error',
                         text: '',
-                        confirmButtonColor: "#DD6B55"
+                        confirmButtonColor: '#DD6B55'
                     });
                 } else {
                     swal({
                         title: frontend_dashboard.alert.invalid_form_submission,
                         text: frontend_dashboard.alert.please_try_again,
-                        type: "error",
-                        confirmButtonColor: "#DD6B55"
+                        type: 'error',
+                        confirmButtonColor: '#DD6B55'
                     });
                 }
 
@@ -492,7 +529,7 @@ jQuery( document ).ready( function ( $ ) {
                 if (results.success) {
                     swal({
                         title: results.data.message || frontend_dashboard.alert.something_went_wrong,
-                        type: "success",
+                        type: 'success',
                         text: '',
 //                        confirmButtonColor: '#0AAAAA',
                     });
@@ -506,15 +543,15 @@ jQuery( document ).ready( function ( $ ) {
                     // console.log(results.data.message);
                     swal({
                         title: error,
-                        type: "error",
-                        confirmButtonColor: "#DD6B55"
+                        type: 'error',
+                        confirmButtonColor: '#DD6B55'
                     });
                 } else {
                     swal({
                         title: frontend_dashboard.alert.invalid_form_submission,
                         text: frontend_dashboard.alert.please_try_again,
-                        type: "error",
-                        confirmButtonColor: "#DD6B55"
+                        type: 'error',
+                        confirmButtonColor: '#DD6B55'
                     });
                 }
 
@@ -522,7 +559,7 @@ jQuery( document ).ready( function ( $ ) {
         };
 
         if ($('.fed_datatable').length) {
-            $('.fed_datatable').dataTable({"autoWidth": false, "order": []});
+            $('.fed_datatable').dataTable({'autoWidth': false, 'order': []});
         }
 
         function fed_toggle_loader() {
@@ -540,6 +577,9 @@ jQuery.fed_toggle_loader = function () {
     }
 };
 
+jQuery.fed_generate_random_number = function () {
+  return Math.random().toString(36).substring(7);
+}
 
 var CaptchaCallback = function () {
     var fedRegister = document.getElementById('fedRegisterCaptcha');

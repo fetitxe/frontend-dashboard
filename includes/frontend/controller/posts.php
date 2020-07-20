@@ -45,10 +45,10 @@ function fed_process_dashboard_display_post($post_type = 'post'){
 /**
  * Post Pagination.
  *
- * @param  WP_Query $post_object  Post.
- * @param  array    $menu  Menu.
+ * @param  WP_Query | \stdClass $post_object  Post.
+ * @param  array | null         $menu  Menu.
  */
-function fed_get_post_pagination($post_object, $menu){
+function fed_get_post_pagination( $post_object, $menu = null ) {
     $pagination_counts = ceil($post_object->found_posts / get_option('posts_per_page', 10));
     $current_page      = isset($_REQUEST['page_number']) ? absint($_REQUEST['page_number']) : 1;
 

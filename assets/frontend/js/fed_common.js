@@ -22,8 +22,8 @@ jQuery(document).ready(function ($) {
                 } else {
                     swal({
                         title: results.data.message,
-                        type: "error",
-                        confirmButtonColor: "#DD6B55"
+                        type: 'error',
+                        confirmButtonColor: '#DD6B55'
                     });
                 }
             }
@@ -53,7 +53,7 @@ jQuery(document).ready(function ($) {
                         swal({
                             title: frontend_dashboard.alert.something_went_wrong,
                             text: results.data.message,
-                            type: "error",
+                            type: 'error',
                         })
                     }
 
@@ -81,7 +81,7 @@ jQuery(document).ready(function ($) {
                         swal({
                             title: frontend_dashboard.alert.something_went_wrong,
                             text: results.data.message,
-                            type: "error",
+                            type: 'error',
                         })
                     }
 
@@ -115,6 +115,12 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
 
     });
+	b.on('mouseenter', '[data-behavior=on-hover]', function () {
+		$(this).find('[data-behavior="on-hover-show"]').removeClass('fed_hide')
+	})
+	b.on('mouseleave', '[data-behavior=on-hover]', function () {
+		$(this).find('[data-behavior="on-hover-show"]').addClass('fed_hide')
+	})
 
     if (transaction_modal.length) {
         transaction_modal.on('hidden.bs.modal', function () {

@@ -327,6 +327,11 @@ body {
     text-align: right;
 }
 
+.bc_fed .fed_frontend_dashboard_menu .panel-heading {
+	border-top-right-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+}
+
 .bc_fed .fed_support_badge .fed_badge {
     width: 10px;
     height: 10px;
@@ -596,7 +601,7 @@ Loader
 }
 
 .bc_fed .fed_hide {
-    display: none;
+    display: none !important;
 }
 
 .bc_fed .fed_selected {

@@ -253,6 +253,8 @@ if ( ! function_exists('fed_js_translation')) {
             'common'              => array(
                 'hide_add_new_menu' => __('Hide Add New Menu', 'frontend-dashboard'),
                 'add_new_menu'      => __('Add New Menu', 'frontend-dashboard'),
+				'successfully_updated' => __( 'Successfully Updated', 'frontend-dashboard' ),
+				'successfully_added'   => __( 'Successfully Added', 'frontend-dashboard' ),
             ),
         );
     }
@@ -328,6 +330,22 @@ if ( ! function_exists('fed_is_admin')) {
         return in_array('administrator', $user->roles) ? true : false;
 
     }
+}
+
+if ( ! function_exists( 'fed_is_user_role' ) ) {
+	/**
+	 * Check is User Role.
+	 *
+	 * @param  string $user_role  user role.
+	 *
+	 * @return bool
+	 */
+	function fed_is_user_role( $user_role ) {
+		$user = wp_get_current_user();
+
+		return in_array( $user_role, $user->roles ) ? true : false;
+
+	}
 }
 
 if ( ! function_exists('fed_get_default_menu_type')) {

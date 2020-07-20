@@ -51,6 +51,8 @@ function fed_display_dashboard_profile( $menu_item ) {
 			</h3>
 		</div>
 		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
 			<?php
 			do_action( 'fed_dashboard_panel_inside_top' );
 			do_action( 'fed_dashboard_panel_inside_top_' . fed_get_data( 'menu_slug', $menu_item ) );
@@ -118,6 +120,8 @@ function fed_display_dashboard_profile( $menu_item ) {
 			do_action( 'fed_dashboard_panel_inside_bottom' );
 			do_action( 'fed_dashboard_panel_inside_bottom_' . fed_get_data( 'menu_slug', $menu_item ) );
 			?>
+				</div>
+			</div>
 		</div>
 	</div>
 	<?php

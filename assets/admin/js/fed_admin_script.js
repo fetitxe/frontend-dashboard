@@ -351,7 +351,10 @@ jQuery( document ).ready(
 		$( '.fed_input_type_container' ).on(
 			'change', '.fed_input_label_for_onchange', function () {
 				var value = $( this ).val().replace( /[^a-zA-Z0-9 ]/g, "" ).split( ' ' ).join( '_' ).toLowerCase();
-				$( this ).closest( 'form' ).find( '.row .form-group .fed_admin_input_meta' ).val( value.substring( 0, 13 ) );
+				var $target = $( this ).closest( 'form' ).find( '.row .form-group .fed_admin_input_meta' );
+				if( '' === $target.val() ){
+					$target.val( value.substring( 0, 13 ) );
+				}
 			}
 		);
 

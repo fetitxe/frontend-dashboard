@@ -256,6 +256,14 @@ if ( ! function_exists('fed_js_translation')) {
 				'successfully_updated' => __( 'Successfully Updated', 'frontend-dashboard' ),
 				'successfully_added'   => __( 'Successfully Added', 'frontend-dashboard' ),
             ),
+			'password_meter'      => array(
+				'empty'    => __( 'Strength indicator', 'frontend-dashboard' ),
+				'short'    => __( 'Very weak', 'frontend-dashboard' ),
+				'bad'      => __( 'Weak', 'frontend-dashboard' ),
+				'good'     => _x( 'Medium', 'password strength', 'frontend-dashboard' ),
+				'strong'   => __( 'Strong', 'frontend-dashboard' ),
+				'mismatch' => __( 'Mismatch', 'frontend-dashboard' ),
+			),
         );
     }
 }
@@ -618,7 +626,7 @@ function fed_show_alert_message( $message, $type = 'danger' ) {
 	?>
 	<div class="alert alert-<?php echo esc_attr( $type ); ?>">
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<strong><?php echo esc_attr( $message ); ?></strong>
+		<strong><?php echo wp_kses_post($message); ?></strong>
 	</div>
 	<?php
 }
@@ -626,7 +634,7 @@ function fed_show_alert_message( $message, $type = 'danger' ) {
 function fed_show_fixed_alert_message( $message, $type = 'danger' ) {
 	?><div class="alert alert-<?php echo esc_attr( $type ); ?>">
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<?php echo $message; ?>
+		<?php echo wp_kses_post($message); ?>
 	</div><?php
 }
 
@@ -776,14 +784,14 @@ function fed_get_menu_url_by_slug( $menu_slug, $menu_type ) {
 
 			$menu = $dashboard_container->setDashboardMenuQuery();
 
-			foreach ( $menu['menu_items'] as $item ) {
+			foreach ( $menu['menu_items'] as $key => $item ) {
 				if ( $item['menu_slug'] === $menu_slug ) {
 					return add_query_arg(
 						array(
 							'menu_type' => $menu_type,
 							'menu_slug' => $menu_slug,
 							'menu_id'   => fed_get_data( 'id', $item, 0 ),
-							'parent_id' => fed_get_data( 'parent_id', $item, 0 ),
+							'parent_id' => $key,
 							'fed_nonce' => wp_create_nonce(
 								'fed_nonce'
 							),
@@ -820,3 +828,15 @@ function fed_get_user_meta( $user_id, $key = '', $single = false ) {
 
 	return get_user_meta( $user_id, $key, $single );
 }
+
+/**
+ * Show Password Meter
+ */
+
+add_action( 'fed_register_below_form_field', function ( $input_meta, $content ) {
+	if ( $content && ( 'user_pass' === $input_meta || 'confirmation_password' === $input_meta ) ) {
+		?>
+		<span class="fed_password_strength"></span>
+		<?php
+	}
+}, 10, 2 );

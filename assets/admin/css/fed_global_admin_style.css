@@ -2,6 +2,15 @@
     padding: 0 !important;
 }
 
+.fed_no_border {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.panel-body.fed_bg_white{
+	background: white !important;
+}
+
 .fa {
     display: inline-block;
     font-family: 'Font Awesome 5 Free';
@@ -297,6 +306,11 @@
 	margin-bottom: 10px;
 }
 
+.bc_fed .m-y-20 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
 .bc_fed .p-5 {
 	padding: 5px;
 }
@@ -494,4 +508,32 @@
 
 .fed_no_padding_col {
 	padding: 0 !important;
+}
+
+.fed_password_strength.bad {
+	background: red;
+	color: white;
+	font-size: 12px;
+	padding: 0 30px;
+}
+
+.fed_password_strength.good {
+	background: yellow;
+	color: black;
+	font-size: 12px;
+	padding: 0 30px;
+}
+
+.fed_password_strength.strong {
+	background: green;
+	color: white;
+	font-size: 12px;
+	padding: 0 30px;
+}
+
+.fed_password_strength.short {
+	background: orange;
+	color: white;
+	font-size: 12px;
+	padding: 0 30px;
 }

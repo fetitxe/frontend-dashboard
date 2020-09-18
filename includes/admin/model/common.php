@@ -19,17 +19,17 @@ if ( ! function_exists('fed_fetch_rows_by_table')) {
 	 * @return array|WP_Error
 	 */
 	function fed_fetch_rows_by_table( $table, $order = null ) {
-        global $wpdb;
-        $table_name = $wpdb->prefix.$table;
+		global $wpdb;
+		$table_name = $wpdb->prefix.$table;
 
-        $order = $order ? 'ORDER BY id '.$order : '';
+		$order = $order ? 'ORDER BY id '.$order : '';
 
-        return $wpdb->get_results("
-        	SELECT * 
-        	FROM $table_name 
-        	$order
-        ", ARRAY_A);
-    }
+		return $wpdb->get_results("
+			SELECT * 
+			FROM $table_name 
+			$order
+		", ARRAY_A);
+	}
 }
 
 if ( ! function_exists('fed_fetch_table_row_by_id')) {

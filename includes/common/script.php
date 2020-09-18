@@ -71,9 +71,12 @@ if ( ! function_exists('fed_script_front_end')) {
 
             do_action('fed_enqueue_script_style_frontend');
 
+			if ( fed_is_dashboard() || fed_is_register() ) {
+				wp_enqueue_script( 'password-strength-meter' );
+			}
+
             // Pass PHP value to JavaScript.
             $translation_array = apply_filters('fed_convert_php_js_var', fed_js_translation());
-
 
             wp_localize_script('fed_script', 'frontend_dashboard', $translation_array);
 

@@ -3,8 +3,8 @@ Contributors: vinoth06, buffercode
 Tags: dashboard, frontend dashboard, custom login, custom register, custom roles, custom profile, custom post type, custom taxonomies, custom dashboard, hide admin bar, widget
 Donate link: https://www.paypal.com/paypalme2/buffercode
 Requires at least: 4.6
-Tested up to: 5.4.2
-Stable tag: 2.1.20
+Tested up to: 5.5.1
+Stable tag: 2.2.1
 License: GPL V3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -249,6 +249,19 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 8. [fed_list_taxonomy taxonomy=TAXONOMY_NAME] to generate taxonomy in list order
 
 == Changelog ==
+
+= 2.2.1 [17-Sep-2020] =
+
+* Reset password fixed.
+
+= 2.2 [18-Aug-2020] =
+
+* Supports WordPress version 5.5.
+
+= 2.1.24 [30-July-2020] =
+
+* Changed Frontend Dashboard Pagination.
+* Bug: on saving multiple time in user profile.
 
 = 2.1.20 [19-July-2020] =
 * Now logout will directly logout the user instead of showing a panel to click logout.
@@ -613,8 +626,9 @@ Then Please go to Frontend Dashboard | Frontend Dashboard | Login (Tab) | Settin
 
 == Upgrade Notice ==
 
-= 2.1.20 [19-July-2020] =
-* Now logout will directly logout the user instead of showing a panel to click logout.
+= 2.2.1 [17-Sep-2020] =
+
+* Reset password fixed.
 
 == Screenshots ==
 1. Frontend Dashboard Settings | Login | Settings

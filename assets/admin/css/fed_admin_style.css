@@ -302,7 +302,7 @@ Upload Image
 
 .bc_fed .fed_input_text {
     /*border: 2px solid rgba(128, 128, 128, 0.27);*/
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .bc_fed h3.panel-title b {

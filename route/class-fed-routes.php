@@ -94,7 +94,12 @@ if ( ! class_exists('FED_Routes')) {
              * Check is the menu is allowed for this user
              */
 
-            if( isset($this->request['menu_slug']) && !in_array($this->request['menu_slug'], fed_get_keys_from_menu($menu)) ){
+			if (
+				isset( $this->request['menu_slug'] ) && ! in_array(
+					$this->request['menu_slug'],
+					fed_get_keys_from_menu( $menu )
+				)
+			) {
                 return new WP_Error('invalid_menu_type', 'Invalid Menu Type in URL 2');
             }
            

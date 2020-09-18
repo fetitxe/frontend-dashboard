@@ -34,7 +34,7 @@ function fed_process_dashboard_display_post($post_type = 'post'){
         'post_type'      => $post_type,
     );
 
-	if ( ! fed_is_admin() ) {
+	if ( ! apply_filters( 'fed_show_all_post_to_admin', fed_is_admin() ) ) {
 		$args['author'] = $user->ID;
 	}
 
@@ -47,6 +47,9 @@ function fed_process_dashboard_display_post($post_type = 'post'){
  *
  * @param  WP_Query | \stdClass $post_object  Post.
  * @param  array | null         $menu  Menu.
+ *
+ * @deprecated @ 2.1.22 Will be removed in future release
+ *
  */
 function fed_get_post_pagination( $post_object, $menu = null ) {
     $pagination_counts = ceil($post_object->found_posts / get_option('posts_per_page', 10));
@@ -85,6 +88,73 @@ function fed_get_post_pagination( $post_object, $menu = null ) {
     <?php
 }
 
+/**
+ * Get Pagination
+ *
+ * @param  int $current_page  Current Page.
+ * @param  int $total_pages  Total Page.
+ *
+ * @return string
+ */
+function fed_get_pagination( $current_page, $total_pages ) {
+
+	if ( $total_pages > 1 && $current_page <= $total_pages ) {
+		$i = max( 2, $current_page - 5 );
+		?>
+		<nav>
+			<ul class="pagination pagination-small fed_pagination">
+				<li <?php echo esc_attr( 1 === (int) $current_page ? 'class=active' : '' ); ?>>
+					<a href="<?php echo esc_url(
+						add_query_arg(
+							array(
+								'page_number' => 1,
+							)
+						), site_url()
+					); ?>">1
+					</a>
+				</li>
+				<?php
+				if ( $i > 2 ) {
+					echo '<li><a>...</a></li>';
+				}
+				for ( ; $i < min( $current_page + 6, $total_pages ); $i ++ ) {
+					$class = '';
+					if ( (int) $current_page === (int) $i ) {
+						$class = 'class=active';
+					}
+					?>
+					<li <?php echo esc_attr( $class ); ?>>
+						<a href="<?php echo esc_url(
+							add_query_arg(
+								array(
+									'page_number' => (int) $i,
+								)
+							), site_url()
+						); ?>"><?php echo (int) $i; ?></a>
+					</li>
+					<?php
+				}
+				if ( $i != $total_pages ) {
+					echo '<li><a>...</a></li>';
+				}
+				?>
+				<li <?php echo esc_attr( (int) $total_pages === (int) $current_page ? 'class=active' : '' ); ?>>
+					<a href="<?php echo esc_url(
+						add_query_arg(
+							array(
+								'page_number' => $total_pages,
+							)
+						), site_url()
+					); ?>">
+						<?php echo (int) $total_pages; ?>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<?php
+	}
+}
+
 
 /**
  * Process Add New Post.
@@ -98,26 +168,33 @@ function fed_process_dashboard_add_new_post($post){
     $fed_admin_options = fed_get_post_settings_by_type($post['fed_post_type']);
 
     $user_role = fed_get_current_user_role();
-    if (count(array_intersect($user_role, array_keys($fed_admin_options['permissions']['post_permission']))) > 0) {
+	if (
+		count(
+			array_intersect( $user_role, array_keys( $fed_admin_options['permissions']['post_permission'] ) )
+		) > 0
+	) {
         $extras      = fed_fetch_table_rows_with_key(BC_FED_TABLE_POST, 'input_meta');
-        $post_status = isset($fed_admin_options['settings']['fed_post_status']) ? sanitize_text_field($fed_admin_options['settings']['fed_post_status']) : 'publish';
+		$post_status = isset( $fed_admin_options['settings']['fed_post_status'] ) ? sanitize_text_field(
+			$fed_admin_options['settings']['fed_post_status']
+		) : 'publish';
 
-        if (empty($post['post_title'])) {
-            $error = new WP_Error('fed_dashboard_add_post_title_missing', __('Please fill post title', 'frontend-dashboard'));
-            wp_send_json_error(
-            	array(
-            		'message' => $error->get_error_messages()
-            	)
-            );
-        }
+		if ( empty( $post['post_title'] ) ) {
+			$error = new WP_Error(
+				'fed_dashboard_add_post_title_missing',
+				__( 'Please fill post title', 'frontend-dashboard' )
+			);
+			wp_send_json_error( array( 'message' => $error->get_error_messages() ) );
+		}
 
         $default = array(
             'post_title'     => sanitize_text_field($post['post_title']),
             'post_content'   => isset($post['post_content']) ? wp_kses_post($post['post_content']) : '',
             'post_category'  => isset($post['post_category']) ? sanitize_text_field($post['post_category']) : '',
             'tags_input'     => isset($post['tags_input']) ? implode(',', $post['tags_input']) : '',
-            'post_type'      => isset($post['post_type']) ? sanitize_text_field($post['post_type']) : 'post',
-            'comment_status' => isset($post['comment_status']) ? sanitize_text_field($post['comment_status']) : 'open',
+			'post_type'      => isset( $post['post_type'] ) ? sanitize_text_field( $post['post_type'] ) : 'post',
+			'comment_status' => isset( $post['comment_status'] ) ? sanitize_text_field(
+				$post['comment_status']
+			) : 'open',
             'post_status'    => $post_status,
         );
 
@@ -143,19 +220,16 @@ function fed_process_dashboard_add_new_post($post){
             wp_send_json_error($success->get_error_messages());
         }
 
-        wp_send_json_success(
-			array(
-				'message' => $post['post_title'] . __(' Successfully Saved', 'frontend-dashboard')
-			)
+		wp_send_json_success(
+			array( 'message' => $post['post_title'] . __( ' Successfully Saved', 'frontend-dashboard' ) )
 		);
 	}
-    $error = new WP_Error('fed_action_not_allowed', __('Sorry! your are not allowed to do this action', 'frontend-dashboard'));
+	$error = new WP_Error(
+		'fed_action_not_allowed',
+		__( 'Sorry! your are not allowed to do this action', 'frontend-dashboard' )
+	);
 
-    wp_send_json_error(
-    	array(
-    		'message' => $error->get_error_messages()
-    	)
-    );
+	wp_send_json_error( array( 'message' => $error->get_error_messages() ) );
 }
 
 /**
@@ -177,7 +251,10 @@ function fed_display_dashboard_edit_post_by_id($post){
 		<form method="post"
 			  class="fed_dashboard_show_post_list_request"
 			  action=" '.admin_url('admin-ajax.php?action=fed_dashboard_show_post_list_request').'">';
-    $html .= fed_wp_nonce_field('fed_dashboard_show_post_list_request', 'fed_dashboard_show_post_list_request', '', false);
+	$html .= fed_wp_nonce_field(
+		'fed_dashboard_show_post_list_request', 'fed_dashboard_show_post_list_request', '',
+		false
+	);
 
     $html .= fed_get_input_details(
 		array(
@@ -333,8 +410,7 @@ function fed_display_dashboard_edit_post_by_id($post){
  * @return mixed|void
  */
 function fed_get_post_settings_by_type($post_type){
-
-    return apply_filters('fed_get_custom_post_settings_by_type', array(), $post_type);
+	return apply_filters('fed_get_custom_post_settings_by_type', array(), $post_type);
 }
 
 

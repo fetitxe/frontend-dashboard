@@ -240,14 +240,20 @@ if ( ! class_exists( 'FED_ActionHooks' ) ) {
 		 * @return string
 		 */
 		public function fed_update_footer( $text ) {
-			if( isset( $_GET['page'] ) && in_array(wp_unslash($_GET['page']), fed_get_script_loading_pages(), true) ){
-				$text = '<span id="footer-thankyou">If you like <strong>Frontend Dashboard (v' . BC_FED_PLUGIN_VERSION . ')</strong>, Please leave us a rating <a href="https://wordpress.org/support/plugin/frontend-dashboard/reviews/?filter=5#new-post">
-					<i class="fa fa-star fa-2x" aria-hidden="true"></i>
-					<i class="fa fa-star fa-2x" aria-hidden="true"></i>
-					<i class="fa fa-star fa-2x" aria-hidden="true"></i>
-					<i class="fa fa-star fa-2x" aria-hidden="true"></i>
-					<i class="fa fa-star fa-2x" aria-hidden="true"></i>
-				</a>. A huge thanks in advance <i class="fa fa-smile-o" aria-hidden="true"></i>';
+			if (
+				isset( $_GET['page_type'] ) && in_array(
+					wp_unslash( $_GET['page_type'] ), fed_get_script_loading_pages(),
+					true
+				)
+			) {
+				$text = '<span id="footer-thankyou">If you like <strong>Frontend Dashboard (v' . BC_FED_PLUGIN_VERSION . ')</strong>, Please leave us a rating <a 
+href="https://wordpress.org/support/plugin/frontend-dashboard/reviews/?filter=5#new-post">
+<i class="fa fa-star fa-2x" aria-hidden="true"></i>
+<i class="fa fa-star fa-2x" aria-hidden="true"></i>
+<i class="fa fa-star fa-2x" aria-hidden="true"></i>
+<i class="fa fa-star fa-2x" aria-hidden="true"></i>
+<i class="fa fa-star fa-2x" aria-hidden="true"></i>
+</a>. A huge thanks in advance <i class="fa fa-smile-o" aria-hidden="true"></i>';
 			}
 			return $text;
 		}

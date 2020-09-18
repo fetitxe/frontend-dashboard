@@ -137,7 +137,9 @@ function fed_display_dashboard_menu($menus){
 										<span class="<?php echo esc_attr( $menu['menu_image_id'] ); ?>"></span>
 									</div>
 									<div class="fed_menu_title">
-										<?php echo esc_attr( $menu_format['menu_name'] ); ?>
+										<?php
+										echo esc_attr( $menu_format['menu_name'] );
+										?>
 									</div>
 								</div>
 								<div>
@@ -239,12 +241,11 @@ function fed_display_dashboard_menu($menus){
 						</a>
 					</h4>
 				</div>
-			<?php } ?>
+				<?php }
+			}
+			?>
 		</div>
 		<?php
-	}
-	?>
-	<?php
 	}
 }
 

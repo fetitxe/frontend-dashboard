@@ -46,7 +46,7 @@ function fed_display_dashboard_profile( $menu_item ) {
 				<span class="<?php echo esc_attr( $menus[ $index ]['menu_image_id'] ); ?>"></span>
 				<?php
 				/* translators: %s : Menu */
-				printf( __( '%s ', 'frontend-dashboard' ), esc_attr( $menu_name ) );
+				esc_attr_e( apply_filters( 'fed_user_profile_menu_container_title', $menu_name, $menus[ $index ] ) );
 				?>
 			</h3>
 		</div>
@@ -61,59 +61,77 @@ function fed_display_dashboard_profile( $menu_item ) {
 			if ( $menu_default_page ) {
 				if ( $profiles ) {
                     usort($profiles, 'fed_sort_by_order');
-
 					?>
-					<form method="post" action="">
-						<?php fed_wp_nonce_field( 'fed_nonce', 'fed_nonce' ); ?>
-						<input type="hidden"
-							   name="tab_id"
-							   value="<?php echo esc_attr( $index ); ?>"/>
-                        <input type="hidden"
-							   name="menu_type"
-							   value="<?php echo esc_attr( $menu_item['menu_type'] ); ?>"/>
+					<form method="post"
+							action="<?php echo esc_url( add_query_arg( array( 'fed_nonce' => wp_create_nonce( 'fed_nonce' ) ),
+								fed_get_form_action( 'fed_save_user_profile' ) ) ); ?>">
+					<?php wp_nonce_field( 'fed_nonce', 'fed_nonce' ); ?>
+					<input type="hidden"
+						   name="tab_id"
+						   value="<?php echo esc_attr( $index ); ?>"/>
+					<input type="hidden"
+						   name="menu_type"
+						   value="<?php echo esc_attr( $menu_item['menu_type'] ); ?>"/>
 
-                        <input type="hidden"
-							   name="menu_slug"
-							   value="<?php echo esc_attr( $menu_item['menu_slug'] ); ?>"/>
-						<?php
+					<input type="hidden"
+						   name="menu_slug"
+						   value="<?php echo esc_attr( $menu_item['menu_slug'] ); ?>"/>
+					<?php
 
-						do_action( 'fed_dashboard_profile_form_top' );
+					do_action( 'fed_dashboard_profile_form_top' );
 
-						foreach ( $profiles as $single_item ) {
-							if ( 'user_pass' !== $single_item['input_meta'] || 'confirmation_password' !== $single_item['input_meta'] ) {
-								$single_item['user_value'] = $user->get( $single_item['input_meta'] );
-							}
-
-							if ( in_array( $single_item['input_meta'], fed_no_update_fields() ) ) {
-								$single_item['readonly'] = true;
-							}
-
-							if ( count( array_intersect( $user->roles, unserialize( $single_item['user_role'] ) ) ) <= 0 ) {
-								continue;
-							}
-							?>
-							<div class="row fed_dashboard_item_field">
-								<div class="col-md-12 fo">
-									<label><?php echo wp_kses_post($single_item['label_name']); ?></label>
-									<?php echo fed_get_input_details( $single_item ); ?>
-								</div>
-							</div>
-							<?php
+					foreach ( $profiles as $single_item ) {
+						if ( 'user_pass' !== $single_item['input_meta'] || 'confirmation_password' !== $single_item['input_meta'] ) {
+							$single_item['user_value'] = $user->get( $single_item['input_meta'] );
 						}
 
-						do_action( 'fed_dashboard_profile_form_bottom' );
+						if ( in_array( $single_item['input_meta'], fed_no_update_fields() ) ) {
+							$single_item['readonly'] = true;
+						}
+
+								if (
+									count(
+										array_intersect( $user->roles, unserialize( $single_item['user_role'] ) )
+									) <= 0
+								) {
+							continue;
+						}
 						?>
-						<div class="row text-center">
-							<button type="submit" class="btn btn-primary">
-								<i class="fa fa-floppy-o"></i>
-								<?php esc_attr_e( 'Save', 'frontend-dashboard' ); ?>
-							</button>
+						<div class="row fed_dashboard_item_field">
+							<div class="col-md-12 fo">
+										<label>
+											<?php
+											echo wp_kses_post( $single_item['label_name'] );
+											?>
+										</label>
+										<?php
+										// phpcs:ignore
+										echo fed_get_input_details( $single_item );
+										?>
+							</div>
 						</div>
-					</form>
-					<?php
-				}else{
-					?><h4><?php esc_attr_e( 'Sorry! there is no field associated to this menu', 'frontend-dashboard' ); ?></h4><?php
-				}
+						<?php
+					}
+
+					do_action( 'fed_dashboard_profile_form_bottom' );
+					?>
+					<div class="row text-center">
+						<button type="submit" class="btn btn-primary">
+							<i class="fa fa-floppy-o"></i>
+							<?php esc_attr_e( 'Save', 'frontend-dashboard' ); ?>
+						</button>
+					</div>
+				</form>
+				<?php
+					} else {
+						?>
+						<h4>
+							<?php
+							esc_attr_e( 'Sorry! there is no field associated to this menu', 'frontend-dashboard' );
+							?>
+						</h4>
+						<?php
+					}
 			}else{
 				do_action( 'fed_override_default_page', $menus, $index );
 			}

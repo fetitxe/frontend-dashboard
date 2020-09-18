@@ -139,6 +139,7 @@ function fed_get_registration_content_fields() {
             'input_order' => $detail['input_order'],
             'extended'    => $detail['extended'],
 			'input_type'  => $detail['input_type'],
+			'input_meta'  => $detail['input_meta'],
         );
     }
 
@@ -961,11 +962,12 @@ function fed_show_alert( $key ) {
         if (is_array($value)) {
             $value = $value[0];
         }
-/*         $html .= '<div class="alert alert-success m-y-10">
+/*
+         $html .= '<div class="fkm_hide_alert alert alert-success m-y-10">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<strong>' . wp_kses_post( $value ) . '</strong>
-		</div>'; */
-
+		</div>'; 
+*/
 		$html .= '<script>
 			jQuery(document).ready(function($){
 				swal({
@@ -975,8 +977,6 @@ function fed_show_alert( $key ) {
 				});
 			});
 		</script>';
-		
-
         delete_transient($key);
     }
 

@@ -53,7 +53,7 @@ function fed_common_simple_layout( $form ) {
 		$form_action = admin_url( 'admin-ajax.php?action=fed_admin_setting_form' );
 	}
 	?>
-    <div class="p-20">
+    <div class="p-b-20">
 		<?php
 		echo isset( $form['note']['header'] ) && ! empty( $form['note']['header'] ) ? esc_attr( $form['note']['header'] ) : '';
 		?>

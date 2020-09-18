@@ -23,8 +23,6 @@ function fed_login_form_submit( $post ) {
 			'remember'      => isset( $post['remember'] ),
     );
 
-	$redirect_url = apply_filters( 'fed_get_login_redirect_url', fed_get_login_redirect_url(), $post);
-
     $errors = fed_validate_login_form($post);
 
     if ($errors instanceof WP_Error) {
@@ -32,6 +30,8 @@ function fed_login_form_submit( $post ) {
     }
 
     $result = wp_signon($credentials);
+
+	$redirect_url = apply_filters( 'fed_get_login_redirect_url', fed_get_login_redirect_url(), $result );
 
     if ($result instanceof WP_Error) {
         wp_send_json_error(array('user' => $result->get_error_messages()));

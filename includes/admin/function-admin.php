@@ -2631,14 +2631,14 @@ function fed_redirect_to_404(){
  * @return string
  */
 function fed_show_help_message( array $message = array() ){
-    if( empty($message) ) return '';
+	if( empty($message) ) return '';
 
 	$icon    = isset($message['icon']) ? $message['icon'] : 'fa fa-info-circle';
-    $title   = isset($message['title']) ? $message['title'] : 'Note';
-    $content = isset($message['content']) ? $message['content'] : '';
-    $class   = isset($message['class']) ? $message['class'] : '';
+	$title   = isset($message['title']) ? htmlentities($message['title']) : 'Note';
+	$content = isset($message['content']) ? htmlentities($message['content']) : '';
+	$class   = isset($message['class']) ? $message['class'] : '';
 
-    return '<span class="'.$class.'" data-toggle="popover" data-trigger="hover" role="button"  tabindex="0"  title="'.$title.'" data-content="'.$content.'" data-original-title="'.$title.'" data-html="true"><i class="'.$icon.'"></i></span>';
+	return '<span class="'.$class.'" data-toggle="popover" data-trigger="hover" role="button"  tabindex="0"  title="'.$title.'" data-content="'.$content.'" data-original-title="'.$title.'" data-html="true"><i class="'.$icon.'"></i></span>';
 }
 
 /**
@@ -2839,23 +2839,23 @@ function fed_get_key_value_array( array $array, $key, $value = null ) {
  * @return array
  */
 function fed_get_category_tag_post_format( $post_type = 'post' ) {
-    $taxonomies = get_object_taxonomies($post_type, 'object');
-    $new_array  = array();
-    foreach ($taxonomies as $index => $taxonomy) {
-        if ($taxonomy->public && $taxonomy->show_ui) {
-            if ($taxonomy->hierarchical === false) {
-                $new_array['tag'][$index] = $taxonomy;
-            } else {
-                $new_array['category'][$index] = $taxonomy;
-            }
-        }
-        if ($index === 'post_format') {
-            $new_array['post_format'][$index] = $taxonomy;
-            continue;
-        }
-    }
+	$taxonomies = get_object_taxonomies($post_type, 'object');
+	$new_array  = array();
+	foreach ($taxonomies as $index => $taxonomy) {
+		if ($taxonomy->public && $taxonomy->show_ui) {
+			if ($taxonomy->hierarchical === false) {
+				$new_array['tag'][$index] = $taxonomy;
+			} else {
+				$new_array['category'][$index] = $taxonomy;
+			}
+		}
+		if ($index === 'post_format') {
+			$new_array['post_format'][$index] = $taxonomy;
+			continue;
+		}
+	}
 
-    return $new_array;
+	return $new_array;
 }
 
 /**
@@ -3039,8 +3039,7 @@ function fed_call_function_method( $item ) {
 					), esc_html( $message )
 				)
 			);
-			
-            ?>
+        ?>
         </div>
         <?php
     }
